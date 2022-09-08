@@ -24,7 +24,6 @@ export default class Search extends React.Component {
         return (
 
             <div className="container">
-
                 <form>
 
                     <SelectCollectionGroup />
@@ -38,7 +37,7 @@ export default class Search extends React.Component {
                 </form>
 
                 <div className="mt-5">
-                    <a href="{this.state.searchUrl}">{this.state.searchUrl}</a>
+                    <a href={this.state.searchUrl}>{this.state.searchUrl}</a>
                 </div>
 
                 <SearchResults results={this.state.results} />
