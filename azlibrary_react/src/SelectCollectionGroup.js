@@ -2,20 +2,21 @@ import React from 'react';
 import axios from 'axios';
 
 export default class SelectCollectionGroup extends React.Component {
-    state = {
-        groups: [],
+    constructor(props) {
+        super(props);
+        this.state = { groups: [] };
     }
 
-    sortByAbbreviation(){  
-        return function(a,b){  
-           if(a["abbrv"] > b["abbrv"])  
-              return 1;  
-           else if(a["abbrv"] < b["abbrv"])  
-              return -1;  
-       
-           return 0;  
-        }  
-     }
+    sortByAbbreviation() {
+        return function (a, b) {
+            if (a["abbrv"] > b["abbrv"])
+                return 1;
+            else if (a["abbrv"] < b["abbrv"])
+                return -1;
+
+            return 0;
+        }
+    }
 
     componentDidMount() {
         axios.get(`https://devdata.azgs.arizona.edu/api/v1/dicts/collection_groups`)
