@@ -1,20 +1,12 @@
 import React from 'react';
 import axios from 'axios';
+import SelectCollectionGroup from './SelectCollectionGroup'
 import SearchResults from './SearchResults'
 
 export default class Search extends React.Component {
     state = {
         searchUrl: "https://devdata.azgs.arizona.edu/api/v1/metadata",
-        groups: [],
         results: []
-    }
-
-    componentDidMount() {
-        axios.get(`https://devdata.azgs.arizona.edu/api/v1/dicts/collection_groups`)
-            .then(res => {
-                const groups = res.data.data;
-                this.setState({ groups });
-            })
     }
 
     GetResults = () => {
@@ -34,17 +26,8 @@ export default class Search extends React.Component {
             <div className="container">
 
                 <form>
-                    <div className="form-group">
-                        <label htmlFor="FormCollectionGroup">Collection Group</label>
-                        <select className="form-control" id="FormCollectionGroup">
-                            {
-                                this.state.groups
-                                    .map(group =>
-                                        <option key={group.id} value={group.abbrv}>{group.name} ({group.abbrv})</option>
-                                    )
-                            }
-                        </select>
-                    </div>
+
+                    <SelectCollectionGroup />
 
                     <div className="form-group">
                         <label htmlFor="FormSearch">Search</label>
