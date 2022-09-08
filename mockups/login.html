@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en" class="h-100">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Proxima Nova font. -->
+    <link href="https://use.typekit.net/emv3zbo.css" rel="stylesheet" crossorigin="anonymous">
+    <!-- Arizona Icons CSS -->
+    <link rel="stylesheet" href="https://cdn.digital.arizona.edu/lib/az-icons/main/az-icons-styles.css">
+    <!-- Arizona Bootstrap CSS -->
+    <link rel="stylesheet"
+        href="https://cdn.digital.arizona.edu/lib/arizona-bootstrap/main/css/arizona-bootstrap.min.css">
+
+    <title>Login</title>
+
+</head>
+
+<body class="d-flex flex-column h-100">
+    <div class="bg-red p-3 mb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12"><span class="text-uppercase heading-style m-0 text-white">The University of
+                        Arizona</span></div>
+            </div>
+        </div>
+    </div>
+
+    <main role="main" class="flex-shrink-0">
+        <div class="container">
+
+            <div class="row">
+                <div class="col">
+
+                    <h1>Login</h1>
+
+                    <form>
+                        <div class="form-group">
+                            <label for="Email">Email address</label>
+                            <input type="email" class="form-control" id="Email" placeholder="Enter email"
+                                value="camp@email.arizona.edu">
+                        </div>
+                        <div class="form-group">
+                            <label for="Password">Password</label>
+                            <input type="password" class="form-control" id="Password" placeholder="Password"
+                                value="Kx211^Sa!OIg">
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="GetToken()">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col">
+                    <div id="response" style="display: none;">
+                        <strong>Token:</strong> <span id="token" style="word-break: break-all;"></span>
+                    </div>
+
+                    <div id="error" style="display: none; color: red">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div style="height: 30vh;">
+                <!-- whitespace -->
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer mt-auto bg-warm-gray text-center">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-12">
+                    <a href="https://azgs.arizona.edu/">Arizona Geological Survey</a> | <a
+                        href="https://data.azgs.arizona.edu/form" target="_blank" rel="noopener noreferrer">OG Form</a>
+                    | <a href="https://digital.arizona.edu/arizona-bootstrap/docs/2.0/components/forms/" target="_blank"
+                        rel="noopener noreferrer">AZBootstrap</a>
+                    <hr />
+                    <small class="text-black">&copy; 2022 The Arizona Board of Regents on behalf of <a
+                            href="http://www.arizona.edu" target="_blank" rel="noopener noreferrer">The University of
+                            Arizona</a>.</small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Arizona Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+    <!-- Arizona Bootstrap -->
+    <script
+        src="https://cdn.digital.arizona.edu/lib/arizona-bootstrap/main/js/arizona-bootstrap.bundle.min.js"></script>
+
+    <script>
+
+        function GetToken() {
+
+            const cred = { email: $("#Email").val(), password: $("#Password").val() };
+
+            const myJSON = JSON.stringify(cred);
+
+            $.ajax({
+                type: 'POST',
+                url: 'https://devdata.azgs.arizona.edu/api/v1/users',
+                data: JSON.stringify(cred),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    $("#token").text(data.token);
+                    $("#response").show();
+                }, error: function (xhr, status, error) {
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
+                    $("#error").text(errorMessage);
+                    $("#error").show();
+                }
+
+            });
+
+        }
+
+    </script>
+</body>
+
+</html>

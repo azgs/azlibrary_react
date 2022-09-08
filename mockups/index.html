@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en" class="h-100">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Proxima Nova font. -->
+    <link href="https://use.typekit.net/emv3zbo.css" rel="stylesheet" crossorigin="anonymous">
+    <!-- Arizona Icons CSS -->
+    <link rel="stylesheet" href="https://cdn.digital.arizona.edu/lib/az-icons/main/az-icons-styles.css">
+    <!-- Arizona Bootstrap CSS -->
+    <link rel="stylesheet"
+        href="https://cdn.digital.arizona.edu/lib/arizona-bootstrap/main/css/arizona-bootstrap.min.css">
+
+    <title>Mockup</title>
+
+    <style>
+        .FormSection {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column h-100">
+    <div class="bg-red p-3 mb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12"><span class="text-uppercase heading-style m-0 text-white">The University of
+                        Arizona</span></div>
+            </div>
+        </div>
+    </div>
+
+    <main role="main" class="flex-shrink-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+
+                    <h1>AZGS Repository</h1>
+
+                    <div class="form-group">
+                        <select class="form-control" id="Action">
+                            <option selected disabled hidden>Please select an option..</option>
+                            <option value="Create">Create a Collection</option>
+                            <option value="Patch">Patch a Collection (to modify the collection without changing its id)
+                            </option>
+                            <option value="Replace">Replace a Collection (to create a new collection, with new id, that
+                                supercedes the
+                                old one)
+                            </option>
+                            <option value="Remove">Remove a Collection</option>
+                        </select>
+                    </div>
+
+                    <hr>
+
+                    <div id="Create" class="FormSection">
+                        <form class="form">
+
+                            <h2 class="text-center">Create a Collection</h2>
+
+                            <h2>Metadata</h2>
+
+                            <div class="form-group row">
+                                <label for="CreateTitle" class="col-sm-2 col-form-label">Title</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="CreateTitle">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Authors</label>
+
+                                <div class="col-sm-10">
+
+                                    <table id="AuthorsTable" class="table table-sm">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">Person</th>
+                                                <th scope="col">Given Name</th>
+                                                <th scope="col">Surname</th>
+                                                <th scope="col">Organization</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td id="NoAuthorsRow" colspan="5" class="text-center font-weight-lighter font-italic">--
+                                                    No Authors --</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-link btn-sm" data-toggle="modal"
+                                        data-target="#authorModal">
+                                        Add an Author
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div id="authorModal" class="modal fade" tabindex="-1" role="dialog"
+                                        aria-labelledby="authorModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="authorModalLabel">Add Author to
+                                                        Collection</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="border border-thick bg-cool-gray rounded p-2">
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="AuthorPerson">Person</label>
+                                                                <input id="AuthorPerson" type="text"
+                                                                    class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="AuthorGivenName">Given Name</label>
+                                                                <input id="AuthorGivenName" type="text"
+                                                                    class="form-control">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="AuthorSurname">Surname</label>
+                                                                <input id="AuthorSurname" type="text"
+                                                                    class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="AuthorOrginization">Organization</label>
+                                                                <input id="AuthorOrginization" type="text"
+                                                                    class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-success" data-dismiss="modal"
+                                                        onclick="AddAuthor()">Add</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="CreateYear" class="col-sm-2 col-form-label">Year</label>
+                                <div class="col-sm-3">
+                                    <input type="number" class="form-control" id="CreateYear">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="CreateCollectionGroup" class="col-sm-2 col-form-label">Collection
+                                    Group</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" id="CreateCollectionGroup">
+                                        <option selected disabled hidden>Please select an option..</option>
+                                        <option value="Airphoto indexes">
+                                            Airphoto indexes
+                                        </option>
+                                        <option value="Arizona Geological Survey Open File Reports">
+                                            Arizona Geological Survey Open File Reports
+                                        </option>
+                                        <option value="US Bureau of Mines (I.C.)">
+                                            US Bureau of Mines (I.C.)
+                                        </option>
+                                        <option value="Arizona Geological Survey Digital Information">
+                                            Arizona Geological Survey Digital Information
+                                        </option>
+                                        <option value="Troy L. Péwé Environmental Geology Collection">
+                                            Troy L. Péwé Environmental Geology Collection
+                                        </option>
+                                        <option value="Arizona Geology - Fieldnotes Newsletters">
+                                            Arizona Geology - Fieldnotes Newsletters
+                                        </option>
+                                        <option value="Arizona Geological Survey Contributed Reports">
+                                            Arizona Geological Survey Contributed Reports
+                                        </option>
+                                        <option value="Arizona Geological Survey Contributed Maps">
+                                            Arizona Geological Survey Contributed Maps
+                                        </option>
+                                        <option value="Arizona Geological Survey - Miscellaneous Maps">
+                                            Arizona Geological Survey - Miscellaneous Maps
+                                        </option>
+                                        <option value="Arizona Geological Survey Special Paper">
+                                            Arizona Geological Survey Special Paper
+                                        </option>
+                                        <option value="Poster Publications">
+                                            Poster Publications
+                                        </option>
+                                        <option value="Oil &amp; Gas Publications">
+                                            Oil &amp; Gas Publications
+                                        </option>
+                                        <option value="Down-To-Earth Series">
+                                            Down-To-Earth Series
+                                        </option>
+                                        <option value="Arizona Geological Survey Map Series">
+                                            Arizona Geological Survey Map Series
+                                        </option>
+                                        <option value="Arizona Mine Files">
+                                            Arizona Mine Files
+                                        </option>
+                                        <option value="Arizona Geological Survey Circulars">
+                                            Arizona Geological Survey Circulars
+                                        </option>
+                                        <option value="US Bureau of Mines (R.I)">
+                                            US Bureau of Mines (R.I)
+                                        </option>
+                                        <option value="Geologic Investiation Folio">
+                                            Geologic Investiation Folio
+                                        </option>
+                                        <option value="Arizona Geological Survey Special Paper 9">
+                                            Arizona Geological Survey Special Paper 9
+                                        </option>
+                                        <option value="Arizona Geological Survey Bulletins">
+                                            Arizona Geological Survey Bulletins
+                                        </option>
+                                        <option value="Arizona Department of Mines and Mineral Resources">
+                                            Arizona Department of Mines and Mineral Resources
+                                        </option>
+                                        <option value="Arizona Geological Survey Digital Geologic Maps">
+                                            Arizona Geological Survey Digital Geologic Maps
+                                        </option>
+                                        <option value="Arizona Geological Survey Digital Maps (DM)">
+                                            Arizona Geological Survey Digital Maps (DM)
+                                        </option>
+                                        <option value="Arizona Geology Magazine">
+                                            Arizona Geology Magazine
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row rounded border border-light">
+                                <label class="col-sm-2 col-form-label">Journal</label>
+                                <div class="col-sm-10 mt-3 p-0">
+                                    <div class="form-group col-sm-12">
+                                        <label for="CreateJournalName">Name</label>
+                                        <input type="text" class="form-control" id="CreateJournalName">
+                                    </div>
+                                    <div class="form-group col-sm-12">
+                                        <label for="CreateJournalPublisher">Publisher</label>
+                                        <input type="text" class="form-control" id="CreateJournalPublisher">
+                                    </div>
+                                    <div class="form-group col-sm-12">
+                                        <label for="CreateJournalUrl">URL</label>
+                                        <input type="text" class="form-control" id="CreateJournalUrl">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="CreateSeries" class="col-sm-2 col-form-label">Series</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="CreateSeries">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+
+                                <label for="CreateAbstract" class="col-sm-2 col-form-label">Abstract</label>
+                                <div class="col-sm-10">
+                                    <textarea type="text" class="form-control" id="CreateAbstract" rows="3"></textarea>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-blue float-right mt-5">Create</button>
+                        </form>
+
+                    </div>
+
+                    <div id="Patch" class="FormSection">
+                        <form>
+                            <h2 class="text-center">Patch a Collection</h2>
+
+                            <div class="form-group row">
+                                <label for="RemoveId" class="col-sm-2 col-form-label">Collection ID</label>
+                                <div class="input-group col-sm-10">
+                                    <input type="text" class="form-control" placeholder="e.g. ADGM-1234567890123-456">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-blue" type="button">Load</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <button type="submit" class="btn btn-blue float-right">Patch</button> -->
+                        </form>
+
+                    </div>
+
+                    <div id="Replace" class="FormSection">
+                        <form>
+                            <h2 class="text-center">Replace a Collection</h2>
+
+                            <div class="form-group row">
+                                <label for="RemoveId" class="col-sm-2 col-form-label">Collection ID</label>
+                                <div class="input-group col-sm-10">
+                                    <input type="text" class="form-control" placeholder="e.g. ADGM-1234567890123-456">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-blue" type="button">Load</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <button type="submit" class="btn btn-blue float-right">Replace</button> -->
+                        </form>
+
+                    </div>
+
+                    <div id="Remove" class="FormSection">
+                        <form>
+                            <h2 class="text-center">Remove a Collection</h2>
+
+                            <div class="form-group row">
+                                <label for="RemoveId" class="col-sm-2 col-form-label">Collection ID</label>
+                                <div class="input-group col-sm-10">
+                                    <input type="text" class="form-control" placeholder="e.g. ADGM-1234567890123-456">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-blue" type="button">Load</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <button type="submit" class="btn btn-red float-right"
+                                onclick="alert('Collection has been deleted.')">Remove</button> -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div style="height: 30vh;">
+                <!-- whitespace -->
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer mt-auto bg-warm-gray text-center">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-12">
+                    <a href="https://azgs.arizona.edu/">Arizona Geological Survey</a> | <a
+                        href="https://data.azgs.arizona.edu/form" target="_blank" rel="noopener noreferrer">OG Form</a>
+                    | <a href="https://digital.arizona.edu/arizona-bootstrap/docs/2.0/components/forms/" target="_blank"
+                        rel="noopener noreferrer">AZBootstrap</a>
+                    <hr />
+                    <small class="text-black">&copy; 2022 The Arizona Board of Regents on behalf of <a
+                            href="http://www.arizona.edu" target="_blank" rel="noopener noreferrer">The University of
+                            Arizona</a>.</small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Arizona Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <!-- Arizona Bootstrap -->
+    <script
+        src="https://cdn.digital.arizona.edu/lib/arizona-bootstrap/main/js/arizona-bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(function () {
+
+            $('#Action').change(function () {
+                var action = $('option:selected', this).val();
+                $(".FormSection").hide();
+                $("#" + action).show();
+            });
+
+        });
+
+        function AddAuthor() {
+
+            $("#NoAuthorsRow").hide();
+
+            var AuthorPerson = $("#AuthorPerson").val();
+            $("#AuthorPerson").val("");
+
+            var AuthorGivenName = $("#AuthorGivenName").val();
+            $("#AuthorGivenName").val("");
+
+            var AuthorSurname = $("#AuthorSurname").val();
+            $("#AuthorSurname").val("");
+
+            var AuthorOrginization = $("#AuthorOrginization").val();
+            $("#AuthorOrginization").val("");
+
+            $("#AuthorsTable").append(`<tr><td>${AuthorPerson}</td><td>${AuthorGivenName}</td><td>${AuthorSurname}</td><td>${AuthorOrginization}</td><td><button type="button" class="btn btn-red btn-block btn-sm"
+                                                        onclick="RemoveAuthor(this)">Remove</button></td></tr>`);
+
+
+        }
+
+        function RemoveAuthor(e) {
+            $(e).closest('tr').remove();
+
+            console.log($('#AuthorsTable tr').length);
+
+            if ($('#AuthorsTable tr').length === 2){
+                $("#NoAuthorsRow").show();
+            }
+        }
+
+    </script>
+</body>
+
+</html>
