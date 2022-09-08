@@ -3,7 +3,8 @@ import axios from 'axios';
 
 export default class Search extends React.Component {
     state = {
-        groups: []
+        groups: [],
+        results: []
     }
 
     componentDidMount() {
@@ -14,9 +15,16 @@ export default class Search extends React.Component {
             })
     }
 
-    GetResults() {
-        alert('Hello!');
-    }
+    GetResults = () => {
+        const self = this;
+        axios
+            .get(`https://devdata.azgs.arizona.edu/api/v1/metadata`)
+            .then(function (response) {
+                self.setState({
+                    results: response.data.data,
+                });
+            });
+    };
 
     render() {
         return (
@@ -43,6 +51,27 @@ export default class Search extends React.Component {
 
                     <button type="button" className="btn btn-primary" onClick={this.GetResults}>Search</button>
                 </form>
+
+                <div id="Results" className="mt-5">
+                    <table className="table">
+                        <tr>
+                            <th>year</th>
+                            <th>collection_id</th>
+                            <th>title</th>
+                        </tr>
+                        {
+                            this.state.results
+                                .map(result =>
+                                    <tr key={result.collection_id}>
+                                        <td>{result.metadata.year}</td>
+                                        <td>{result.collection_id}</td>
+                                        <td>{result.metadata.title}</td>
+                                    </tr>
+                                )
+                        }
+                    </table>
+
+                </div>
 
             </div>
         )
