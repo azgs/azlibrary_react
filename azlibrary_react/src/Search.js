@@ -20,7 +20,7 @@ export default class Search extends React.Component {
     GetResults = () => {
         const self = this;
         axios
-            .get(`https://devdata.azgs.arizona.edu/api/v1/metadata`)
+            .get(this.state.searchUrl)
             .then(function (response) {
                 self.setState({
                     results: response.data.data,
