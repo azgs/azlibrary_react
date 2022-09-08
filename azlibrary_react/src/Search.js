@@ -4,9 +4,13 @@ import SelectCollectionGroup from './SelectCollectionGroup'
 import SearchResults from './SearchResults'
 
 export default class Search extends React.Component {
-    state = {
-        searchUrl: "https://devdata.azgs.arizona.edu/api/v1/metadata",
-        results: []
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            searchUrl: "https://devdata.azgs.arizona.edu/api/v1/metadata",
+            results: []
+        };
     }
 
     GetResults = () => {
