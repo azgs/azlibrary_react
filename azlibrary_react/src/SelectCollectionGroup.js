@@ -2,9 +2,10 @@ import React from 'react';
 import axios from 'axios';
 
 export default class SelectCollectionGroup extends React.Component {
-    
+
     constructor(props) {
         super(props);
+        this.handleInputChange = props.handleInputChange;
         this.state = { groups: [] };
     }
 
@@ -31,8 +32,9 @@ export default class SelectCollectionGroup extends React.Component {
         return (
 
             <div className="form-group">
-                <label htmlFor="FormCollectionGroup">Collection Group</label>
-                <select className="form-control" id="FormCollectionGroup">
+                <label htmlFor="searchGroup">Collection Group</label>
+                <select className="form-control" id="searchGroup" name="searchGroup" onChange={this.handleInputChange}>
+                    <option></option>
                     {
                         this.state.groups
                             .map(group =>

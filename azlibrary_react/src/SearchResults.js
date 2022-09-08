@@ -20,7 +20,7 @@ export default class SearchResults extends React.Component {
                                     .map(result =>
                                         <tr key={result.collection_id}>
                                             <td>{result.metadata.year}</td>
-                                            <td>{result.collection_id}</td>
+                                            <td><a href={result.links[0].href}>{result.collection_id}</a></td>
                                             <td>{result.metadata.title}</td>
                                         </tr>
                                     )
