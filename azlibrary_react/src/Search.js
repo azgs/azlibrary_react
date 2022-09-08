@@ -25,9 +25,7 @@ export default class Search extends React.Component {
     }
 
     buildQueryString() {
-
         let url = baseUrl;
-
         let params = new URLSearchParams();
 
         if (this.state.searchTitle){
@@ -62,7 +60,7 @@ export default class Search extends React.Component {
 
                     <div className="form-group">
                         <label htmlFor="searchTitle">Title</label>
-                        <input type="text" className="form-control" id="searchTitle" name="searchTitle" onChange={this.handleInputChange} />
+                        <input type="text" className="form-control" id="searchTitle" name="searchTitle" autocomplete="off" onChange={this.handleInputChange} />
                     </div>
 
                     <button type="button" className="btn btn-primary" onClick={this.getResults}>Search</button>
