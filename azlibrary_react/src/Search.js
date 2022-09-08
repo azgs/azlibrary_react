@@ -29,17 +29,17 @@ export default class Search extends React.Component {
         let url = baseUrl;
         let params = new URLSearchParams();
 
-        if (this.state.searchGroup){
+        if (this.state.searchGroup) {
             params.append('collection_group', this.state.searchGroup);
         }
 
-        if (this.state.searchTitle){
+        if (this.state.searchTitle) {
             params.append('title', this.state.searchTitle);
         }
 
-        if (Array.from(params).length > 0){
+        if (Array.from(params).length > 0) {
             url = baseUrl + "?" + params.toString();
-        } 
+        }
 
         this.setState({ 'searchUrl': url });
     }
@@ -55,6 +55,19 @@ export default class Search extends React.Component {
             });
     };
 
+    reset = () => {
+        const self = this;
+        self.setState(
+            {
+                searchGroup: "",
+                searchTitle: "",
+                searchUrl: baseUrl,
+                results: []
+            }
+        );
+
+    };
+
     render() {
         return (
 
@@ -67,6 +80,8 @@ export default class Search extends React.Component {
                         <label htmlFor="searchTitle">Title</label>
                         <input type="text" className="form-control" id="searchTitle" name="searchTitle" autoComplete="off" onChange={this.handleInputChange} />
                     </div>
+
+                    <button type="reset" className="btn btn-red mr-2" onClick={this.reset}>Reset</button>
 
                     <button type="button" className="btn btn-primary" onClick={this.getResults}>Search</button>
                 </form>
