@@ -3,17 +3,45 @@ import axios from 'axios';
 import SelectCollectionGroup from './SelectCollectionGroup'
 import SearchResults from './SearchResults'
 
+const baseUrl = "https://devdata.azgs.arizona.edu/api/v1/metadata";
+
 export default class Search extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            searchUrl: "https://devdata.azgs.arizona.edu/api/v1/metadata",
+            searchTitle: "",
+            searchUrl: baseUrl,
             results: []
         };
+
+        this.handleInputChange = this.handleInputChange.bind(this);
     }
 
-    GetResults = () => {
+    handleInputChange(e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        }, () => this.buildQueryString());
+    }
+
+    buildQueryString() {
+
+        let url = baseUrl;
+
+        let params = new URLSearchParams();
+
+        if (this.state.searchTitle){
+            params.append('title', this.state.searchTitle);
+        }
+
+        if (Array.from(params).length > 0){
+            url = baseUrl + "?" + params.toString();
+        } 
+
+        this.setState({ 'searchUrl': url });
+    }
+
+    getResults = () => {
         const self = this;
         axios
             .get(this.state.searchUrl)
@@ -33,11 +61,11 @@ export default class Search extends React.Component {
                     <SelectCollectionGroup />
 
                     <div className="form-group">
-                        <label htmlFor="FormSearch">Search</label>
-                        <input type="text" className="form-control" id="FormSearch" />
+                        <label htmlFor="searchTitle">Title</label>
+                        <input type="text" className="form-control" id="searchTitle" name="searchTitle" onChange={this.handleInputChange} />
                     </div>
 
-                    <button type="button" className="btn btn-primary" onClick={this.GetResults}>Search</button>
+                    <button type="button" className="btn btn-primary" onClick={this.getResults}>Search</button>
                 </form>
 
                 <div className="mt-5">
