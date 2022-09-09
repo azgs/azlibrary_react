@@ -63,7 +63,6 @@ export default class Search extends React.Component {
                 results: []
             }
         );
-
     };
 
     render() {
@@ -79,9 +78,9 @@ export default class Search extends React.Component {
                         <input type="text" className="form-control" id="searchTitle" name="searchTitle" autoComplete="off" onChange={this.handleInputChange} />
                     </div>
 
-                    <button type="reset" className="btn btn-red mr-2" onClick={this.reset}>Reset</button>
+                    <button type="button" className="btn btn-primary float-right" onClick={this.getResults}>Search</button>
 
-                    <button type="button" className="btn btn-primary" onClick={this.getResults}>Search</button>
+                    <button type="reset" className="btn btn-red float-right mr-2" onClick={this.reset}>Reset</button>
                 </form>
 
                 <div className="mt-5">

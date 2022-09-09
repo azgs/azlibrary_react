@@ -1,0 +1,10 @@
+- order authors
+- person: fullname
+- CG API Endpoint: https://data.azgs.arizona.edu/api/v1/dicts/collection_groups
+- CG show both the full name and the abv.
+- Shrink Journal input group
+
+
+
+
+- Leaflet preview of the bounding box 
