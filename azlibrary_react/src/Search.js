@@ -3,16 +3,18 @@ import axios from 'axios';
 import SelectCollectionGroup from './SelectCollectionGroup'
 import SearchResults from './SearchResults'
 
-const baseUrl = "https://devdata.azgs.arizona.edu/api/v1/metadata";
-
 export default class Search extends React.Component {
 
     constructor(props) {
         super(props);
+
+        this.baseUrl = props.baseUrl;
+        this.metadataUrl = props.baseUrl + "/metadata";
+
         this.state = {
             searchGroup: "",
             searchTitle: "",
-            searchUrl: baseUrl,
+            searchUrl: this.metadataUrl,
             results: []
         };
 
@@ -26,7 +28,7 @@ export default class Search extends React.Component {
     }
 
     buildQueryString() {
-        let url = baseUrl;
+        let url = this.metadataUrl;
         let params = new URLSearchParams();
 
         if (this.state.searchGroup) {
@@ -38,7 +40,7 @@ export default class Search extends React.Component {
         }
 
         if (Array.from(params).length > 0) {
-            url = baseUrl + "?" + params.toString();
+            url = this.metadataUrl + "?" + params.toString();
         }
 
         this.setState({ 'searchUrl': url });
@@ -59,7 +61,7 @@ export default class Search extends React.Component {
         const self = this;
         self.setState(
             {
-                searchUrl: baseUrl,
+                searchUrl: this.metadataUrl,
                 results: []
             }
         );
@@ -71,7 +73,7 @@ export default class Search extends React.Component {
             <div className="container">
                 <form>
 
-                    <SelectCollectionGroup handleInputChange={this.handleInputChange} />
+                    <SelectCollectionGroup baseUrl={this.baseUrl} handleInputChange={this.handleInputChange} />
 
                     <div className="form-group">
                         <label htmlFor="searchTitle">Title</label>
