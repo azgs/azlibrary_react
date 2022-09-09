@@ -70,26 +70,33 @@ export default class Search extends React.Component {
     render() {
         return (
 
-            <div className="container">
-                <form>
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-md-4 border">
 
-                    <SelectCollectionGroup baseUrl={this.baseUrl} handleInputChange={this.handleInputChange} />
+                        <h1 className="text-center">Search</h1>
 
-                    <div className="form-group">
-                        <label htmlFor="searchTitle">Title</label>
-                        <input type="text" className="form-control" id="searchTitle" name="searchTitle" autoComplete="off" onChange={this.handleInputChange} />
+                        <form>
+                            <SelectCollectionGroup baseUrl={this.baseUrl} handleInputChange={this.handleInputChange} />
+
+                            <div className="form-group">
+                                <label htmlFor="searchTitle">Title</label>
+                                <input type="text" className="form-control" id="searchTitle" name="searchTitle" autoComplete="off" onChange={this.handleInputChange} />
+                            </div>
+
+                            <button type="button" className="btn btn-primary float-right" onClick={this.getResults}>Search</button>
+
+                            <button type="reset" className="btn btn-red float-right mr-2" onClick={this.reset}>Reset</button>
+
+                            <div className="mt-5" >
+                                <a className="" href={this.state.searchUrl}>{this.state.searchUrl}</a>
+                            </div>
+                        </form>
                     </div>
-
-                    <button type="button" className="btn btn-primary float-right" onClick={this.getResults}>Search</button>
-
-                    <button type="reset" className="btn btn-red float-right mr-2" onClick={this.reset}>Reset</button>
-                </form>
-
-                <div className="mt-5">
-                    <a href={this.state.searchUrl}>{this.state.searchUrl}</a>
+                    <div className="col-md-8">
+                        <SearchResults results={this.state.results} />
+                    </div>
                 </div>
-
-                <SearchResults results={this.state.results} />
 
             </div>
         )
