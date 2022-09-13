@@ -66,9 +66,10 @@ export default class Search extends React.Component {
         const self = this;
         self.setState(
             {
+                searchGroup: "",
+                searchTitle: "",
                 searchUrl: this.metadataUrl,
-                results: []
-            }
+            }, () => this.getResults()
         );
     };
 
