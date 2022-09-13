@@ -21,6 +21,10 @@ export default class Search extends React.Component {
         this.handleInputChange = this.handleInputChange.bind(this);
     }
 
+    componentDidMount() {
+        this.getResults();
+    }
+
     handleInputChange(e) {
         this.setState({
             [e.target.name]: e.target.value
@@ -90,7 +94,7 @@ export default class Search extends React.Component {
                             <button type="reset" className="btn btn-red float-right mr-2" onClick={this.reset}>Clear</button>
 
                             <div className="mt-5" >
-                                <a className="" href={this.state.searchUrl}>{this.state.searchUrl}</a>
+                                <a className="" href={this.state.searchUrl} target="_blank" rel="noopener noreferrer">{this.state.searchUrl}</a>
                             </div>
                         </form>
                     </div>
