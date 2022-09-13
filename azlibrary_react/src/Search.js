@@ -76,8 +76,13 @@ export default class Search extends React.Component {
         return (
 
             <div className="container-fluid">
+
+                <div>
+                    <a href={this.state.searchUrl} target="_blank" rel="noopener noreferrer">{this.state.searchUrl}</a>
+                </div>
+
                 <div className="row">
-                    <div className="col-md-4 border">
+                    <div className="col-lg-4 border">
 
                         <h1 className="text-center">Search</h1>
 
@@ -93,12 +98,9 @@ export default class Search extends React.Component {
 
                             <button type="reset" className="btn btn-red float-right mr-2" onClick={this.reset}>Clear</button>
 
-                            <div className="mt-5" >
-                                <a className="" href={this.state.searchUrl} target="_blank" rel="noopener noreferrer">{this.state.searchUrl}</a>
-                            </div>
                         </form>
                     </div>
-                    <div className="col-md-8">
+                    <div className="col-lg-8">
                         <SearchResults results={this.state.results} />
                     </div>
                 </div>
