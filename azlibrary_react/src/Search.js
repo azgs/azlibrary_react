@@ -13,6 +13,7 @@ export default class Search extends React.Component {
 
         this.state = {
             searchGroup: "",
+            searchYears: "",
             searchTitle: "",
             searchUrl: this.metadataUrl,
             results: []
@@ -37,6 +38,10 @@ export default class Search extends React.Component {
 
         if (this.state.searchGroup) {
             params.append('collection_group', this.state.searchGroup);
+        }
+
+        if (this.state.searchYears) {
+            params.append('year', this.state.searchYears);
         }
 
         if (this.state.searchTitle) {
@@ -67,6 +72,7 @@ export default class Search extends React.Component {
         self.setState(
             {
                 searchGroup: "",
+                searchYears: "",
                 searchTitle: "",
                 searchUrl: this.metadataUrl,
             }, () => this.getResults()
@@ -89,6 +95,11 @@ export default class Search extends React.Component {
 
                         <form>
                             <SelectCollectionGroup baseUrl={this.baseUrl} handleInputChange={this.handleInputChange} />
+
+                            <div className="form-group">
+                                <label htmlFor="searchYears">Year(s)</label>
+                                <input type="number" className="form-control" id="searchYears" name="searchYears" autoComplete="off" onChange={this.handleInputChange} />
+                            </div>
 
                             <div className="form-group">
                                 <label htmlFor="searchTitle">Title</label>
