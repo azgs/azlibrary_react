@@ -43,11 +43,12 @@ export default class Search extends React.Component {
             url = this.metadataUrl + "?" + params.toString();
         }
 
-        this.setState({ 'searchUrl': url });
+        this.setState({ 'searchUrl': url }, () => this.getResults());
     }
 
     getResults = () => {
         const self = this;
+
         axios
             .get(this.state.searchUrl)
             .then(function (response) {
@@ -84,9 +85,9 @@ export default class Search extends React.Component {
                                 <input type="text" className="form-control" id="searchTitle" name="searchTitle" autoComplete="off" onChange={this.handleInputChange} />
                             </div>
 
-                            <button type="button" className="btn btn-primary float-right" onClick={this.getResults}>Search</button>
+                            {/* <button type="button" className="btn btn-primary float-right" onClick={this.getResults}>Search</button> */}
 
-                            <button type="reset" className="btn btn-red float-right mr-2" onClick={this.reset}>Reset</button>
+                            <button type="reset" className="btn btn-red float-right mr-2" onClick={this.reset}>Clear</button>
 
                             <div className="mt-5" >
                                 <a className="" href={this.state.searchUrl}>{this.state.searchUrl}</a>
