@@ -37,7 +37,7 @@ export default class SelectCollectionGroup extends React.Component {
             <div className="form-group">
                 <label htmlFor="searchGroup">Collection Group</label>
                 <select className="form-control" name="searchGroup" onChange={this.handleInputChange}>
-                    <option></option>
+                    <option value="">(All Collections)</option>
                     {
                         this.state.groups
                             .map(group =>
