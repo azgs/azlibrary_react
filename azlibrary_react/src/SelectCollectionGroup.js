@@ -6,7 +6,8 @@ export default class SelectCollectionGroup extends React.Component {
     constructor(props) {
         super(props);
         
-        this.baseUrl = props.baseUrl;
+        this.collectionGroupEndpoint = props.baseUrl + "/dicts/collection_groups";
+
         this.handleInputChange = props.handleInputChange;
         this.state = { groups: [] };
     }
@@ -23,7 +24,7 @@ export default class SelectCollectionGroup extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(this.baseUrl + "/dicts/collection_groups")
+        axios.get(this.collectionGroupEndpoint)
             .then(res => {
                 const groups = res.data.data.sort(this.sortByAbbreviation());
                 this.setState({ groups });
