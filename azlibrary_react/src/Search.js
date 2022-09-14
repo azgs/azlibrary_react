@@ -15,6 +15,7 @@ export default class Search extends React.Component {
             searchGroup: "",
             searchYears: "",
             searchTitle: "",
+            searchAuthor: "",
             searchUrl: this.metadataUrl,
             results: []
         };
@@ -47,6 +48,10 @@ export default class Search extends React.Component {
         if (this.state.searchTitle) {
             params.append('title', this.state.searchTitle);
         }
+        
+        if (this.state.searchAuthor) {
+            params.append('author', this.state.searchAuthor);
+        }
 
         if (Array.from(params).length > 0) {
             url = this.metadataUrl + "?" + params.toString();
@@ -57,6 +62,8 @@ export default class Search extends React.Component {
 
     getResults = () => {
         const self = this;
+
+        console.log(this.state.searchUrl);
 
         axios
             .get(this.state.searchUrl)
@@ -74,6 +81,7 @@ export default class Search extends React.Component {
                 searchGroup: "",
                 searchYears: "",
                 searchTitle: "",
+                searchAuthor: "",
                 searchUrl: this.metadataUrl,
             }, () => this.getResults()
         );
@@ -98,12 +106,17 @@ export default class Search extends React.Component {
 
                             <div className="form-group">
                                 <label htmlFor="searchYears">Year(s)</label>
-                                <input type="number" className="form-control" id="searchYears" name="searchYears" autoComplete="off" onChange={this.handleInputChange} />
+                                <input type="number" className="form-control" name="searchYears" autoComplete="off" onChange={this.handleInputChange} />
                             </div>
 
                             <div className="form-group">
                                 <label htmlFor="searchTitle">Title</label>
-                                <input type="text" className="form-control" id="searchTitle" name="searchTitle" autoComplete="off" onChange={this.handleInputChange} />
+                                <input type="text" className="form-control" name="searchTitle" autoComplete="off" onChange={this.handleInputChange} />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="searchAuthor">Author(s)</label>
+                                <input type="text" className="form-control" name="searchAuthor" autoComplete="off" onChange={this.handleInputChange} />
                             </div>
 
                             {/* <button type="button" className="btn btn-primary float-right" onClick={this.getResults}>Search</button> */}
