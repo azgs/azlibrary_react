@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import axios from './Axios';
 import SelectCollectionGroup from './SelectCollectionGroup'
 import SearchResults from './SearchResults'
 
@@ -99,7 +99,7 @@ export default class Search extends React.Component {
                         <h1 className="text-center">Search</h1>
 
                         <form>
-                            <SelectCollectionGroup baseUrl={this.baseUrl} handleInputChange={this.handleInputChange} />
+                            <SelectCollectionGroup handleInputChange={this.handleInputChange} />
 
                             <div className="form-group">
                                 <label htmlFor="searchYears">Year(s)</label>
