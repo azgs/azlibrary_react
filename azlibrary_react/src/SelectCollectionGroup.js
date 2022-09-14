@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from './Axios';
+import azgsApi from './AzgsApi';
 
 export default class SelectCollectionGroup extends React.Component {
 
@@ -22,7 +22,7 @@ export default class SelectCollectionGroup extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('/dicts/collection_groups')
+        azgsApi.get('/dicts/collection_groups')
             .then(res => {
                 const groups = res.data.data.sort(this.sortByAbbreviation());
                 this.setState({ groups });

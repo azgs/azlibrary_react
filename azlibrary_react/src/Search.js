@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from './Axios';
+import axios from 'axios';
 import SelectCollectionGroup from './SelectCollectionGroup'
 import SearchResults from './SearchResults'
 
