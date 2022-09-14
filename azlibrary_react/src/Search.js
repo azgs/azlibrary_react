@@ -62,14 +62,11 @@ export default class Search extends React.Component {
 
     getResults = () => {
         const self = this;
-
-        console.log(this.state.searchUrl);
-
         axios
             .get(this.state.searchUrl)
             .then(function (response) {
                 self.setState({
-                    results: response.data.data,
+                    results: response.data,
                 });
             });
     };

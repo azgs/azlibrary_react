@@ -3,6 +3,9 @@ import React from 'react';
 export default class SearchResults extends React.Component {
 
     render() {
+
+        console.log(this.props.results);
+
         return (
             <div className="container">
 
@@ -18,14 +21,13 @@ export default class SearchResults extends React.Component {
                     </thead>
                     <tbody>
                         {
-                            this.props.results
-                                .map(result =>
-                                    <tr key={result.collection_id}>
-                                        <td>{result.metadata.year}</td>
-                                        <td><a href={result.links[0].href}>{result.collection_id}</a></td>
-                                        <td>{result.metadata.title}</td>
-                                    </tr>
-                                )
+                            this.props.results?.data?.map(result =>
+                                <tr key={result.collection_id}>
+                                    <td>{result.metadata.year}</td>
+                                    <td><a href={result.links[0].href}>{result.collection_id}</a></td>
+                                    <td>{result.metadata.title}</td>
+                                </tr>
+                            )
                         }
                     </tbody>
 
