@@ -94,7 +94,7 @@ export default class Search extends React.Component {
                 </div>
 
                 <div className="row">
-                    <div className="col-lg-4 border">
+                    <div className="col-lg-4 border p-1">
 
                         <h1 className="text-center">Search</h1>
 
