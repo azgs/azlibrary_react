@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import azgsApi from './AzgsApi';
 import SelectCollectionGroup from './SelectCollectionGroup'
 import SearchResults from './SearchResults'
 
@@ -8,15 +8,7 @@ export default class Search extends React.Component {
     constructor(props) {
         super(props);
 
-        this.baseUrl = props.baseUrl;
-        this.metadataUrl = props.baseUrl + "/metadata";
-
         this.state = {
-            searchGroup: "",
-            searchYears: "",
-            searchTitle: "",
-            searchAuthor: "",
-            searchUrl: this.metadataUrl,
             results: []
         };
 
@@ -30,43 +22,37 @@ export default class Search extends React.Component {
     handleInputChange(e) {
         this.setState({
             [e.target.name]: e.target.value
-        }, () => this.buildQueryString());
-    }
-
-    buildQueryString() {
-        let url = this.metadataUrl;
-        let params = new URLSearchParams();
-
-        if (this.state.searchGroup) {
-            params.append('collection_group', this.state.searchGroup);
-        }
-
-        if (this.state.searchYears) {
-            params.append('year', this.state.searchYears);
-        }
-
-        if (this.state.searchTitle) {
-            params.append('title', this.state.searchTitle);
-        }
-        
-        if (this.state.searchAuthor) {
-            params.append('author', this.state.searchAuthor);
-        }
-
-        if (Array.from(params).length > 0) {
-            url = this.metadataUrl + "?" + params.toString();
-        }
-
-        this.setState({ 'searchUrl': url }, () => this.getResults());
+        }, () => this.getResults());
     }
 
     getResults = () => {
         const self = this;
-        axios
-            .get(this.state.searchUrl)
-            .then(function (response) {
+
+        let url = azgsApi.getUri() + '/metadata'
+        let params = new URLSearchParams();
+
+        if (this.state.collection_group) {
+            params.append('collection_group', this.state.collection_group);
+        }
+        if (this.state.year) {
+            params.append('year', this.state.year);
+        }
+        if (this.state.title) {
+            params.append('title', this.state.title);
+        }
+        if (this.state.author) {
+            params.append('author', this.state.author);
+        }
+        if (Array.from(params).length > 0) {
+            url += '?' + params.toString();
+        }
+
+        azgsApi
+            .get(url)
+            .then(function (res) {
                 self.setState({
-                    results: response.data,
+                    searchUrl: url,
+                    results: res.data,
                 });
             });
     };
@@ -75,11 +61,10 @@ export default class Search extends React.Component {
         const self = this;
         self.setState(
             {
-                searchGroup: "",
-                searchYears: "",
-                searchTitle: "",
-                searchAuthor: "",
-                searchUrl: this.metadataUrl,
+                collection_group: "",
+                year: "",
+                title: "",
+                author: "",
             }, () => this.getResults()
         );
     };
@@ -103,17 +88,17 @@ export default class Search extends React.Component {
 
                             <div className="form-group">
                                 <label htmlFor="searchYears">Year(s)</label>
-                                <input type="number" className="form-control" name="searchYears" autoComplete="off" onChange={this.handleInputChange} />
+                                <input type="text" className="form-control" name="year" autoComplete="off" onChange={this.handleInputChange} />
                             </div>
 
                             <div className="form-group">
                                 <label htmlFor="searchTitle">Title</label>
-                                <input type="text" className="form-control" name="searchTitle" autoComplete="off" onChange={this.handleInputChange} />
+                                <input type="text" className="form-control" name="title" autoComplete="off" onChange={this.handleInputChange} />
                             </div>
 
                             <div className="form-group">
                                 <label htmlFor="searchAuthor">Author(s)</label>
-                                <input type="text" className="form-control" name="searchAuthor" autoComplete="off" onChange={this.handleInputChange} />
+                                <input type="text" className="form-control" name="author" autoComplete="off" onChange={this.handleInputChange} />
                             </div>
 
                             {/* <button type="button" className="btn btn-primary float-right" onClick={this.getResults}>Search</button> */}
