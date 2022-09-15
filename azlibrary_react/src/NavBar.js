@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from './azgs.png';
+import logo from './Azgs.png';
 
 export default function NavBar() {
     return (
@@ -14,7 +14,7 @@ export default function NavBar() {
                 </div>
             </header>
 
-            <nav class="navbar navbar-expand-lg navbar-light">
+            <nav class="navbar navbar-expand-lg navbar-light mb-4">
                 <a className="navbar-brand" href="https://azgs.arizona.edu/" target="_blank" rel="noopener noreferrer"><img src={logo} alt="AZGS logo" height="60px" /></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="material-icons-sharp"> Menu </span>

@@ -1,5 +1,6 @@
-import NavBar from './navBar';
-import Search from './search';
+import NavBar from './NavBar';
+import Search from './Search';
+import Footer from './Footer';
 import './App.css';
 
 function App() {
@@ -8,6 +9,8 @@ function App() {
       <NavBar />
 
       <Search />
+
+      <Footer />
 
     </div>
   );
