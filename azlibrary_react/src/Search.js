@@ -47,11 +47,12 @@ export default class Search extends React.Component {
             url += '?' + params.toString();
         }
 
+        self.setState({searchUrl: url});
+
         azgsApi
             .get(url)
             .then(function (res) {
                 self.setState({
-                    searchUrl: url,
                     results: res.data,
                 });
             });
