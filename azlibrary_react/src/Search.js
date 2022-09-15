@@ -1,7 +1,7 @@
 import React from 'react';
-import azgsApi from './AzgsApi';
-import SelectCollectionGroup from './SelectCollectionGroup'
-import SearchResults from './SearchResults'
+import azgsApi from './azgsApi';
+import SelectCollectionGroup from './selectCollectionGroup'
+import SearchResults from './searchResults'
 
 export default class Search extends React.Component {
 

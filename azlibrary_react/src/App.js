@@ -1,5 +1,5 @@
-import NavBar from './NavBar';
-import Search from './Search';
+import NavBar from './navBar';
+import Search from './search';
 import './App.css';
 
 function App() {

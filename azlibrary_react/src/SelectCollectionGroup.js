@@ -1,5 +1,5 @@
 import React from 'react';
-import azgsApi from './AzgsApi';
+import azgsApi from './azgsApi';
 
 export default class SelectCollectionGroup extends React.Component {
 
