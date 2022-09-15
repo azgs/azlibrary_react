@@ -102,7 +102,7 @@ export default class Search extends React.Component {
             <div className="container-fluid">
 
                 <div>
-                    <a href={this.state.searchUrl} target="_blank" rel="noopener noreferrer">{this.state.searchUrl}</a>
+                    <a className="searchUrl" href={this.state.searchUrl} target="_blank" rel="noopener noreferrer">{this.state.searchUrl}</a>
                 </div>
 
                 <div className="row">
