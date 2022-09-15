@@ -7,3 +7,11 @@ label {
     font-size: 0.875em;
     overflow-wrap: break-word;
 }
+
+.form-group {
+    margin-bottom: 0.3rem;
+}
+
+label {
+    margin-bottom: 0.3rem;
+}

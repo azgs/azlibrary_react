@@ -44,6 +44,7 @@ export default class Search extends React.Component {
         const year = this.state.year;
         const title = this.state.title;
         const author = this.state.author;
+        const text = this.state.text;
         const keyword = this.state.keyword;
         const series = this.state.series;
 
@@ -64,6 +65,9 @@ export default class Search extends React.Component {
         }
         if (author) {
             params.append('author', author);
+        }
+        if (text) {
+            params.append('text', text);
         }
         if (keyword) {
             params.append('keyword', keyword);
@@ -102,6 +106,7 @@ export default class Search extends React.Component {
                 year: "",
                 title: "",
                 author: "",
+                text: "",
                 keyword: "",
                 series: "",
             }, () => this.getResults()
@@ -148,6 +153,11 @@ export default class Search extends React.Component {
                                 <div className="form-group">
                                     <label htmlFor="author">Author</label>
                                     <input type="text" className="form-control form-control-sm" id="author"  name="author" autoComplete="off" onChange={this.handleInputChange} />
+                                </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="text">Full-Text Search</label>
+                                    <input type="text" className="form-control form-control-sm" id="text" name="text" autoComplete="off" onChange={this.handleInputChange} />
                                 </div>
 
                                 <div className="form-group">
