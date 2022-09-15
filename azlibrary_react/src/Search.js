@@ -84,7 +84,7 @@ export default class Search extends React.Component {
                         <h1 className="text-center">Search</h1>
 
                         <form>
-                            <SelectCollectionGroup handleInputChange={this.handleInputChange} />
+                            <SelectCollectionGroup className="form-control" name="collection_group" handleInputChange={this.handleInputChange} />
 
                             <div className="form-group">
                                 <label htmlFor="searchYears">Year(s)</label>
@@ -100,8 +100,6 @@ export default class Search extends React.Component {
                                 <label htmlFor="searchAuthor">Author(s)</label>
                                 <input type="text" className="form-control" name="author" autoComplete="off" onChange={this.handleInputChange} />
                             </div>
-
-                            {/* <button type="button" className="btn btn-primary float-right" onClick={this.getResults}>Search</button> */}
 
                             <button type="reset" className="btn btn-red float-right mr-2" onClick={this.reset}>Clear</button>
 
