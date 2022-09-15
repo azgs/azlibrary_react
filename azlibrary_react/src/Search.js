@@ -145,7 +145,7 @@ export default class Search extends React.Component {
                                 </div>
 
                                 <div className="col-12 text-right">
-                                    <button type="reset" className="btn btn-red" onClick={this.reset}>Clear</button>
+                                    <button type="reset" className="btn btn-red btn-sm" onClick={this.reset}>Clear</button>
                                 </div>
 
                             </form>
