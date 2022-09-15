@@ -42,7 +42,7 @@ export default class Search extends React.Component {
         if (collection_group) {
             params.append('collection_group', collection_group);
         }
-        if (collection_id){
+        if (collection_id) {
             params.append('collection_id', collection_id);
         }
         if (year) {
@@ -53,7 +53,7 @@ export default class Search extends React.Component {
         }
         if (author) {
             params.append('author', author);
-        }       
+        }
         if (keyword) {
             params.append('keyword', keyword);
         }
@@ -72,6 +72,11 @@ export default class Search extends React.Component {
             .then(function (res) {
                 self.setState({
                     results: res.data,
+                });
+            })
+            .catch(function (error) {
+                self.setState({
+                    results: [],
                 });
             });
     };
