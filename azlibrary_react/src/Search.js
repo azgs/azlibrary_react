@@ -101,10 +101,6 @@ export default class Search extends React.Component {
 
             <div className="container-fluid">
 
-                <div>
-                    <a className="searchUrl" href={this.state.searchUrl} target="_blank" rel="noopener noreferrer">{this.state.searchUrl}</a>
-                </div>
-
                 <div className="row">
                     <div className="col-lg-3">
                         <div className=" bg-cool-gray border p-3">
@@ -142,6 +138,10 @@ export default class Search extends React.Component {
                                 <div className="form-group">
                                     <label htmlFor="keyword">Series</label>
                                     <input type="text" className="form-control form-control-sm" name="series" autoComplete="off" onChange={this.handleInputChange} />
+                                </div>
+
+                                <div className="col-12">
+                                    <a className="searchUrl" href={this.state.searchUrl} target="_blank" rel="noopener noreferrer">{this.state.searchUrl}</a>
                                 </div>
 
                                 <div className="col-12 text-right">
