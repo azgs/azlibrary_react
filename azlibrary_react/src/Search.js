@@ -161,7 +161,7 @@ export default class Search extends React.Component {
                                 </div>
 
                                 <div className="col-12">
-                                    <a className="searchUrl" href={this.state.searchUrl} target="_blank" rel="noopener noreferrer">{this.state.searchUrl}</a>
+                                    <code><a className="searchUrl" href={this.state.searchUrl} target="_blank" rel="noopener noreferrer">{this.state.searchUrl}</a></code>
                                 </div>
 
                                 <div className="col-12 text-right">

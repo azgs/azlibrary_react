@@ -5,6 +5,5 @@ label {
 .searchUrl {
     color: blue;
     font-size: 0.875em;
-    font-family:'Courier New';
     overflow-wrap: break-word;
 }
