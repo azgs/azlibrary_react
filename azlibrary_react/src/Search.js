@@ -84,21 +84,21 @@ export default class Search extends React.Component {
                         <h1 className="text-center">Search</h1>
 
                         <form>
-                            <SelectCollectionGroup className="form-control" name="collection_group" handleInputChange={this.handleInputChange} />
+                            <SelectCollectionGroup className="form-control form-control-sm" name="collection_group" handleInputChange={this.handleInputChange} />
 
                             <div className="form-group">
                                 <label htmlFor="searchYears">Year(s)</label>
-                                <input type="text" className="form-control" name="year" autoComplete="off" onChange={this.handleInputChange} />
+                                <input type="text" className="form-control form-control-sm" name="year" autoComplete="off" onChange={this.handleInputChange} />
                             </div>
 
                             <div className="form-group">
                                 <label htmlFor="searchTitle">Title</label>
-                                <input type="text" className="form-control" name="title" autoComplete="off" onChange={this.handleInputChange} />
+                                <input type="text" className="form-control form-control-sm" name="title" autoComplete="off" onChange={this.handleInputChange} />
                             </div>
 
                             <div className="form-group">
                                 <label htmlFor="searchAuthor">Author(s)</label>
-                                <input type="text" className="form-control" name="author" autoComplete="off" onChange={this.handleInputChange} />
+                                <input type="text" className="form-control form-control-sm" name="author" autoComplete="off" onChange={this.handleInputChange} />
                             </div>
 
                             <button type="reset" className="btn btn-red float-right mr-2" onClick={this.reset}>Clear</button>
