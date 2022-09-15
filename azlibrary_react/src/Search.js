@@ -20,9 +20,16 @@ export default class Search extends React.Component {
     }
 
     handleInputChange(e) {
-        this.setState({
-            [e.target.name]: e.target.value
-        }, () => this.getResults());
+
+        if (e.target.type === "checkbox") {
+            this.setState({
+                [e.target.name]: e.target.checked
+            }, () => this.getResults());
+        } else {
+            this.setState({
+                [e.target.name]: e.target.value
+            }, () => this.getResults());
+        }
     }
 
     getResults = () => {
@@ -31,19 +38,23 @@ export default class Search extends React.Component {
         let url = azgsApi.getUri() + '/metadata'
         let params = new URLSearchParams();
 
-        const collection_group = this.state.collection_group;
         const collection_id = this.state.collection_id;
+        const latest = this.state.latest;
+        const collection_group = this.state.collection_group;
         const year = this.state.year;
         const title = this.state.title;
         const author = this.state.author;
         const keyword = this.state.keyword;
         const series = this.state.series;
 
-        if (collection_group) {
-            params.append('collection_group', collection_group);
-        }
         if (collection_id) {
             params.append('collection_id', collection_id);
+        }
+        if (latest) {
+            params.append('latest', latest);
+        }
+        if (collection_group) {
+            params.append('collection_group', collection_group);
         }
         if (year) {
             params.append('year', year);
@@ -85,8 +96,9 @@ export default class Search extends React.Component {
         const self = this;
         self.setState(
             {
-                collection_group: "",
                 collection_id: "",
+                latest: "",
+                collection_group: "",
                 year: "",
                 title: "",
                 author: "",
@@ -108,12 +120,20 @@ export default class Search extends React.Component {
                             <h1 className="text-center">Search</h1>
 
                             <form>
-                                <SelectCollectionGroup className="form-control form-control-sm" name="collection_group" handleInputChange={this.handleInputChange} />
 
                                 <div className="form-group">
-                                    <label htmlFor="year">ID</label>
+                                    <label htmlFor="year">Collection ID</label>
                                     <input type="text" className="form-control form-control-sm" name="collection_id" autoComplete="off" onChange={this.handleInputChange} />
                                 </div>
+
+                                <div className="form-group form-check">
+                                    <input type="checkbox" className="form-check-input form-control-s" name="latest" value='true' onChange={this.handleInputChange} />
+                                    <label className="form-check-label" htmlFor="exampleCheck1">Latest collection in the lineage containing the specified collection</label>
+                                </div>
+
+                                <hr />
+
+                                <SelectCollectionGroup className="form-control form-control-sm" name="collection_group" handleInputChange={this.handleInputChange} />
 
                                 <div className="form-group">
                                     <label htmlFor="year">Year</label>
@@ -155,7 +175,6 @@ export default class Search extends React.Component {
                     <div className="col-lg-9">
                         <SearchResults results={this.state.results} />
                     </div>
-
 
                 </div>
 
