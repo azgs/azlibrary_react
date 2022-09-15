@@ -1,4 +1,5 @@
 import React from 'react'
+import logo from './azgs.png';
 
 export default function NavBar() {
     return (
@@ -13,14 +14,24 @@ export default function NavBar() {
                 </div>
             </header>
 
-            <ul className="nav justify-content-end">
-                <li className="nav-item">
-                    <a className="nav-link" href="https://digital.arizona.edu/arizona-bootstrap/docs/2.0/getting-started/introduction/" target="_blank" rel="noopener noreferrer">AZBootstrap</a>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link" href="https://devdata.azgs.arizona.edu/api/v1/metadata?help=html" target="_blank" rel="noopener noreferrer">API</a>
-                </li>
-            </ul>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a className="navbar-brand" href="https://azgs.arizona.edu/" target="_blank" rel="noopener noreferrer"><img src={logo} alt="AZGS logo" height="60px" /></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="material-icons-sharp"> Menu </span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul className="navbar-nav ml-auto">
+                        <li className="nav-item">
+                            <a className="nav-link" href="https://devdata.azgs.arizona.edu/api/v1/metadata?help=html" target="_blank" rel="noopener noreferrer">API</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="https://digital.arizona.edu/arizona-bootstrap/docs/2.0/getting-started/introduction/" target="_blank" rel="noopener noreferrer">AZBootstrap</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
         </>
     )
 }
