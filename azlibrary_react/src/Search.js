@@ -115,49 +115,49 @@ export default class Search extends React.Component {
 
                 <div className="row">
                     <div className="col-lg-3">
-                        <div className=" bg-cool-gray border p-3">
+                        <div className=" bg-cool-gray rounded border p-3">
 
-                            <h1 className="text-center">Search</h1>
+                            <h2 className="text-center">Search Collections</h2>
 
                             <form>
 
                                 <div className="form-group">
-                                    <label htmlFor="year">Collection ID</label>
-                                    <input type="text" className="form-control form-control-sm" name="collection_id" autoComplete="off" onChange={this.handleInputChange} />
+                                    <label htmlFor="year">ID</label>
+                                    <input type="text" className="form-control form-control-sm" id="collection_id" name="collection_id" autoComplete="off" onChange={this.handleInputChange} />
                                 </div>
 
                                 <div className="form-group form-check">
-                                    <input type="checkbox" className="form-check-input form-control-s" name="latest" value='true' onChange={this.handleInputChange} />
-                                    <label className="form-check-label" htmlFor="exampleCheck1">Latest collection in the lineage containing the specified collection</label>
+                                    <input type="checkbox" className="form-check-input form-control-s" id="latest" name="latest" value='true' onChange={this.handleInputChange} />
+                                    <label className="form-check-label" htmlFor="latest">Latest collection in the lineage containing the specified collection</label>
                                 </div>
 
                                 <hr />
 
-                                <SelectCollectionGroup className="form-control form-control-sm" name="collection_group" handleInputChange={this.handleInputChange} />
+                                <SelectCollectionGroup className="form-control form-control-sm" id="collection_group" handleInputChange={this.handleInputChange} />
 
                                 <div className="form-group">
                                     <label htmlFor="year">Year</label>
-                                    <input type="text" className="form-control form-control-sm" name="year" autoComplete="off" onChange={this.handleInputChange} />
+                                    <input type="text" className="form-control form-control-sm" id="year" name="year" autoComplete="off" onChange={this.handleInputChange} />
                                 </div>
 
                                 <div className="form-group">
                                     <label htmlFor="title">Title</label>
-                                    <input type="text" className="form-control form-control-sm" name="title" autoComplete="off" onChange={this.handleInputChange} />
+                                    <input type="text" className="form-control form-control-sm" id="title"  name="title" autoComplete="off" onChange={this.handleInputChange} />
                                 </div>
 
                                 <div className="form-group">
                                     <label htmlFor="author">Author</label>
-                                    <input type="text" className="form-control form-control-sm" name="author" autoComplete="off" onChange={this.handleInputChange} />
+                                    <input type="text" className="form-control form-control-sm" id="author"  name="author" autoComplete="off" onChange={this.handleInputChange} />
                                 </div>
 
                                 <div className="form-group">
                                     <label htmlFor="keyword">Keyword</label>
-                                    <input type="text" className="form-control form-control-sm" name="keyword" autoComplete="off" onChange={this.handleInputChange} />
+                                    <input type="text" className="form-control form-control-sm" id="keyword" name="keyword" autoComplete="off" onChange={this.handleInputChange} />
                                 </div>
 
                                 <div className="form-group">
                                     <label htmlFor="keyword">Series</label>
-                                    <input type="text" className="form-control form-control-sm" name="series" autoComplete="off" onChange={this.handleInputChange} />
+                                    <input type="text" className="form-control form-control-sm" id="series" name="series" autoComplete="off" onChange={this.handleInputChange} />
                                 </div>
 
                                 <div className="col-12">
