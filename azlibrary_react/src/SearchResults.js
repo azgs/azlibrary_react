@@ -4,7 +4,7 @@ export default class SearchResults extends React.Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="container-fluid">
 
                 <h1 className="text-center">Results</h1>
 

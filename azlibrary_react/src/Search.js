@@ -31,23 +31,41 @@ export default class Search extends React.Component {
         let url = azgsApi.getUri() + '/metadata'
         let params = new URLSearchParams();
 
-        if (this.state.collection_group) {
-            params.append('collection_group', this.state.collection_group);
+        const collection_group = this.state.collection_group;
+        const collection_id = this.state.collection_id;
+        const year = this.state.year;
+        const title = this.state.title;
+        const author = this.state.author;
+        const keyword = this.state.keyword;
+        const series = this.state.series;
+
+        if (collection_group) {
+            params.append('collection_group', collection_group);
         }
-        if (this.state.year) {
-            params.append('year', this.state.year);
+        if (collection_id){
+            params.append('collection_id', collection_id);
         }
-        if (this.state.title) {
-            params.append('title', this.state.title);
+        if (year) {
+            params.append('year', year);
         }
-        if (this.state.author) {
-            params.append('author', this.state.author);
+        if (title) {
+            params.append('title', title);
         }
+        if (author) {
+            params.append('author', author);
+        }       
+        if (keyword) {
+            params.append('keyword', keyword);
+        }
+        if (series) {
+            params.append('series', series);
+        }
+
         if (Array.from(params).length > 0) {
             url += '?' + params.toString();
         }
 
-        self.setState({searchUrl: url});
+        self.setState({ searchUrl: url });
 
         azgsApi
             .get(url)
@@ -63,9 +81,12 @@ export default class Search extends React.Component {
         self.setState(
             {
                 collection_group: "",
+                collection_id: "",
                 year: "",
                 title: "",
                 author: "",
+                keyword: "",
+                series: "",
             }, () => this.getResults()
         );
     };
@@ -80,35 +101,57 @@ export default class Search extends React.Component {
                 </div>
 
                 <div className="row">
-                    <div className="col-lg-4 border p-3">
+                    <div className="col-lg-3">
+                        <div className=" bg-cool-gray border p-3">
 
-                        <h1 className="text-center">Search</h1>
+                            <h1 className="text-center">Search</h1>
 
-                        <form>
-                            <SelectCollectionGroup className="form-control form-control-sm" name="collection_group" handleInputChange={this.handleInputChange} />
+                            <form>
+                                <SelectCollectionGroup className="form-control form-control-sm" name="collection_group" handleInputChange={this.handleInputChange} />
 
-                            <div className="form-group">
-                                <label htmlFor="searchYears">Year</label>
-                                <input type="text" className="form-control form-control-sm" name="year" autoComplete="off" onChange={this.handleInputChange} />
-                            </div>
+                                <div className="form-group">
+                                    <label htmlFor="year">ID</label>
+                                    <input type="text" className="form-control form-control-sm" name="collection_id" autoComplete="off" onChange={this.handleInputChange} />
+                                </div>
 
-                            <div className="form-group">
-                                <label htmlFor="searchTitle">Title</label>
-                                <input type="text" className="form-control form-control-sm" name="title" autoComplete="off" onChange={this.handleInputChange} />
-                            </div>
+                                <div className="form-group">
+                                    <label htmlFor="year">Year</label>
+                                    <input type="text" className="form-control form-control-sm" name="year" autoComplete="off" onChange={this.handleInputChange} />
+                                </div>
 
-                            <div className="form-group">
-                                <label htmlFor="searchAuthor">Author</label>
-                                <input type="text" className="form-control form-control-sm" name="author" autoComplete="off" onChange={this.handleInputChange} />
-                            </div>
+                                <div className="form-group">
+                                    <label htmlFor="title">Title</label>
+                                    <input type="text" className="form-control form-control-sm" name="title" autoComplete="off" onChange={this.handleInputChange} />
+                                </div>
 
-                            <button type="reset" className="btn btn-red float-right mr-2" onClick={this.reset}>Clear</button>
+                                <div className="form-group">
+                                    <label htmlFor="author">Author</label>
+                                    <input type="text" className="form-control form-control-sm" name="author" autoComplete="off" onChange={this.handleInputChange} />
+                                </div>
 
-                        </form>
+                                <div className="form-group">
+                                    <label htmlFor="keyword">Keyword</label>
+                                    <input type="text" className="form-control form-control-sm" name="keyword" autoComplete="off" onChange={this.handleInputChange} />
+                                </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="keyword">Series</label>
+                                    <input type="text" className="form-control form-control-sm" name="series" autoComplete="off" onChange={this.handleInputChange} />
+                                </div>
+
+                                <div className="col-12 text-right">
+                                    <button type="reset" className="btn btn-red" onClick={this.reset}>Clear</button>
+                                </div>
+
+                            </form>
+                        </div>
                     </div>
-                    <div className="col-lg-8">
+
+                    <div className="col-lg-9">
                         <SearchResults results={this.state.results} />
                     </div>
+
+
                 </div>
 
             </div>
