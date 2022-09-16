@@ -198,12 +198,12 @@ export default class Search extends React.Component {
                                     {this.state.advancedToggle ? "Basic" : "Advanced"} Search
                                 </button>
 
-                                <div className="col-12">
-                                    <code><a className="searchUrl" href={this.state.searchUrl} target="_blank" rel="noopener noreferrer">{this.state.searchUrl}</a></code>
-                                </div>
-
                                 <div className="col-12 text-right">
                                     <button type="reset" className="btn btn-red btn-sm" onClick={this.reset}>Clear</button>
+                                </div>
+
+                                <div className="col-12">
+                                    <code>API:<a className="searchUrl" href={this.state.searchUrl} target="_blank" rel="noopener noreferrer">{this.state.searchUrl}</a></code>
                                 </div>
 
                             </form>
