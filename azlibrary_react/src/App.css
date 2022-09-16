@@ -2,6 +2,10 @@ label {
     font-weight: 500;
 }
 
+label {
+    margin-bottom: 0.3rem;
+}
+
 .searchUrl {
     color: blue;
     font-size: 0.875em;
@@ -12,6 +16,6 @@ label {
     margin-bottom: 0.3rem;
 }
 
-label {
-    margin-bottom: 0.3rem;
+.searchHeader {
+    font-size: 1.25em;
 }

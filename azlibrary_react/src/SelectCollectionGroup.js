@@ -35,7 +35,7 @@ export default class SelectCollectionGroup extends React.Component {
     render() {
         return (
 
-            <div className="form-group">
+            <div className="form-row">
                 <label htmlFor={this.className}>Collection Group</label>
                 <select className={this.className} id={this.id} name={this.id} onChange={this.handleInputChange}>
                     <option value="">--All Collections--</option>

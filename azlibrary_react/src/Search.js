@@ -87,7 +87,7 @@ export default class Search extends React.Component {
     getResults = (url) => {
         const self = this;
 
-        if (!url){
+        if (!url) {
             url = this.buildQueryString();
         } else {
             // the API links are http for some reason. 
@@ -145,9 +145,9 @@ export default class Search extends React.Component {
 
                 <div className="row">
                     <div className="col-lg-3">
-                        <div className=" bg-cool-gray rounded border mt-3 p-3">
+                        <div className=" bg-cool-gray rounded mt-3 p-3 shadow">
 
-                            <h2 className="text-center">Search Collections</h2>
+                            <div className="searchHeader text-center">Search Collections</div>
 
                             <form>
 
@@ -169,43 +169,43 @@ export default class Search extends React.Component {
                                     </div>
                                 </div>
 
-                                <div className="form-group">
+                                <div className="form-row">
                                     <label htmlFor="title">Title</label>
                                     <input type="text" className="form-control form-control-sm" id="title" name="title" autoComplete="off" onChange={this.handleInputChange} />
                                 </div>
 
-                                <div className="form-group">
+                                <div className="form-row">
                                     <label htmlFor="author">Author</label>
                                     <input type="text" className="form-control form-control-sm" id="author" name="author" autoComplete="off" onChange={this.handleInputChange} />
                                 </div>
 
                                 <div className="collapse" id="advancedSearch">
 
-                                    <div className="form-group">
+                                    <div className="form-row">
                                         <label htmlFor="text">Full-Text Search</label>
                                         <input type="text" className="form-control form-control-sm" id="text" name="text" autoComplete="off" onChange={this.handleInputChange} />
                                     </div>
 
-                                    <div className="form-group">
+                                    <div className="form-row">
                                         <label htmlFor="keyword">Keyword</label>
                                         <input type="text" className="form-control form-control-sm" id="keyword" name="keyword" autoComplete="off" onChange={this.handleInputChange} />
                                     </div>
 
-                                    <div className="form-group">
+                                    <div className="form-row">
                                         <label htmlFor="keyword">Series</label>
                                         <input type="text" className="form-control form-control-sm" id="series" name="series" autoComplete="off" onChange={this.handleInputChange} />
                                     </div>
 
                                     <hr />
 
-                                    <div className="form-group">
+                                    <div className="form-row">
                                         <label htmlFor="year">Collection ID</label>
                                         <input type="text" className="form-control form-control-sm" id="collection_id" name="collection_id" autoComplete="off" onChange={this.handleInputChange} />
                                     </div>
 
-                                    <div className="form-group form-check">
+                                    <div className="form-row form-check">
                                         <input type="checkbox" className="form-check-input form-control-s" id="latest" name="latest" onChange={this.handleInputChange} />
-                                        <label className="form-check-label" htmlFor="latest">Latest collection in the lineage containing the specified collection</label>
+                                        <label className="form-check-label" htmlFor="latest">Latest collection in the lineage</label>
                                     </div>
 
                                 </div>
