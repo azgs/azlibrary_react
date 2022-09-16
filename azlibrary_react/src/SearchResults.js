@@ -32,11 +32,11 @@ export default class SearchResults extends React.Component {
 
                 <div>
                     <nav aria-label="Page navigation example">
-                        <ul className="pagination">
+                        <ul className="pagination justify-content-end">
                             {
                                 this.props.results?.links?.map(link =>
                                     <li key={link.rel} className="page-item">
-                                        <a className="page-link" href={link.href}>{link.rel}</a>
+                                        <button className="page-link" href={link.href}>{link.rel}</button>
                                     </li>
                                 )
                             }
