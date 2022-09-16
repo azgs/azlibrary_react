@@ -8,6 +8,10 @@ export default class SearchResults extends React.Component {
 
                 <h2 className="text-center">Results</h2>
 
+                {this.props.apiError && <div className="alert alert-danger text-center font-weight-bold" role="alert">
+                    {this.props.apiError}
+                </div>}
+
                 <table className="table">
                     <thead>
                         <tr>

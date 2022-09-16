@@ -95,6 +95,7 @@ export default class Search extends React.Component {
         }
 
         self.setState({
+            apiError: "",
             searchUrl: url,
         });
 
@@ -106,8 +107,8 @@ export default class Search extends React.Component {
                 });
             })
             .catch(function (error) {
-                console.log("Error: " + error);
                 self.setState({
+                    apiError: error.toString(),
                     results: [],
                 });
             });
@@ -158,7 +159,7 @@ export default class Search extends React.Component {
 
                                 <div className="form-row">
                                     <div className="col">
-                                        <input type="number" className="form-control form-control-sm" id="year" name="year" autoComplete="off" onKeyDown={(evt) => (evt.key === 'e' || evt.key === '.') && evt.preventDefault()} onChange={this.handleInputChange} />
+                                        <input type="number" className="form-control form-control-sm" id="year" name="year" autoComplete="off" onKeyDown={(evt) => (evt.key === 'e' || evt.key === '.' || evt.key === '-') && evt.preventDefault()} onChange={this.handleInputChange} />
                                     </div>
                                     <div className="text-center">
                                         -
@@ -226,7 +227,7 @@ export default class Search extends React.Component {
                     </div>
 
                     <div className="col-lg-9">
-                        <SearchResults results={this.state.results} getResults={this.getResults} />
+                        <SearchResults results={this.state.results} getResults={this.getResults} apiError={this.state.apiError} />
                     </div>
 
                 </div>
