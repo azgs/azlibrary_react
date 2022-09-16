@@ -129,7 +129,7 @@ export default class Search extends React.Component {
 
                 <div className="row">
                     <div className="col-lg-3">
-                        <div className=" bg-cool-gray rounded border p-3">
+                        <div className=" bg-cool-gray rounded border mt-3 p-3">
 
                             <h2 className="text-center">Search Collections</h2>
 
@@ -184,7 +184,7 @@ export default class Search extends React.Component {
                                 </div>
 
                                 <button className="btn btn-link" type="button" data-toggle="collapse" data-target="#advancedSearch" aria-expanded="false" aria-controls="advancedSearch" onClick={this.toggleAdvanced} >
-                                    {this.state.advancedToggle ? "Basic" : "Advanced"}
+                                    {this.state.advancedToggle ? "Basic" : "Advanced"} Search
                                 </button>
 
                                 <div className="col-12">
