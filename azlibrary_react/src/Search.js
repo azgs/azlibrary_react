@@ -9,6 +9,7 @@ export default class Search extends React.Component {
         super(props);
 
         this.state = {
+            advancedToggle: false,
             results: []
         };
 
@@ -20,7 +21,6 @@ export default class Search extends React.Component {
     }
 
     handleInputChange(e) {
-
         if (e.target.type === "checkbox") {
             this.setState({
                 [e.target.name]: e.target.checked
@@ -113,6 +113,15 @@ export default class Search extends React.Component {
         );
     };
 
+    toggleAdvanced = () =>{
+        const self = this;
+        const val = this.state.advancedToggle;
+
+        self.setState({
+            advancedToggle: !val
+        });
+    }
+
     render() {
         return (
 
@@ -126,18 +135,6 @@ export default class Search extends React.Component {
 
                             <form>
 
-                                <div className="form-group">
-                                    <label htmlFor="year">ID</label>
-                                    <input type="text" className="form-control form-control-sm" id="collection_id" name="collection_id" autoComplete="off" onChange={this.handleInputChange} />
-                                </div>
-
-                                <div className="form-group form-check">
-                                    <input type="checkbox" className="form-check-input form-control-s" id="latest" name="latest" value='true' onChange={this.handleInputChange} />
-                                    <label className="form-check-label" htmlFor="latest">Latest collection in the lineage containing the specified collection</label>
-                                </div>
-
-                                <hr />
-
                                 <SelectCollectionGroup className="form-control form-control-sm" id="collection_group" handleInputChange={this.handleInputChange} />
 
                                 <div className="form-group">
@@ -147,28 +144,48 @@ export default class Search extends React.Component {
 
                                 <div className="form-group">
                                     <label htmlFor="title">Title</label>
-                                    <input type="text" className="form-control form-control-sm" id="title"  name="title" autoComplete="off" onChange={this.handleInputChange} />
+                                    <input type="text" className="form-control form-control-sm" id="title" name="title" autoComplete="off" onChange={this.handleInputChange} />
                                 </div>
 
                                 <div className="form-group">
                                     <label htmlFor="author">Author</label>
-                                    <input type="text" className="form-control form-control-sm" id="author"  name="author" autoComplete="off" onChange={this.handleInputChange} />
+                                    <input type="text" className="form-control form-control-sm" id="author" name="author" autoComplete="off" onChange={this.handleInputChange} />
                                 </div>
 
-                                <div className="form-group">
-                                    <label htmlFor="text">Full-Text Search</label>
-                                    <input type="text" className="form-control form-control-sm" id="text" name="text" autoComplete="off" onChange={this.handleInputChange} />
+                                <div className="collapse" id="advancedSearch">
+
+                                    <div className="form-group">
+                                        <label htmlFor="text">Full-Text Search</label>
+                                        <input type="text" className="form-control form-control-sm" id="text" name="text" autoComplete="off" onChange={this.handleInputChange} />
+                                    </div>
+
+                                    <div className="form-group">
+                                        <label htmlFor="keyword">Keyword</label>
+                                        <input type="text" className="form-control form-control-sm" id="keyword" name="keyword" autoComplete="off" onChange={this.handleInputChange} />
+                                    </div>
+
+                                    <div className="form-group">
+                                        <label htmlFor="keyword">Series</label>
+                                        <input type="text" className="form-control form-control-sm" id="series" name="series" autoComplete="off" onChange={this.handleInputChange} />
+                                    </div>
+
+                                    <hr />
+
+                                    <div className="form-group">
+                                        <label htmlFor="year">Collection ID</label>
+                                        <input type="text" className="form-control form-control-sm" id="collection_id" name="collection_id" autoComplete="off" onChange={this.handleInputChange} />
+                                    </div>
+
+                                    <div className="form-group form-check">
+                                        <input type="checkbox" className="form-check-input form-control-s" id="latest" name="latest" onChange={this.handleInputChange} />
+                                        <label className="form-check-label" htmlFor="latest">Latest collection in the lineage containing the specified collection</label>
+                                    </div>
+
                                 </div>
 
-                                <div className="form-group">
-                                    <label htmlFor="keyword">Keyword</label>
-                                    <input type="text" className="form-control form-control-sm" id="keyword" name="keyword" autoComplete="off" onChange={this.handleInputChange} />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="keyword">Series</label>
-                                    <input type="text" className="form-control form-control-sm" id="series" name="series" autoComplete="off" onChange={this.handleInputChange} />
-                                </div>
+                                <button className="btn btn-link" type="button" data-toggle="collapse" data-target="#advancedSearch" aria-expanded="false" aria-controls="advancedSearch" onClick={this.toggleAdvanced} >
+                                    {this.state.advancedToggle ? "Basic" : "Advanced"}
+                                </button>
 
                                 <div className="col-12">
                                     <code><a className="searchUrl" href={this.state.searchUrl} target="_blank" rel="noopener noreferrer">{this.state.searchUrl}</a></code>
