@@ -137,18 +137,18 @@ export default class Search extends React.Component {
 
                                 <SelectCollectionGroup className="form-control form-control-sm" id="collection_group" handleInputChange={this.handleInputChange} />
 
-                                <div class="form-row">
+                                <div className="form-row">
                                         <label htmlFor="year">Year</label>
                                 </div>
 
-                                <div class="form-row">
-                                    <div class="col">
+                                <div className="form-row">
+                                    <div className="col">
                                         <input type="number" className="form-control form-control-sm" id="year" name="year" autoComplete="off" onKeyDown={ (evt) => (evt.key === 'e' ||  evt.key === '.')  && evt.preventDefault() } onChange={this.handleInputChange} />
                                     </div>
                                     <div className="text-center">
                                         -
                                     </div>
-                                    <div class="col">
+                                    <div className="col">
                                         <input type="number" className="form-control form-control-sm" id="endEear" name="endYear" disabled />
                                     </div>
                                 </div>
