@@ -90,7 +90,7 @@ export default class Search extends React.Component {
         if (!url){
             url = this.buildQueryString();
         } else {
-            // 
+            // the API links are http for some reason. 
             url = url.replace("http://", "https://");
         }
 
@@ -106,7 +106,7 @@ export default class Search extends React.Component {
                 });
             })
             .catch(function (error) {
-                console.log(error);
+                console.log("Error: " + error);
                 self.setState({
                     results: [],
                 });
