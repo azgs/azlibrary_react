@@ -29,6 +29,22 @@ export default class SearchResults extends React.Component {
                     </tbody>
 
                 </table>
+
+                <div>
+                    <nav aria-label="Page navigation example">
+                        <ul className="pagination">
+                            {
+                                this.props.results?.links?.map(link =>
+                                    <li key={link.rel} className="page-item">
+                                        <a className="page-link" href={link.href}>{link.rel}</a>
+                                    </li>
+                                )
+                            }
+                        </ul>
+                    </nav>
+                </div>
+
+
             </div>
         )
     }
