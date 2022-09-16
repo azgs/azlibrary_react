@@ -36,14 +36,13 @@ export default class SearchResults extends React.Component {
                             {
                                 this.props.results?.links?.map(link =>
                                     <li key={link.rel} className="page-item">
-                                        <button className="page-link" href={link.href}>{link.rel}</button>
+                                        <button className="page-link" onClick={() => this.props.getResults(link.href)}>{link.rel}</button>
                                     </li>
                                 )
                             }
                         </ul>
                     </nav>
                 </div>
-
 
             </div>
         )

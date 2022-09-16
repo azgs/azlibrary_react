@@ -8,6 +8,8 @@ export default class Search extends React.Component {
     constructor(props) {
         super(props);
 
+        this.metadataUrl = azgsApi.getUri() + '/metadata';
+
         this.state = {
             advancedToggle: false,
             results: []
@@ -17,7 +19,7 @@ export default class Search extends React.Component {
     }
 
     componentDidMount() {
-        this.getResults();
+        this.getResults(this.metadataUrl);
     }
 
     handleInputChange(e) {
@@ -32,10 +34,8 @@ export default class Search extends React.Component {
         }
     }
 
-    getResults = () => {
-        const self = this;
-
-        let url = azgsApi.getUri() + '/metadata'
+    buildQueryString() {
+        let url = this.metadataUrl;
         let params = new URLSearchParams();
 
         const collection_id = this.state.collection_id;
@@ -80,7 +80,23 @@ export default class Search extends React.Component {
             url += '?' + params.toString();
         }
 
-        self.setState({ searchUrl: url });
+        return url;
+    }
+
+
+    getResults = (url) => {
+        const self = this;
+
+        if (!url){
+            url = this.buildQueryString();
+        } else {
+            // 
+            url = url.replace("http://", "https://");
+        }
+
+        self.setState({
+            searchUrl: url,
+        });
 
         azgsApi
             .get(url)
@@ -90,6 +106,7 @@ export default class Search extends React.Component {
                 });
             })
             .catch(function (error) {
+                console.log(error);
                 self.setState({
                     results: [],
                 });
@@ -97,8 +114,7 @@ export default class Search extends React.Component {
     };
 
     reset = () => {
-        const self = this;
-        self.setState(
+        this.setState(
             {
                 collection_id: "",
                 latest: "",
@@ -114,10 +130,9 @@ export default class Search extends React.Component {
     };
 
     toggleAdvanced = () => {
-        const self = this;
         const val = this.state.advancedToggle;
 
-        self.setState({
+        this.setState({
             advancedToggle: !val
         });
     }
@@ -138,12 +153,12 @@ export default class Search extends React.Component {
                                 <SelectCollectionGroup className="form-control form-control-sm" id="collection_group" handleInputChange={this.handleInputChange} />
 
                                 <div className="form-row">
-                                        <label htmlFor="year">Year</label>
+                                    <label htmlFor="year">Year</label>
                                 </div>
 
                                 <div className="form-row">
                                     <div className="col">
-                                        <input type="number" className="form-control form-control-sm" id="year" name="year" autoComplete="off" onKeyDown={ (evt) => (evt.key === 'e' ||  evt.key === '.')  && evt.preventDefault() } onChange={this.handleInputChange} />
+                                        <input type="number" className="form-control form-control-sm" id="year" name="year" autoComplete="off" onKeyDown={(evt) => (evt.key === 'e' || evt.key === '.') && evt.preventDefault()} onChange={this.handleInputChange} />
                                     </div>
                                     <div className="text-center">
                                         -
@@ -211,7 +226,7 @@ export default class Search extends React.Component {
                     </div>
 
                     <div className="col-lg-9">
-                        <SearchResults results={this.state.results} />
+                        <SearchResults results={this.state.results} getResults={this.getResults} />
                     </div>
 
                 </div>
