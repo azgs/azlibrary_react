@@ -9,3 +9,7 @@ label {
     font-size: 0.875em;
     overflow-wrap: break-word;
 }
+
+.searchHeader {
+    font-size: 1.25rem;
+}

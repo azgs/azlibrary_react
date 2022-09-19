@@ -145,14 +145,9 @@ export default class Search extends React.Component {
 
                 <div className="row">
                     <div className="col-lg-3">
-                        <div className=" bg-cool-gray rounded mt-3 p-3 shadow">
+                        <div className=" bg-cool-gray rounded p-3 shadow">
 
-                            {/* <div className="searchHeader text-center">Search Collections</div> */}
-                            <div className="text-center">
-                                <button className="btn btn-link" type="button" data-toggle="collapse" data-target="#advancedSearch" aria-expanded="false" aria-controls="advancedSearch" onClick={this.toggleAdvanced} >
-                                    {this.state.advancedToggle ? "Basic" : "Advanced"} Search
-                                </button>
-                            </div>
+                            <div className="searchHeader text-center">Search Collections</div>
 
                             <form>
 
@@ -213,6 +208,12 @@ export default class Search extends React.Component {
                                         <label className="form-check-label" htmlFor="latest">Latest collection in the lineage</label>
                                     </div>
 
+                                </div>
+
+                                <div>
+                                    <button className="btn btn-link" type="button" data-toggle="collapse" data-target="#advancedSearch" aria-expanded="false" aria-controls="advancedSearch" onClick={this.toggleAdvanced} >
+                                        {this.state.advancedToggle ? "Basic" : "Advanced"} Search
+                                    </button>
                                 </div>
 
                                 <div className="col-12 text-right">
