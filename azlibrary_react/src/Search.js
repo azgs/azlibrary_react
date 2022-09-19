@@ -147,7 +147,12 @@ export default class Search extends React.Component {
                     <div className="col-lg-3">
                         <div className=" bg-cool-gray rounded mt-3 p-3 shadow">
 
-                            <div className="searchHeader text-center">Search Collections</div>
+                            {/* <div className="searchHeader text-center">Search Collections</div> */}
+                            <div className="text-center">
+                                <button className="btn btn-link" type="button" data-toggle="collapse" data-target="#advancedSearch" aria-expanded="false" aria-controls="advancedSearch" onClick={this.toggleAdvanced} >
+                                    {this.state.advancedToggle ? "Basic" : "Advanced"} Search
+                                </button>
+                            </div>
 
                             <form>
 
@@ -159,7 +164,7 @@ export default class Search extends React.Component {
 
                                 <div className="form-row">
                                     <div className="col p-0">
-                                        <input type="number" className="form-control form-control-sm" id="year" name="year" autoComplete="off" onKeyDown={(evt) => (evt.key === 'e' || evt.key === '.' || evt.key === '-') && evt.preventDefault()} onChange={this.handleInputChange} />
+                                        <input type="number" className="form-control form-control-sm" id="year" name="year" autoComplete="off" min='0' onKeyDown={(evt) => (evt.key === 'e' || evt.key === '.' || evt.key === '-') && evt.preventDefault()} onChange={this.handleInputChange} />
                                     </div>
                                     <div className="text-center">
                                         -
@@ -210,12 +215,8 @@ export default class Search extends React.Component {
 
                                 </div>
 
-                                <button className="btn btn-link" type="button" data-toggle="collapse" data-target="#advancedSearch" aria-expanded="false" aria-controls="advancedSearch" onClick={this.toggleAdvanced} >
-                                    {this.state.advancedToggle ? "Basic" : "Advanced"} Search
-                                </button>
-
                                 <div className="col-12 text-right">
-                                    <button type="reset" className="btn btn-red btn-sm" onClick={this.reset}>Clear</button>
+                                    <button type="reset" className="btn btn-red btn-sm mt-2" onClick={this.reset}>Clear</button>
                                 </div>
 
                                 <div className="col-12">

@@ -1,19 +1,11 @@
 label {
     font-weight: 500;
+    margin-top: 0rem;
     margin-bottom: 0rem;
-
 }
 
 .searchUrl {
     color: blue;
     font-size: 0.875em;
     overflow-wrap: break-word;
-}
-
-.form-group {
-    margin-bottom: 0.3rem;
-}
-
-.searchHeader {
-    font-size: 1.25em;
 }
