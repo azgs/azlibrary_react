@@ -158,13 +158,13 @@ export default class Search extends React.Component {
                                 </div>
 
                                 <div className="form-row">
-                                    <div className="col">
+                                    <div className="col p-0">
                                         <input type="number" className="form-control form-control-sm" id="year" name="year" autoComplete="off" onKeyDown={(evt) => (evt.key === 'e' || evt.key === '.' || evt.key === '-') && evt.preventDefault()} onChange={this.handleInputChange} />
                                     </div>
                                     <div className="text-center">
                                         -
                                     </div>
-                                    <div className="col">
+                                    <div className="col p-0">
                                         <input type="number" className="form-control form-control-sm" id="endEear" name="endYear" disabled />
                                     </div>
                                 </div>

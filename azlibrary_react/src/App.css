@@ -1,9 +1,7 @@
 label {
     font-weight: 500;
-}
+    margin-bottom: 0rem;
 
-label {
-    margin-bottom: 0.3rem;
 }
 
 .searchUrl {
