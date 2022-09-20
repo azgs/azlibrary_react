@@ -1,19 +1,20 @@
-import React from 'react';
+import { useState, useEffect } from "react";
 import azgsApi from '../container/AzgsApi';
 
-export default class SelectCollectionGroup extends React.Component {
+export default function SelectCollectionGroup({ id, className, handleInputChange }) {
 
-    constructor(props) {
-        super(props);
-        
-        this.id = props.id;
-        this.className = props.className;
+    const [groups, setGroups] = useState([]);
 
-        this.handleInputChange = props.handleInputChange;
-        this.state = { groups: [] };
-    }
+    useEffect(() => {
+        azgsApi.get('/dicts/collection_groups')
+            .then(res => {
+                const data = res.data.data.sort(sortByAbbreviation());
+                setGroups(data);
+            })
 
-    sortByAbbreviation() {
+    }, []);
+
+    const sortByAbbreviation = () => {
         return function (a, b) {
             if (a["abbrv"] > b["abbrv"])
                 return 1;
@@ -24,30 +25,17 @@ export default class SelectCollectionGroup extends React.Component {
         }
     }
 
-    componentDidMount() {
-        azgsApi.get('/dicts/collection_groups')
-            .then(res => {
-                const groups = res.data.data.sort(this.sortByAbbreviation());
-                this.setState({ groups });
-            })
-    }
-
-    render() {
-        return (
-
-            <div className="form-row">
-                <label htmlFor={this.className}>Collection Group</label>
-                <select className={this.className} id={this.id} name={this.id} onChange={this.handleInputChange}>
-                    <option value="">--All Collections--</option>
-                    {
-                        this.state.groups
-                            .map(group =>
-                                <option key={group.id} value={group.abbrv}>{group.abbrv} - {group.name}</option>
-                            )
-                    }
-                </select>
-            </div>
-
-        )
-    }
+    return (
+        <div className="form-row">
+            <label htmlFor={id}>Collection Group</label>
+            <select id={id} className={className} name={id} onChange={handleInputChange}>
+                <option value="">--All Collections--</option>
+                {
+                    groups?.map(group =>
+                        <option key={group.id} value={group.abbrv}>{group.abbrv} - {group.name}</option>
+                    )
+                }
+            </select>
+        </div>
+    )
 }

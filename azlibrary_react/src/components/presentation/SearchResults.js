@@ -21,13 +21,13 @@ export default function SearchResults({ results, getResults, apiError }) {
                                 <strong>Year:</strong> {result.metadata.year}
                             </div>
 
-                            <div>
+                            {/* <div>
                                 <strong>Author:</strong>
                                 {result.metadata.authors.map(author =>
                                     <div key={author.person}>{author.person}</div>
                                 )
                                 }
-                            </div>
+                            </div> */}
 
                             <div className="card-text"><strong>Abstract:</strong> {result.metadata.abstract}</div>
 

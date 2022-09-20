@@ -151,7 +151,7 @@ export default class Search extends React.Component {
 
                             <form>
 
-                                <SelectCollectionGroup className="form-control form-control-sm" id="collection_group" handleInputChange={this.handleInputChange} />
+                                <SelectCollectionGroup id="collection_group" className="form-control form-control-sm" handleInputChange={this.handleInputChange} />
 
                                 <div className="form-row">
                                     <label htmlFor="year">Year</label>
