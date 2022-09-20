@@ -15,7 +15,7 @@ export default class SearchResults extends React.Component {
                 {
                     this.props.results?.data?.map(result =>
 
-                        <div className="card mb-3">
+                        <div key={result.collection_id} className="card mb-3">
                             <div className="card-header">
                                 {result.metadata.title}
                             </div>
