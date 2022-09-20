@@ -6,8 +6,6 @@ export default class SearchResults extends React.Component {
         return (
             <div className="container-fluid">
 
-                <h2 className="text-center">Results</h2>
-
                 {this.props.apiError && <div className="alert alert-danger text-center font-weight-bold" role="alert">
                     {this.props.apiError}
                 </div>}
@@ -17,12 +15,26 @@ export default class SearchResults extends React.Component {
 
                         <div key={result.collection_id} className="card mb-3">
                             <div className="card-header">
-                                {result.metadata.title}
+                                <a className='searchUrl' target="_blank" rel="noopener noreferrer" href={"https://devdata.azgs.arizona.edu/api/v1/metadata?collection_id=" + result.collection_id}>{result.metadata.title}</a>
                             </div>
                             <div className="card-body">
-                                <h5 className="card-title">{result.collection_id}</h5>
-                                <p className="card-text">{result.metadata.abstract}</p>
-                                <a href={result.links[0].href} className="btn btn-red">Download</a>
+                                <p>
+                                    <strong>Author:</strong>
+                                    {result.metadata.authors.map(author =>
+                                        <div key={author.person}>{author.person}</div>
+                                    )
+                                    }
+                                </p>
+
+                                <p className="card-text"><strong>Abstract:</strong> {result.metadata.abstract}</p>
+
+                                <strong>Links:</strong>
+                                <ul className='ul-triangles'>
+                                    {result.links.map(link =>
+                                        <li key={link.rel}><a href={link.href} className="card-link">{link.rel}</a></li>
+                                    )
+                                    }
+                                </ul>
                             </div>
                         </div>
                     )
