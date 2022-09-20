@@ -6,8 +6,6 @@ export default function SelectCollectionGroup({ id, className, handleInputChange
     const [groups, setGroups] = useState([]);
 
     useEffect(() => {
-
-        // This is firing twice on load. Can't figure out why.. 
         azgsApi.get('/dicts/collection_groups')
             .then(res => {
                 const data = res.data.data.sort(sortByAbbreviation());
@@ -22,7 +20,6 @@ export default function SelectCollectionGroup({ id, className, handleInputChange
                 return 1;
             else if (a["abbrv"] < b["abbrv"])
                 return -1;
-
             return 0;
         }
     }
