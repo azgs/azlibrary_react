@@ -1,5 +1,5 @@
 import React from 'react';
-import azgsApi from './AzgsApi';
+import azgsApi from '../container/AzgsApi';
 import SelectCollectionGroup from './SelectCollectionGroup'
 import SearchResults from './SearchResults'
 

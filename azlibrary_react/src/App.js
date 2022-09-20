@@ -1,6 +1,6 @@
-import NavBar from './NavBar';
-import Search from './Search';
-import Footer from './Footer';
+import NavBar from './components/presentation/NavBar';
+import Search from './components/presentation/Search';
+import Footer from './components/presentation/Footer';
 import './Style.css';
 
 function App() {

@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from './azgs.png';
+import logo from '../../assets/images/azgs.png';
 
 export default function NavBar() {
     return (
