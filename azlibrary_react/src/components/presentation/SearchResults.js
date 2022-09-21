@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function SearchResults({ results, getResults, apiError }) {
+export default function SearchResults({ results, updateSearchUrl, apiError }) {
     return (
         <div className="container-fluid">
 
@@ -49,7 +49,7 @@ export default function SearchResults({ results, getResults, apiError }) {
                         {
                             results?.links?.map(link =>
                                 <li key={link.rel} className="page-item">
-                                    <button className="page-link" onClick={() => getResults(link.href)}>{link.rel}</button>
+                                    <button className="page-link" onClick={() => updateSearchUrl(link.href)}>{link.rel}</button>
                                 </li>
                             )
                         }

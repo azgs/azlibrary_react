@@ -7,6 +7,7 @@ export default function Search() {
 
     const emptyForm = { year: "", title: "", author: "", text: "", keyword: "", series: "", collection_id: "", latest: "" };
     const metadataUrl = azgsApi.getUri() + '/metadata';
+
     const [inputs, setInputs] = useState(emptyForm);
     const [results, setResults] = useState([]);
     const [searchUrl, setSearchUrl] = useState(metadataUrl);
@@ -69,9 +70,9 @@ export default function Search() {
         setInputs(emptyForm);
     }
 
-    const getResults = () => {
+    const updateSearchUrl = (url) => {
         console.log("getResults");
-        setSearchUrl();
+        setSearchUrl(url);
     }
 
     const toggleAdvanced = () => {
@@ -167,7 +168,7 @@ export default function Search() {
                 </div>
 
                 <div className="col-lg-9">
-                    <SearchResults results={results} getResults={getResults} apiError={apiError} />
+                    <SearchResults results={results} updateSearchUrl={updateSearchUrl} apiError={apiError} />
                 </div>
 
             </div>
