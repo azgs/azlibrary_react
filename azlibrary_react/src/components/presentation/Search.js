@@ -61,18 +61,20 @@ export default function Search() {
 
     }, [searchUrl]);
 
+    // Handle form input changes
     const handleChange = (e) => {
         const name = e.target.name;
         const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
         setInputs(values => ({ ...values, [name]: value }))
     }
 
+    // Reset form to empty
     const reset = () => {
         setInputs(emptyForm);
     }
 
+    // Update the searchUrl (used for paging)
     const updateSearchUrl = (url) => {
-        console.log("getResults");
         setSearchUrl(url);
     }
 
