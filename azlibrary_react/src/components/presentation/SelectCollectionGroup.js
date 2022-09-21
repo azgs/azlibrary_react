@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import azgsApi from '../container/AzgsApi';
 
-export default function SelectCollectionGroup({ id, className, handleInputChange }) {
+export default function SelectCollectionGroup({ id, className, fieldValue, handleChange }) {
 
     const [groups, setGroups] = useState([]);
 
@@ -27,7 +27,7 @@ export default function SelectCollectionGroup({ id, className, handleInputChange
     return (
         <div className="form-row">
             <label htmlFor={id}>Collection Group</label>
-            <select id={id} className={className} name={id} onChange={handleInputChange}>
+            <select className={className} id={id} name={id} onChange={handleChange} value={fieldValue}>
                 <option value="">--All Collections--</option>
                 {
                     groups?.map(group =>
