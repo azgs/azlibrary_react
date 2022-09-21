@@ -12,6 +12,7 @@ export default function Search() {
     const [results, setResults] = useState([]);
     const [searchUrl, setSearchUrl] = useState(metadataUrl);
     const [apiError, setaApiError] = useState();
+    const [advancedToggle, setAdvancedToggle] = useState(false);
 
     // Update searchUrl when input changes
     useEffect(() => {
@@ -73,10 +74,6 @@ export default function Search() {
     const updateSearchUrl = (url) => {
         console.log("getResults");
         setSearchUrl(url);
-    }
-
-    const toggleAdvanced = () => {
-        console.log("toggleAdvanced");
     }
 
     return (
@@ -150,8 +147,8 @@ export default function Search() {
                             </div>
 
                             <div>
-                                <button className="btn btn-link" type="button" data-toggle="collapse" data-target="#advancedSearch" aria-expanded="false" aria-controls="advancedSearch" onClick={toggleAdvanced} >
-                                    Advanced
+                                <button className="btn btn-link" type="button" data-toggle="collapse" data-target="#advancedSearch" aria-expanded="false" aria-controls="advancedSearch" onClick={() => setAdvancedToggle(!advancedToggle)} >
+                                    {advancedToggle ? "Basic" : "Advanced"} Search
                                 </button>
                             </div>
 
