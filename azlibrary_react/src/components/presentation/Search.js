@@ -89,7 +89,7 @@ export default function Search() {
 
                         <form autoComplete="off">
 
-                            <SelectCollectionGroup id="collection_group" className="form-control form-control-sm" fieldValue={inputs.collection_group} handleChange={handleChange} />
+                            <SelectCollectionGroup id="collection_group" className="form-control form-control-sm" fieldValue={inputs.collection_group} onChange={handleChange} />
 
                             <div className="form-row">
                                 <label htmlFor="year">Year</label>
