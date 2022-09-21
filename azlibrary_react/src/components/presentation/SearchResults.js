@@ -1,11 +1,18 @@
 import React from 'react'
 
 export default function SearchResults({ results, updateSearchUrl, apiError }) {
+
+    const isEmptyResults = results.data?.length === 0;
+
     return (
         <div className="container-fluid">
 
             {apiError && <div className="alert alert-danger text-center font-weight-bold" role="alert">
                 {apiError}
+            </div>}
+
+            {isEmptyResults && <div className="alert alert-dark text-center font-weight-bold" role="alert">
+                0 Results
             </div>}
 
             {
@@ -43,7 +50,7 @@ export default function SearchResults({ results, updateSearchUrl, apiError }) {
                 )
             }
 
-            <div>
+            {!isEmptyResults && <div>
                 <nav aria-label="Page navigation example">
                     <ul className="pagination justify-content-end">
                         {
@@ -56,6 +63,9 @@ export default function SearchResults({ results, updateSearchUrl, apiError }) {
                     </ul>
                 </nav>
             </div>
+            }
+
+
         </div>
     )
 }
