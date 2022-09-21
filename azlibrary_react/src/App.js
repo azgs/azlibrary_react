@@ -1,17 +1,21 @@
-import NavBar from './components/presentation/NavBar';
-import Search from './components/presentation/Search';
-import Footer from './components/presentation/Footer';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./pages/Layout";
+import Home from "./pages/Home";
+import Collection from "./pages/Collection";
+import NoPage from "./pages/NoPage";
 import './Style.css';
 
 function App() {
   return (
-    <>
-      <NavBar />
-
-      <Search />
-
-      <Footer />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="collection" element={<Collection />} />
+          <Route path="*" element={<NoPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

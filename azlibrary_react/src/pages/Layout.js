@@ -1,5 +1,6 @@
+import { Outlet, Link } from "react-router-dom";
 import React from 'react'
-import logo from '../../assets/images/azgs.png';
+import logo from '../assets/images/azgs.png';
 
 export default function NavBar() {
     return (
@@ -23,6 +24,9 @@ export default function NavBar() {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
+                            <Link className="nav-link" to="/">Home</Link>
+                        </li>
+                        <li className="nav-item">
                             <a className="nav-link" href="https://devdata.azgs.arizona.edu/api/v1/metadata?help=html" target="_blank" rel="noopener noreferrer">API</a>
                         </li>
                         <li className="nav-item">
@@ -35,6 +39,47 @@ export default function NavBar() {
                 </div>
             </nav>
 
+            <Outlet />
+
+            <footer className="footer bg-warm-gray text-center mt-4">
+                <div className="container py-4">
+                    <div className="row">
+                        <div className="col-12">
+                            <p>520.621.2352 | 1955 East 6th Street, P.O. Box 210184, Tucson, AZ 85721</p>
+                            <p><a href="https://www.arizona.edu/information-security-privacy" target="_blank" rel="noopener noreferrer">University Information Security and Privacy</a></p>
+                            <p className='small'>The maps, reports, and other information and content on this website are provided as a public service for informational purposes only.  Accuracy is not guaranteed, and the information contained or linked on this website should not be relied on except as general information.  The University makes no warranties or representations of any kind, and specifically disclaims all warranties including the warranty of merchantability and fitness for a particular purpose.  Users are responsible for verification of all facts and information to their own satisfaction.</p>
+                            <hr />
+                            <p>&copy; 2022 The Arizona Board of Regents on behalf of <a href="https://www.arizona.edu" target="_blank" rel="noopener noreferrer" >The University of Arizona</a>.</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </>
     )
 }
+
+// import { Outlet, Link } from "react-router-dom";
+
+// const Layout = () => {
+//   return (
+//     <>
+//       <nav>
+//         <ul>
+//           <li>
+//             <Link to="/">Home</Link>
+//           </li>
+//           <li>
+//             <Link to="/blogs">Blogs</Link>
+//           </li>
+//           <li>
+//             <Link to="/contact">Contact</Link>
+//           </li>
+//         </ul>
+//       </nav>
+
+//       <Outlet />
+//     </>
+//   )
+// };
+
+// export default Layout;
