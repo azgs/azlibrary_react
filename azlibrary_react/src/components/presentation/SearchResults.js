@@ -1,16 +1,15 @@
 import React from 'react'
+import azgsApi from '../container/AzgsApi';
 
-export default function SearchResults({ results, updateSearchUrl, apiError }) {
+export default function SearchResults({ results, updateSearchUrl }) {
 
     const isEmptyResults = results.data?.length === 0;
+    const collectionBasePath = azgsApi.getUri() + '/metadata?collection_id=';
 
     return (
         <div className="container-fluid">
 
-            {apiError && <div className="alert alert-danger text-center font-weight-bold" role="alert">
-                {apiError}
-            </div>}
-
+            {/* 0 Results */}
             {isEmptyResults && <div className="alert alert-dark text-center font-weight-bold" role="alert">
                 0 Results
             </div>}
@@ -20,31 +19,36 @@ export default function SearchResults({ results, updateSearchUrl, apiError }) {
 
                     <div key={result.collection_id} className="card mb-3">
                         <div className="card-header">
-                            <a target="_blank" rel="noopener noreferrer" href={"https://devdata.azgs.arizona.edu/api/v1/metadata?collection_id=" + result.collection_id}>{result.metadata.title}</a>
+                            <div className='row justify-content-between'>
+                                <div className='col-11 font-weight-bold text-truncate'>{result.metadata.title}</div>
+                                <div className='col-1 text-right'><a target="_blank" rel="noopener noreferrer" href={collectionBasePath + result.collection_id} className="badge badge-link badge-pill badge-blue">json</a></div>
+                            </div>
                         </div>
                         <div className="card-body">
 
-                            <div>
-                                <strong>Year:</strong> {result.metadata.year}
-                            </div>
+                            <ul className="list-inline mb-0">
+                                {result.metadata.year && <li className="list-inline-item"><strong>Year: </strong>{result.metadata.year}</li>}
+                                {result.metadata.series && <li className="list-inline-item"><strong>Series: </strong>{result.metadata.series}</li>}
+                            </ul>
 
-                            {/* <div>
-                                <strong>Author:</strong>
+                            <ul className="list-inline mb-0">
+                                <li className="list-inline-item"><strong>Author: </strong></li>
                                 {result.metadata.authors.map(author =>
-                                    <div key={author.person}>{author.person}</div>
-                                )
-                                }
-                            </div> */}
-
-                            <div className="card-text"><strong>Abstract:</strong> {result.metadata.abstract}</div>
-
-                            <strong>Links:</strong>
-                            <ul className='ul-triangles'>
-                                {result.links.map(link =>
-                                    <li key={link.rel}><a href={link.href} className="card-link">{link.rel}</a></li>
+                                    <li key={result.collection_id + author.person} className="list-inline-item">{author.person}</li>
                                 )
                                 }
                             </ul>
+
+                            {result.metadata.abstract && <div className="card-text text-truncate"><strong>Abstract:</strong> {result.metadata.abstract}</div>}
+
+                            <ul className="list-inline mb-0">
+                                <li className="list-inline-item"><strong>Links: </strong></li>
+                                {result.links.map(link =>
+                                    <li key={link.rel} className="list-inline-item"><a href={link.href} className="card-link">{link.rel}</a></li>
+                                )
+                                }
+                            </ul>
+
                         </div>
                     </div>
                 )

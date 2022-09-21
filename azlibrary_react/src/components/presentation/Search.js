@@ -53,6 +53,7 @@ export default function Search() {
                     setaApiError();
                 })
                 .catch(function (error) {
+                    setResults([]);
                     setaApiError(error.toString(),);
                 });
         }
@@ -167,7 +168,13 @@ export default function Search() {
                 </div>
 
                 <div className="col-lg-9">
-                    <SearchResults results={results} updateSearchUrl={updateSearchUrl} apiError={apiError} />
+
+                    {/* API Error */}
+                    {apiError && <div className="alert alert-danger text-center font-weight-bold" role="alert">
+                        {apiError}
+                    </div>}
+
+                    <SearchResults results={results} updateSearchUrl={updateSearchUrl} />
                 </div>
 
             </div>
