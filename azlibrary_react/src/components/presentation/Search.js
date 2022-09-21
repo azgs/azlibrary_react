@@ -43,6 +43,7 @@ export default function Search() {
     // Fire API call whenever searchUrl updates
     useEffect(() => {
         const fetchResults = () => {
+
             azgsApi
                 .get(searchUrl)
                 .then(function (res) {
@@ -50,7 +51,6 @@ export default function Search() {
                     setaApiError();
                 })
                 .catch(function (error) {
-                    console.log("ERROR: " + error);
                     setaApiError(error.toString(),);
                 });
         }
@@ -97,14 +97,13 @@ export default function Search() {
 
                             <div className="form-row">
                                 <div className="col p-0">
-                                    {/* evt.key === '-' */}
-                                    <input type="number" className="form-control form-control-sm" id="year" name="year" min='0' onKeyDown={(evt) => (evt.key === 'e' || evt.key === '.') && evt.preventDefault()} value={inputs.year} onChange={handleChange} />
+                                    <input type="text" className="form-control form-control-sm" id="year" name="year" min='0' value={inputs.year} onChange={handleChange} />
                                 </div>
                                 <div className="text-center">
                                     -
                                 </div>
                                 <div className="col p-0">
-                                    <input type="number" className="form-control form-control-sm" id="endEear" name="endYear" disabled />
+                                    <input type="text" className="form-control form-control-sm" id="endEear" name="endYear" disabled />
                                 </div>
                             </div>
 
