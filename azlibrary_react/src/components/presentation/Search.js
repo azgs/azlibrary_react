@@ -83,6 +83,8 @@ export default function Search() {
         <div className="container-fluid">
 
             <div className="row">
+
+                {/* Search */}
                 <div className="col-lg-3">
                     <div className=" bg-cool-gray rounded p-3 shadow">
 
@@ -167,6 +169,7 @@ export default function Search() {
                     </div>
                 </div>
 
+                {/* Results */}
                 <div className="col-lg-9">
 
                     {/* API Error */}

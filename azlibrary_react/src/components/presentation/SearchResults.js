@@ -24,11 +24,13 @@ export default function SearchResults({ results, updateSearchUrl }) {
                                 <div className='col-1 text-right'><a target="_blank" rel="noopener noreferrer" href={collectionBasePath + result.collection_id} className="badge badge-link badge-pill badge-blue">json</a></div>
                             </div>
                         </div>
-                        <div className="card-body">
+                        <div className="card-body p-1">
 
                             <ul className="list-inline mb-0">
                                 {result.metadata.year && <li className="list-inline-item"><strong>Year: </strong>{result.metadata.year}</li>}
                                 {result.metadata.series && <li className="list-inline-item"><strong>Series: </strong>{result.metadata.series}</li>}
+                                {result.metadata.collection_group.name && <li className="list-inline-item"><strong>Collection Group: </strong>{result.metadata.collection_group.name}</li>}
+                                {/* {result.collection_id && <li className="list-inline-item"><strong>ID: </strong>{result.collection_id}</li>} */}
                             </ul>
 
                             <ul className="list-inline mb-0">
