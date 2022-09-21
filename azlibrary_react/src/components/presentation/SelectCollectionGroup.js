@@ -6,11 +6,14 @@ export default function SelectCollectionGroup({ id, className, fieldValue, onCha
     const [groups, setGroups] = useState([]);
 
     useEffect(() => {
-        azgsApi.get('/dicts/collection_groups')
-            .then(res => {
-                const data = res.data.data.sort(sortByAbbreviation());
-                setGroups(data);
-            })
+
+        const getCollectionGroupOptions = async () => {
+            const res = await azgsApi.get('/dicts/collection_groups');
+            const sortedGroups = res.data.data.sort(sortByAbbreviation());
+            setGroups(sortedGroups);
+        };
+
+        getCollectionGroupOptions();
 
     }, []);
 
