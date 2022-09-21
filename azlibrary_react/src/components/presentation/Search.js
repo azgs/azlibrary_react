@@ -44,22 +44,29 @@ export default function Search() {
 
     // Fire API call whenever searchUrl updates
     useEffect(() => {
-        const fetchResults = () => {
+        
+        let lastRequest = true;
 
-            azgsApi
-                .get(searchUrl)
-                .then(function (res) {
+        const fetchResults = async () => {
+            try {
+                const res = await azgsApi.get(searchUrl);
+                if (lastRequest) {
                     setResults(res.data);
                     setaApiError();
-                })
-                .catch(function (error) {
+                }
+            } catch (error) {
+                if (lastRequest) {
                     setResults([]);
                     setaApiError(error.toString(),);
-                });
-        }
+                }
+            }
+        };
 
         fetchResults();
 
+        return () => {
+            lastRequest = false;
+        };
     }, [searchUrl]);
 
     // Handle form input changes
