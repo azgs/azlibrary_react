@@ -26,7 +26,7 @@ export default function Home() {
 
                 const value = inputs[key]
 
-                if (inputs[key]) {
+                if (value) {
                     params.append(key, value);
                 }
             })
