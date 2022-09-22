@@ -1,20 +1,23 @@
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom'
-import { MapContainer, TileLayer } from 'react-leaflet'
+import { MapContainer, TileLayer, Rectangle } from 'react-leaflet'
 import azgsApi from '../components/container/AzgsApi';
 
 export default function Collection() {
 
   const { collectionId } = useParams()
   const [collection, setCollection] = useState();
+  const [bounds, setBounds] = useState();
 
   useEffect(() => {
 
     const getCollection = async () => {
       const res = await azgsApi.get('/metadata/' + collectionId);
-      const data = res.data.data;
-      console.log(data);
-      setCollection(data);
+      const json = res.data.data;
+      setCollection(json);
+
+      const boundBox = [[json.metadata.bounding_box.south, json.metadata.bounding_box.west], [json.metadata.bounding_box.north, json.metadata.bounding_box.east]];
+      setBounds(boundBox);
     };
 
     getCollection();
@@ -32,10 +35,11 @@ export default function Collection() {
       {collection && <div className="text-center">
 
         <div className="d-flex justify-content-center">
-          <MapContainer center={[34.16, -111.62]} zoom={6} scrollWheelZoom={false}>
+          <MapContainer bounds={bounds} zoom={6} >
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
+            <Rectangle bounds={bounds} pathOptions={{ color: 'purple' }} />
           </MapContainer>
         </div>
 
