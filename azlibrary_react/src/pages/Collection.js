@@ -25,7 +25,7 @@ export default function Collection() {
     <div className="container-fluid">
 
       {!collection && <div className="alert alert-danger text-center font-weight-bold" role="alert">
-        Collection not found
+        🐟collection not found🐟
       </div>}
 
       {collection && <div className="text-center">

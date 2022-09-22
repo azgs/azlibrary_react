@@ -93,7 +93,7 @@ export default function Home() {
 
                 {/* Search */}
                 <div className="col-lg-3">
-                    <div className=" bg-cool-gray rounded p-3 shadow">
+                    <div className=" bg-cool-gray rounded mb-4 p-3 shadow">
 
                         <div className="searchHeader text-center">Search Collections</div>
 

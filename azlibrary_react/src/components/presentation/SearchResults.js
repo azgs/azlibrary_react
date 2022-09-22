@@ -1,11 +1,9 @@
 import React from 'react'
 import { Link } from "react-router-dom";
-import azgsApi from '../container/AzgsApi';
 
 export default function SearchResults({ results, updateSearchUrl }) {
 
     const isEmptyResults = results.data?.length === 0;
-    const collectionBasePath = azgsApi.getUri() + '/metadata?collection_id=';
 
     return (
         <div className="container-fluid">
@@ -20,10 +18,7 @@ export default function SearchResults({ results, updateSearchUrl }) {
 
                     <div key={result.collection_id} className="card mb-3">
                         <div className="card-header">
-                            <div className='row justify-content-between'>
-                                <div className='col-11 font-weight-bold'><Link className="text-truncate" to={"/collection/" + result.collection_id}>{result.metadata.title}</Link></div>
-                                <div className='col-1 text-right'><a target="_blank" rel="noopener noreferrer" href={collectionBasePath + result.collection_id} className="badge badge-link badge-pill badge-blue">json</a></div>
-                            </div>
+                            <Link to={"/collection/" + result.collection_id}>{result.metadata.title}</Link>
                         </div>
                         <div className="card-body p-1">
 
