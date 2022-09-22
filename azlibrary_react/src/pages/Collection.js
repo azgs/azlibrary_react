@@ -29,8 +29,9 @@ export default function Collection() {
       </div>}
 
       {collection && <div className="text-center">
-        <h1>{collection.metadata.title}</h1>
-
+        
+        <div><strong>{collection.metadata.title}</strong></div>
+        
         <code>{JSON.stringify(collection.metadata)}</code>
 
       </div>
