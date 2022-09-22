@@ -12,3 +12,7 @@ label {
 .searchHeader {
     font-size: 1.25rem;
 }
+
+.whitespacehack {
+    height: 50vh;
+}

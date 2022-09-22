@@ -21,6 +21,23 @@ export default function Collection() {
   }, [collectionId]);
 
   return (
-    <h1>Collection: {collection?.collection_id} </h1>
+
+    <div className="container-fluid">
+
+      {!collection && <div className="alert alert-danger text-center font-weight-bold" role="alert">
+        Collection not found
+      </div>}
+
+      {collection && <div className="text-center">
+        <h1>{collection.metadata.title}</h1>
+
+        <code>{JSON.stringify(collection.metadata)}</code>
+
+      </div>
+
+      }
+
+    </div>
+
   )
 }

@@ -33,23 +33,23 @@ export default function SearchResults({ results, updateSearchUrl }) {
                                 {result.metadata.collection_group.name && <li className="list-inline-item"><strong>Collection Group: </strong>{result.metadata.collection_group.name}</li>}
                             </ul>
 
-                            <ul className="list-inline mb-0">
+                            {/* <ul className="list-inline mb-0">
                                 <li className="list-inline-item"><strong>Author: </strong></li>
                                 {result.metadata.authors.map(author =>
                                     <li key={result.collection_id + author.person} className="list-inline-item">{author.person}</li>
                                 )
                                 }
-                            </ul>
+                            </ul> */}
 
                             {result.metadata.abstract && <div className="card-text text-truncate"><strong>Abstract:</strong> {result.metadata.abstract}</div>}
 
-                            <ul className="list-inline mb-0">
+                            {/* <ul className="list-inline mb-0">
                                 <li className="list-inline-item"><strong>Links: </strong></li>
                                 {result.links.map(link =>
                                     <li key={link.rel} className="list-inline-item"><a href={link.href} className="card-link">{link.rel}</a></li>
                                 )
                                 }
-                            </ul>
+                            </ul> */}
 
                         </div>
                     </div>
