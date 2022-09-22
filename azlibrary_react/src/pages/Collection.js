@@ -18,7 +18,7 @@ export default function Collection() {
         const json = res.data.data;
         setCollection(json);
 
-        const boundBox = [[json.metadata.bounding_box.south, json.metadata.bounding_box.west], [json.metadata.bounding_box.north, json.metadata.bounding_box.east]];
+        const boundBox = [[json.metadata.bounding_box.north, json.metadata.bounding_box.east], [json.metadata.bounding_box.south, json.metadata.bounding_box.west]];
         setBounds(boundBox);
       } catch (error) {
         setError(error);
@@ -40,11 +40,11 @@ export default function Collection() {
       {collection && <div className="text-center">
 
         <div className="d-flex justify-content-center">
-          <MapContainer bounds={bounds} zoom={6} >
+          <MapContainer bounds={bounds} boundsOptions={{padding: [100, 100]}} >
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <Rectangle bounds={bounds} pathOptions={{ color: 'purple' }} />
+            <Rectangle bounds={bounds} pathOptions={{ color: 'blue' }} />
           </MapContainer>
         </div>
 
