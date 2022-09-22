@@ -1,5 +1,10 @@
+import { useParams } from 'react-router-dom'
+
 const Collection = () => {
-  return <h1>Collection</h1>;
+
+  const { collectionId } = useParams()
+
+  return <h1>Collection: {collectionId}</h1>;
 };
 
 export default Collection

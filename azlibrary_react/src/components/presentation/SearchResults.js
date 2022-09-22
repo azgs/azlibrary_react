@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 import azgsApi from '../container/AzgsApi';
 
 export default function SearchResults({ results, updateSearchUrl }) {
@@ -20,7 +21,7 @@ export default function SearchResults({ results, updateSearchUrl }) {
                     <div key={result.collection_id} className="card mb-3">
                         <div className="card-header">
                             <div className='row justify-content-between'>
-                                <div className='col-11 font-weight-bold text-truncate'>{result.metadata.title}</div>
+                                <div className='col-11 font-weight-bold'><Link className="text-truncate" to={"/collection/" + result.collection_id}>{result.metadata.title}</Link></div>
                                 <div className='col-1 text-right'><a target="_blank" rel="noopener noreferrer" href={collectionBasePath + result.collection_id} className="badge badge-link badge-pill badge-blue">json</a></div>
                             </div>
                         </div>
@@ -30,7 +31,6 @@ export default function SearchResults({ results, updateSearchUrl }) {
                                 {result.metadata.year && <li className="list-inline-item"><strong>Year: </strong>{result.metadata.year}</li>}
                                 {result.metadata.series && <li className="list-inline-item"><strong>Series: </strong>{result.metadata.series}</li>}
                                 {result.metadata.collection_group.name && <li className="list-inline-item"><strong>Collection Group: </strong>{result.metadata.collection_group.name}</li>}
-                                {/* {result.collection_id && <li className="list-inline-item"><strong>ID: </strong>{result.collection_id}</li>} */}
                             </ul>
 
                             <ul className="list-inline mb-0">
