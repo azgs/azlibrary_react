@@ -16,3 +16,8 @@ label {
 .fullpage {
     min-height: 50vh;
 }
+
+.leaflet-container {
+    width: 80vw;
+    height: 300px;
+}

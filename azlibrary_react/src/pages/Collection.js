@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom'
+import { MapContainer, TileLayer } from 'react-leaflet'
 import azgsApi from '../components/container/AzgsApi';
 
 export default function Collection() {
@@ -29,9 +30,17 @@ export default function Collection() {
       </div>}
 
       {collection && <div className="text-center">
-        
+
+        <div className="d-flex justify-content-center">
+          <MapContainer center={[34.16, -111.62]} zoom={6} scrollWheelZoom={false}>
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+          </MapContainer>
+        </div>
+
         <div><strong>{collection.metadata.title}</strong></div>
-        
+
         <code>{JSON.stringify(collection.metadata)}</code>
 
       </div>
