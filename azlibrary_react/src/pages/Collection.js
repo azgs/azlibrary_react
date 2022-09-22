@@ -7,17 +7,22 @@ export default function Collection() {
 
   const { collectionId } = useParams()
   const [collection, setCollection] = useState();
+  const [error, setError] = useState();
   const [bounds, setBounds] = useState();
 
   useEffect(() => {
 
     const getCollection = async () => {
-      const res = await azgsApi.get('/metadata/' + collectionId);
-      const json = res.data.data;
-      setCollection(json);
+      try {
+        const res = await azgsApi.get('/metadata/' + collectionId);
+        const json = res.data.data;
+        setCollection(json);
 
-      const boundBox = [[json.metadata.bounding_box.south, json.metadata.bounding_box.west], [json.metadata.bounding_box.north, json.metadata.bounding_box.east]];
-      setBounds(boundBox);
+        const boundBox = [[json.metadata.bounding_box.south, json.metadata.bounding_box.west], [json.metadata.bounding_box.north, json.metadata.bounding_box.east]];
+        setBounds(boundBox);
+      } catch (error) {
+        setError(error);
+      }
     };
 
     getCollection();
@@ -28,7 +33,7 @@ export default function Collection() {
 
     <div className="container-fluid">
 
-      {!collection && <div className="alert alert-danger text-center font-weight-bold" role="alert">
+      {error && <div className="alert alert-danger text-center font-weight-bold" role="alert">
         🐟collection not found🐟
       </div>}
 
