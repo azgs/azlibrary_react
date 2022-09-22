@@ -13,6 +13,6 @@ label {
     font-size: 1.25rem;
 }
 
-.whitespacehack {
-    height: 50vh;
+.fullpage {
+    min-height: 50vh;
 }

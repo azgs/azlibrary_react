@@ -39,9 +39,9 @@ export default function NavBar() {
                 </div>
             </nav>
 
-            <Outlet />
-
-            <div className='whitespacehack'></div>
+            <div className='fullpage'>
+                <Outlet />
+            </div>
 
             <footer className="footer bg-warm-gray text-center mt-4">
                 <div className="container py-4">
