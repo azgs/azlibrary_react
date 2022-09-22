@@ -24,7 +24,7 @@ export default function NavBar() {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/">Home</Link>
+                            <Link className="nav-link" to="/">Search Collections</Link>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="https://devdata.azgs.arizona.edu/api/v1/metadata?help=html" target="_blank" rel="noopener noreferrer">API</a>
