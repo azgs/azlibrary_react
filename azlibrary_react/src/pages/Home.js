@@ -147,28 +147,32 @@ export default function Home() {
                                     <input type="text" className="form-control form-control-sm" id="series" name="series" value={inputs.series} onChange={handleChange} />
                                 </div>
 
-                                <hr />
-
-                                <div className="form-row">
-                                    <label htmlFor="year">Collection ID</label>
-                                    <input type="text" className="form-control form-control-sm" id="collection_id" name="collection_id" value={inputs.collection_id} onChange={handleChange} />
-                                </div>
-
-                                <div className="form-row form-check my-2">
+                                <div className="form-row form-check mt-2">
                                     <input type="checkbox" className="form-check-input form-control-s" id="latest" name="latest" value={inputs.latest} onChange={handleChange} checked={inputs.latest} />
                                     <label className="form-check-label" htmlFor="latest">Latest collection in the lineage</label>
+                                </div>
+
+                                <hr />
+
+                                <div className="text-center">
+                                    <span className="text-muted"></span>
+                                </div>
+
+                                <div className="form-row">
+                                    <label htmlFor="year">Filter by Collection ID</label>
+                                    <input type="text" className="form-control form-control-sm" id="collection_id" name="collection_id" value={inputs.collection_id} onChange={handleChange} />
                                 </div>
 
                             </div>
 
                             <div>
-                                <button className="btn btn-link" type="button" data-toggle="collapse" data-target="#advancedSearch" aria-expanded="false" aria-controls="advancedSearch" onClick={() => setAdvancedToggle(!advancedToggle)} >
+                                <button className="btn btn-link my-2" type="button" data-toggle="collapse" data-target="#advancedSearch" aria-expanded="false" aria-controls="advancedSearch" onClick={() => setAdvancedToggle(!advancedToggle)} >
                                     {advancedToggle ? "Basic" : "Advanced"} Search
                                 </button>
                             </div>
 
                             <div className="col-12 text-right">
-                                <button type="reset" className="btn btn-red btn-sm mt-2" onClick={() => reset()}>Clear</button>
+                                <button type="reset" title="Clear search options" className="btn btn-red btn-sm mt-2" onClick={() => reset()}>Clear</button>
                             </div>
 
                             <div className="col-12">
