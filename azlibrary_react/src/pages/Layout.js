@@ -17,7 +17,7 @@ export default function NavBar() {
             <nav className="navbar navbar-expand-lg navbar-light mb-4">
                 <a className="navbar-brand" href="https://azgs.arizona.edu/" target="_blank" rel="noopener noreferrer"><img src={logo} alt="AZGS logo" height="100px" /></a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="icon-text"> Links </span>
+                    <span className="icon material-icons-sharp"> menu </span>
                 </button>
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">

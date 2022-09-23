@@ -53,7 +53,7 @@ export default function Collection() {
 
         <div className="col-xl-9 col-lg-8">
 
-          <h3>{collection.metadata.title} {collection.metadata.private && <span className="badge badge-warning">Private</span>}</h3>
+          <h3 className="mt-0">{collection.metadata.title} {collection.metadata.private && <span className="badge badge-warning">Private</span>}</h3>
 
           <hr />
 
@@ -80,6 +80,9 @@ export default function Collection() {
               )}
             </dd>
 
+            <dt className="col-sm-2">Abstract</dt>
+            <dd className="col-sm-10">{collection.metadata.abstract}</dd>
+
             {collection.metadata.license.url && collection.metadata.license.type && <>
               <dt className="col-sm-2">License</dt>
               <dd className="col-sm-10"><a href={collection.metadata.license.url} target="_blank" rel="noopener noreferrer">{collection.metadata.license.type}</a></dd>
@@ -89,20 +92,22 @@ export default function Collection() {
             <dt className="col-sm-2">Language</dt>
             <dd className="col-sm-10">{collection.metadata.language}</dd>
 
-            <dt className="col-sm-2">Abstract</dt>
-            <dd className="col-sm-10">{collection.metadata.abstract}</dd>
-
             <dt className="col-sm-2">Keyword{collection.metadata.keywords.length === 1 ? "" : "s"}</dt>
-            <dd className="col-sm-10">
+            <dd className="col-sm-10 split-sm-3-col">
               {collection.metadata.keywords.map(keyword =>
                 <div key={keyword.name}>{keyword.name} ({keyword.type})</div>
               )}
             </dd>
-
-
           </dl>
 
+          <div>
+            {collection.links.map(link =>
+              <div key={link.rel}><a className="btn btn-blue btn-lg" title={link.rel === "describes" ? "Download Files" : link.rel} href={link.href}>{link.rel === "describes" ? "Download Files" : link.rel}</a></div>
+            )}
+          </div>
+
           {/* <code>{JSON.stringify(collection.metadata)}</code> */}
+
         </div>
 
       </div>
