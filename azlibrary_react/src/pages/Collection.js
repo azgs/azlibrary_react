@@ -40,9 +40,9 @@ export default function Collection() {
         🐟collection not found🐟
       </div>}
 
-      {collection && <div className="text-center">
+      {collection && <div className="row">
 
-        <div className="d-flex justify-content-center">
+        <div className="col-xl-3 col-lg-4">
           <MapContainer bounds={bounds} boundsOptions={{ padding: [100, 100] }} >
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -51,9 +51,11 @@ export default function Collection() {
           </MapContainer>
         </div>
 
-        <div><strong>{collection.metadata.title}</strong></div>
+        <div className="col-xl-9 col-lg-8">
+          <div><strong>{collection.metadata.title}</strong></div>
 
-        <code>{JSON.stringify(collection.metadata)}</code>
+          <code>{JSON.stringify(collection.metadata)}</code>
+        </div>
 
       </div>
 

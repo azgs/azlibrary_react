@@ -95,7 +95,7 @@ export default function Home() {
             <div className="row">
 
                 {/* Search */}
-                <div className="col-lg-3">
+                <div className="col-xl-3 col-lg-4">
                     <div className=" bg-cool-gray rounded mb-4 p-3 shadow">
 
                         <div className="searchHeader text-center">Search Collections</div>
@@ -184,7 +184,7 @@ export default function Home() {
                 </div>
 
                 {/* Results */}
-                <div className="col-lg-9">
+                <div className="col-xl-9 col-lg-8">
 
                     {/* API Error */}
                     {apiError && <div className="alert alert-danger text-center font-weight-bold" role="alert">
