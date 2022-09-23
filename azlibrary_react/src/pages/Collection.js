@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom'
 import { MapContainer, TileLayer, Rectangle } from 'react-leaflet'
 import azgsApi from '../components/container/AzgsApi';
+import Breadcrumb from "../components/presentation/Breadcrumb";
 
 export default function Collection() {
 
@@ -33,6 +34,8 @@ export default function Collection() {
 
     <div className="container-fluid">
 
+      <Breadcrumb isCollection={true} />
+
       {error && <div className="alert alert-danger text-center font-weight-bold" role="alert">
         🐟collection not found🐟
       </div>}
@@ -40,7 +43,7 @@ export default function Collection() {
       {collection && <div className="text-center">
 
         <div className="d-flex justify-content-center">
-          <MapContainer bounds={bounds} boundsOptions={{padding: [100, 100]}} >
+          <MapContainer bounds={bounds} boundsOptions={{ padding: [100, 100] }} >
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />

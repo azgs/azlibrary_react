@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import azgsApi from '../components/container/AzgsApi';
 import SelectCollectionGroup from '../components/presentation/SelectCollectionGroup'
 import SearchResults from '../components/presentation/SearchResults'
+import Breadcrumb from "../components/presentation/Breadcrumb";
 
 export default function Home() {
 
@@ -88,6 +89,8 @@ export default function Home() {
 
     return (
         <div className="container-fluid">
+
+            <Breadcrumb />
 
             <div className="row">
 
