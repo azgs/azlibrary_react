@@ -17,7 +17,7 @@ export default function SearchResults({ results, updateSearchUrl }) {
 
                     <div key={result.collection_id} className="card mb-3">
                         <div className="card-header">
-                            <Link className="stretched-link" to={"/collection/" + result.collection_id}>{result.metadata.title}</Link>
+                            <Link className="stretched-link" title={result.metadata.title} to={"/collection/" + result.collection_id}>{result.metadata.title}</Link>
                         </div>
                         <div className="card-body p-1">
 
