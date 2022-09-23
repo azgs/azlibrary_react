@@ -42,7 +42,7 @@ export default function Collection() {
 
       {collection && <div className="row">
 
-        <div className="col-xl-3 col-lg-4">
+        <div className="col-xl-3 col-lg-4 mb-2">
           <MapContainer bounds={bounds} boundsOptions={{ padding: [100, 100] }} >
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -53,25 +53,56 @@ export default function Collection() {
 
         <div className="col-xl-9 col-lg-8">
 
-          <dl>
-            <dt>Title</dt>
-            <dd>{collection.metadata.title}</dd>
-            <dt>Year</dt>
-            <dd>{collection.metadata.year}</dd>
-            <dt>Series</dt>
-            <dd>{collection.metadata.series}</dd>
-            <dt>Author{collection.metadata.authors.length === 1 ? "" : "s"}</dt>
-            <dd>
+          <h3>{collection.metadata.title} {collection.metadata.private && <span className="badge badge-warning">Private</span>}</h3>
+
+          <hr />
+
+          <dl className="row">
+
+            {collection.metadata.informal_name && <>
+              <dt className="col-sm-2">Informal Name</dt>
+              <dd className="col-sm-10">{collection.metadata.informal_name}</dd>
+            </>}
+
+            <dt className="col-sm-2">Year</dt>
+            <dd className="col-sm-10">{collection.metadata.year}</dd>
+
+            <dt className="col-sm-2">Collection Group</dt>
+            <dd className="col-sm-10">{collection.metadata.collection_group.name}</dd>
+
+            <dt className="col-sm-2">Series</dt>
+            <dd className="col-sm-10">{collection.metadata.series}</dd>
+
+            <dt className="col-sm-2">Author{collection.metadata.authors.length === 1 ? "" : "s"}</dt>
+            <dd className="col-sm-10">
               {collection.metadata.authors.map(author =>
                 <div key={author.person}>{author.person}</div>
               )}
             </dd>
 
+            {collection.metadata.license.url && collection.metadata.license.type && <>
+              <dt className="col-sm-2">License</dt>
+              <dd className="col-sm-10"><a href={collection.metadata.license.url} target="_blank" rel="noopener noreferrer">{collection.metadata.license.type}</a></dd>
+            </>
+            }
+
+            <dt className="col-sm-2">Language</dt>
+            <dd className="col-sm-10">{collection.metadata.language}</dd>
+
+            <dt className="col-sm-2">Abstract</dt>
+            <dd className="col-sm-10">{collection.metadata.abstract}</dd>
+
+            <dt className="col-sm-2">Keyword{collection.metadata.keywords.length === 1 ? "" : "s"}</dt>
+            <dd className="col-sm-10">
+              {collection.metadata.keywords.map(keyword =>
+                <div key={keyword.name}>{keyword.name} ({keyword.type})</div>
+              )}
+            </dd>
 
 
           </dl>
 
-          <code>{JSON.stringify(collection.metadata)}</code>
+          {/* <code>{JSON.stringify(collection.metadata)}</code> */}
         </div>
 
       </div>
