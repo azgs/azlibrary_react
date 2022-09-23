@@ -17,13 +17,13 @@ export default function NavBar() {
             <nav className="navbar navbar-expand-lg navbar-light mb-4">
                 <a className="navbar-brand" href="https://azgs.arizona.edu/" target="_blank" rel="noopener noreferrer"><img src={logo} alt="AZGS logo" height="100px" /></a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="material-icons-sharp"> Links </span>
+                    <span class="icon-text"> Links </span>
                 </button>
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/">Search Collections</Link>
+                            <Link className="nav-link" to="/">Home</Link>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="https://devdata.azgs.arizona.edu/api/v1/metadata?help=html" target="_blank" rel="noopener noreferrer">API</a>
