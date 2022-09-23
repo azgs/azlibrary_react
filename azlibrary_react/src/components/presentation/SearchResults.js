@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from "react-router-dom";
 
 export default function SearchResults({ results, updateSearchUrl }) {
@@ -18,7 +17,7 @@ export default function SearchResults({ results, updateSearchUrl }) {
 
                     <div key={result.collection_id} className="card mb-3">
                         <div className="card-header">
-                            <Link to={"/collection/" + result.collection_id}>{result.metadata.title}</Link>
+                            <Link className="stretched-link" to={"/collection/" + result.collection_id}>{result.metadata.title}</Link>
                         </div>
                         <div className="card-body p-1">
 
