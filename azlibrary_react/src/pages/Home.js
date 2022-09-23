@@ -6,14 +6,14 @@ import Breadcrumb from "../components/presentation/Breadcrumb";
 
 export default function Home() {
 
-    const emptyForm = { year: "", title: "", author: "", text: "", keyword: "", series: "", collection_id: "", latest: "" };
     const metadataUrl = azgsApi.getUri() + '/metadata';
+    const emptyForm = { year: "", title: "", author: "", text: "", keyword: "", series: "", collection_id: "", latest: true };
 
     const [inputs, setInputs] = useState(emptyForm);
-    const [results, setResults] = useState([]);
     const [searchUrl, setSearchUrl] = useState(metadataUrl);
-    const [apiError, setaApiError] = useState();
+    const [results, setResults] = useState([]);
     const [advancedToggle, setAdvancedToggle] = useState(false);
+    const [apiError, setaApiError] = useState();
 
     // Update searchUrl when input changes
     useEffect(() => {
@@ -155,7 +155,7 @@ export default function Home() {
                                 </div>
 
                                 <div className="form-row form-check my-2">
-                                    <input type="checkbox" className="form-check-input form-control-s" id="latest" name="latest" value={inputs.latest} onChange={handleChange} />
+                                    <input type="checkbox" className="form-check-input form-control-s" id="latest" name="latest" value={inputs.latest} onChange={handleChange} checked={inputs.latest} />
                                     <label className="form-check-label" htmlFor="latest">Latest collection in the lineage</label>
                                 </div>
 
