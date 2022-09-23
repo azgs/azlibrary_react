@@ -52,7 +52,24 @@ export default function Collection() {
         </div>
 
         <div className="col-xl-9 col-lg-8">
-          <div><strong>{collection.metadata.title}</strong></div>
+
+          <dl>
+            <dt>Title</dt>
+            <dd>{collection.metadata.title}</dd>
+            <dt>Year</dt>
+            <dd>{collection.metadata.year}</dd>
+            <dt>Series</dt>
+            <dd>{collection.metadata.series}</dd>
+            <dt>Author{collection.metadata.authors.length === 1 ? "" : "s"}</dt>
+            <dd>
+              {collection.metadata.authors.map(author =>
+                <div key={author.person}>{author.person}</div>
+              )}
+            </dd>
+
+
+
+          </dl>
 
           <code>{JSON.stringify(collection.metadata)}</code>
         </div>
