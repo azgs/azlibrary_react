@@ -98,11 +98,21 @@ export default function Collection() {
                 <div key={keyword.name}>{keyword.name} ({keyword.type})</div>
               )}
             </dd>
+
+            <dt className="col-sm-2">File{collection.metadata.files.length === 1 ? "" : "s"}</dt>
+            <dd className="col-sm-10">
+              {collection.metadata.files.map(file =>
+                <div key={file.name}>{file.name} ({file.type})</div>
+              )}
+            </dd>
+
+
+
           </dl>
 
           <div>
             {collection.links.map(link =>
-              <div key={link.rel}><a className="btn btn-blue btn-lg" title={link.rel === "describes" ? "Download Files" : link.rel} href={link.href}>{link.rel === "describes" ? "Download Files" : link.rel}</a></div>
+              <div key={link.rel}><a className="btn btn-blue btn-sm" title={link.rel === "describes" ? "Download" : link.rel} href={link.href}>{link.rel === "describes" ? "Download" : link.rel}</a></div>
             )}
           </div>
 
