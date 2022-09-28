@@ -53,56 +53,60 @@ export default function Collection() {
 
         <div className="col-xl-9 col-lg-8">
 
-          <h3 className="mt-0">{collection.metadata.title} {collection.metadata.private && <span className="badge badge-warning">Private</span>}</h3>
+          <h3 className="text-center mt-0">{collection.metadata.title} {collection.metadata.private && <span className="badge badge-warning">Private</span>}</h3>
 
           <hr />
 
           <dl className="row">
 
             {collection.metadata.informal_name && <>
-              <dt className="col-sm-2">Informal Name</dt>
+              <dt className="col-sm-2 text-md-right">Informal Name</dt>
               <dd className="col-sm-10">{collection.metadata.informal_name}</dd>
             </>}
 
-            <dt className="col-sm-2">Year</dt>
+            <dt className="col-sm-2 text-md-right">Year</dt>
             <dd className="col-sm-10">{collection.metadata.year}</dd>
 
-            <dt className="col-sm-2">Collection Group</dt>
+            <dt className="col-sm-2 text-md-right">Collection Group</dt>
             <dd className="col-sm-10">{collection.metadata.collection_group.name}</dd>
 
-            <dt className="col-sm-2">Series</dt>
+            <dt className="col-sm-2 text-md-right">Series</dt>
             <dd className="col-sm-10">{collection.metadata.series}</dd>
 
-            <dt className="col-sm-2">Author{collection.metadata.authors.length === 1 ? "" : "s"}</dt>
+            <dt className="col-sm-2 text-md-right">Author{collection.metadata.authors.length === 1 ? "" : "s"}</dt>
             <dd className="col-sm-10">
               {collection.metadata.authors.map(author =>
                 <div key={author.person}>{author.person}</div>
               )}
             </dd>
 
-            <dt className="col-sm-2">Abstract</dt>
+            <dt className="col-sm-2 text-md-right">Abstract</dt>
             <dd className="col-sm-10">{collection.metadata.abstract}</dd>
 
             {collection.metadata.license.url && collection.metadata.license.type && <>
-              <dt className="col-sm-2">License</dt>
+              <dt className="col-sm-2 text-md-right">License</dt>
               <dd className="col-sm-10"><a href={collection.metadata.license.url} target="_blank" rel="noopener noreferrer">{collection.metadata.license.type}</a></dd>
             </>
             }
 
-            <dt className="col-sm-2">Language</dt>
+            <dt className="col-sm-2 text-md-right">Language</dt>
             <dd className="col-sm-10">{collection.metadata.language}</dd>
 
-            <dt className="col-sm-2">Keyword{collection.metadata.keywords.length === 1 ? "" : "s"}</dt>
+            <dt className="col-sm-2 text-md-right">Keyword{collection.metadata.keywords.length === 1 ? "" : "s"}</dt>
             <dd className="col-sm-10 split-sm-3-col">
               {collection.metadata.keywords.map(keyword =>
                 <div key={keyword.name}>{keyword.name} ({keyword.type})</div>
               )}
             </dd>
 
-            <dt className="col-sm-2">File{collection.metadata.files.length === 1 ? "" : "s"}</dt>
+            <dt className="col-sm-2 text-md-right">File{collection.metadata.files.length === 1 ? "" : "s"}</dt>
             <dd className="col-sm-10">
               {collection.metadata.files.map(file =>
                 <div key={file.name}>{file.name} ({file.type})</div>
+              )}
+
+              {collection.links.map(link =>
+                <div key={link.rel}><a className="btn btn-blue btn-sm" title={link.rel === "describes" ? "Download" : link.rel} href={link.href}>{link.rel === "describes" ? "Download" : link.rel}</a></div>
               )}
             </dd>
 
@@ -110,11 +114,11 @@ export default function Collection() {
 
           </dl>
 
-          <div>
+          {/* <div>
             {collection.links.map(link =>
               <div key={link.rel}><a className="btn btn-blue btn-sm" title={link.rel === "describes" ? "Download" : link.rel} href={link.href}>{link.rel === "describes" ? "Download" : link.rel}</a></div>
             )}
-          </div>
+          </div> */}
 
           {/* <code>{JSON.stringify(collection.metadata)}</code> */}
 
