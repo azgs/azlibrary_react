@@ -70,8 +70,11 @@ export default function Collection() {
             <dt className="col-sm-2 text-md-right">Collection Group</dt>
             <dd className="col-sm-10">{collection.metadata.collection_group.name}</dd>
 
-            <dt className="col-sm-2 text-md-right">Series</dt>
+
+            {collection.metadata.series && <>
+              <dt className="col-sm-2 text-md-right">Series</dt>
             <dd className="col-sm-10">{collection.metadata.series}</dd>
+            </>}
 
             <dt className="col-sm-2 text-md-right">Author{collection.metadata.authors.length === 1 ? "" : "s"}</dt>
             <dd className="col-sm-10">
