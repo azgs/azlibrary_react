@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import SelectCollectionGroup from '../presentation/SelectCollectionGroup'
-import azgsApi from '../container/AzgsApi';
 
-export default function Search({ searchUrl, updateSearchUrl }) {
+export default function Search({ metadataUrl, searchUrl, setSearchUrl }) {
 
-    const metadataUrl = azgsApi.getUri() + '/metadata';
     const emptyForm = { year: "", title: "", author: "", text: "", keyword: "", series: "", collection_id: "", latest: true };
     const [inputs, setInputs] = useState(emptyForm);
     const [advancedToggle, setAdvancedToggle] = useState(false);
@@ -29,13 +27,13 @@ export default function Search({ searchUrl, updateSearchUrl }) {
             if (Array.from(params).length > 0) {
                 url += '?' + params.toString();
             }
-
-            updateSearchUrl(url);
+            
+            setSearchUrl(url);
         }
 
         buildQueryString();
 
-    }, [inputs, metadataUrl, updateSearchUrl]);
+    }, [inputs, metadataUrl, setSearchUrl]);
 
     // Handle form input changes
     const handleChange = (e) => {

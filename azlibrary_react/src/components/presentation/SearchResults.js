@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import azgsApi from '../container/AzgsApi';
 
-export default function SearchResults({ searchUrl, updateSearchUrl }) {
+export default function SearchResults({ searchUrl, setSearchUrl }) {
 
     const [results, setResults] = useState([]);
     const [apiError, setaApiError] = useState();
@@ -73,7 +73,7 @@ export default function SearchResults({ searchUrl, updateSearchUrl }) {
                         {
                             results?.links?.map(link =>
                                 <li key={link.rel} className="page-item">
-                                    <button className="page-link" onClick={() => updateSearchUrl(link.href)}>{link.rel}</button>
+                                    <button className="page-link" onClick={() => setSearchUrl(link.href)}>{link.rel}</button>
                                 </li>
                             )
                         }
