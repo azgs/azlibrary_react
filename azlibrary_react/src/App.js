@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./pages/Layout";
 import Home from "./pages/Home";
-import Collection from "./pages/Collection";
+import Item from "./pages/Item";
 import NoPage from "./pages/NoPage";
 import './Style.css';
 
@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="/collection/:collectionId" element={<Collection />} />
+          <Route path="/item/:collectionId" element={<Item />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>

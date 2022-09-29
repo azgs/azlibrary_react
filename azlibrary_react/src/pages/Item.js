@@ -4,7 +4,7 @@ import { MapContainer, TileLayer, Rectangle } from 'react-leaflet'
 import azgsApi from '../components/container/AzgsApi';
 import Breadcrumb from "../components/presentation/Breadcrumb";
 
-export default function Collection() {
+export default function Item() {
 
   const { collectionId } = useParams()
   const [collection, setCollection] = useState();
@@ -34,7 +34,7 @@ export default function Collection() {
 
     <div className="container-fluid">
 
-      <Breadcrumb isCollection={true} />
+      <Breadcrumb isItem={true} />
 
       {error && <div className="alert alert-danger text-center font-weight-bold" role="alert">
         🐟collection not found🐟
