@@ -1,14 +1,49 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import azgsApi from '../container/AzgsApi';
 
-export default function SearchResults({ results, updateSearchUrl }) {
+export default function SearchResults({ searchUrl, updateSearchUrl }) {
 
-    const isEmptyResults = results.data?.length === 0;
+    const [results, setResults] = useState([]);
+    const [apiError, setaApiError] = useState();
+
+    // Fire API call whenever searchUrl updates
+    useEffect(() => {
+
+        let lastRequest = true;
+
+        const fetchResults = async () => {
+            try {
+                const res = await azgsApi.get(searchUrl);
+                if (lastRequest) {
+                    setResults(res.data);
+                    setaApiError();
+                }
+            } catch (error) {
+                if (lastRequest) {
+                    setResults([]);
+                    setaApiError(error.toString(),);
+                }
+            }
+        };
+
+        fetchResults();
+
+        return () => {
+            lastRequest = false;
+        };
+    }, [searchUrl]);
 
     return (
         <div className="container-fluid">
 
+            {/* API Error */}
+            {apiError && <div className="alert alert-danger text-center font-weight-bold" role="alert">
+                {apiError}
+            </div>}
+
             {/* 0 Results */}
-            {isEmptyResults && <div className="alert alert-dark text-center font-weight-bold" role="alert">
+            {results.data?.length === 0 && <div className="alert alert-dark text-center font-weight-bold" role="alert">
                 0 Results
             </div>}
 
@@ -32,7 +67,7 @@ export default function SearchResults({ results, updateSearchUrl }) {
                 )
             }
 
-            {!isEmptyResults && <div>
+            {results.data?.length !== 0 && <div>
                 <nav aria-label="Page navigation example">
                     <ul className="pagination justify-content-end">
                         {
@@ -46,7 +81,6 @@ export default function SearchResults({ results, updateSearchUrl }) {
                 </nav>
             </div>
             }
-
 
         </div>
     )

@@ -11,9 +11,7 @@ export default function Home() {
 
     const [inputs, setInputs] = useState(emptyForm);
     const [searchUrl, setSearchUrl] = useState(metadataUrl);
-    const [results, setResults] = useState([]);
     const [advancedToggle, setAdvancedToggle] = useState(false);
-    const [apiError, setaApiError] = useState();
 
     // Update searchUrl when input changes
     useEffect(() => {
@@ -42,33 +40,6 @@ export default function Home() {
         buildQueryString();
 
     }, [inputs, metadataUrl]);
-
-    // Fire API call whenever searchUrl updates
-    useEffect(() => {
-        
-        let lastRequest = true;
-
-        const fetchResults = async () => {
-            try {
-                const res = await azgsApi.get(searchUrl);
-                if (lastRequest) {
-                    setResults(res.data);
-                    setaApiError();
-                }
-            } catch (error) {
-                if (lastRequest) {
-                    setResults([]);
-                    setaApiError(error.toString(),);
-                }
-            }
-        };
-
-        fetchResults();
-
-        return () => {
-            lastRequest = false;
-        };
-    }, [searchUrl]);
 
     // Handle form input changes
     const handleChange = (e) => {
@@ -185,13 +156,7 @@ export default function Home() {
 
                 {/* Results */}
                 <div className="col-xl-9 col-lg-8">
-
-                    {/* API Error */}
-                    {apiError && <div className="alert alert-danger text-center font-weight-bold" role="alert">
-                        {apiError}
-                    </div>}
-
-                    <SearchResults results={results} updateSearchUrl={updateSearchUrl} />
+                    <SearchResults searchUrl={searchUrl} updateSearchUrl={updateSearchUrl} />
                 </div>
 
             </div>
