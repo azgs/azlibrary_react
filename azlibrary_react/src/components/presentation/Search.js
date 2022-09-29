@@ -51,7 +51,7 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl }) {
         <div>
             <div className=" bg-cool-gray rounded mb-4 p-3 shadow">
 
-                <div className="searchHeader text-center">Search Collections!!</div>
+                <div className="searchHeader text-center">Search Collections</div>
 
                 <form autoComplete="off">
 
