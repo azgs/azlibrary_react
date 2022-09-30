@@ -55,7 +55,7 @@ export default function SearchResults({ searchUrl, setSearchUrl }) {
                         <div className="card-header">
                             <Link className="stretched-link" title={result.metadata.title} to={"/item/" + result.collection_id}>{result.metadata.title}</Link>
                         </div>
-                        <div className="card-body p-1">
+                        <div className="card-body p-1 d-none d-sm-block">
 
                             <ul className="list-inline mb-0">
                                 {result.metadata.year && <li className="list-inline-item"><strong>Year: </strong>{result.metadata.year}</li>}
