@@ -109,7 +109,7 @@ export default function Item() {
               )}
 
               {collection.links.map(link =>
-                <div key={link.rel}><a className="btn btn-blue btn-sm" title={link.rel === "describes" ? "Download" : link.rel} href={link.href}>{link.rel === "describes" ? "Download" : link.rel}</a></div>
+                <div key={link.rel}><a className="btn btn-blue btn-sm" title={link.rel === "describes" ? "Download" : link.rel} href={link.href.replace("http://","https://")}>{link.rel === "describes" ? "Download" : link.rel}</a></div>
               )}
             </dd>
 

@@ -1,5 +1,6 @@
 {
   "name": "azlibrary_react",
+  "homepage": "https://library.azgs.arizona.edu",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

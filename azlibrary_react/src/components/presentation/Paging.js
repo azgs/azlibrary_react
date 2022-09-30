@@ -1,5 +1,11 @@
 export default function Paging({ links, setSearchUrl }) {
 
+    // Changed http links to https
+    links = links?.map(link => {
+        link.href = link.href.replace("http://","https://");
+        return link;
+    });
+
     // const self = links?.find((link) => link.rel === 'self');
     // const first = links?.find((link) => link.rel === 'first');
     const previous = links?.find((link) => link.rel === 'previous');
