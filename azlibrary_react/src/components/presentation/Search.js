@@ -3,7 +3,7 @@ import SelectCollectionGroup from '../presentation/SelectCollectionGroup'
 
 export default function Search({ metadataUrl, searchUrl, setSearchUrl }) {
 
-    const emptyForm = { year: "", title: "", author: "", text: "", keyword: "", series: "", collection_id: "", latest: true };
+    const emptyForm = { year: "", title: "", author: "", text: "", keyword: "", series: "", collection_id: "", limit: "", latest: true };
     const [inputs, setInputs] = useState(emptyForm);
     const [advancedToggle, setAdvancedToggle] = useState(false);
 
@@ -27,7 +27,7 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl }) {
             if (Array.from(params).length > 0) {
                 url += '?' + params.toString();
             }
-            
+
             setSearchUrl(url);
         }
 
@@ -100,16 +100,21 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl }) {
                             <input type="text" className="form-control form-control-sm" id="series" name="series" value={inputs.series} onChange={handleChange} />
                         </div>
 
+                        <div className="form-row">
+                            <label htmlFor="limit">Results Per Page</label>
+                            <select type="text" className="form-control form-control-sm" id="limit" name="limit" value={inputs.limit} onChange={handleChange} >
+                                <option value="">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                            </select>
+                        </div>
+
                         <div className="form-row form-check mt-2">
                             <input type="checkbox" className="form-check-input form-control-s" id="latest" name="latest" value={inputs.latest} onChange={handleChange} checked={inputs.latest} />
                             <label className="form-check-label" htmlFor="latest">Latest collection in the lineage</label>
                         </div>
 
                         <hr />
-
-                        <div className="text-center">
-                            <span className="text-muted"></span>
-                        </div>
 
                         <div className="form-row">
                             <label htmlFor="year">Filter by Collection ID</label>
