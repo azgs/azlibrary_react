@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { MapContainer, TileLayer, Rectangle } from 'react-leaflet'
 import azgsApi from '../components/container/AzgsApi';
 import Breadcrumb from "../components/presentation/Breadcrumb";
@@ -75,6 +75,16 @@ export default function Item() {
             {collection.metadata.series && <>
               <dt className="col-sm-2">Series</dt>
               <dd className="col-sm-10">{collection.metadata.series}</dd>
+            </>}
+
+            {collection.metadata.identifiers.supersedes && <>
+              <dt className="col-sm-2">Supersedes</dt>
+              <dd className="col-sm-10"><Link className="" title={collection.metadata.identifiers.supersedes} to={"/item/" + collection.metadata.identifiers.supersedes}>{collection.metadata.identifiers.supersedes}</Link></dd>
+            </>}
+
+            {collection.metadata.identifiers.superseded_by && <>
+              <dt className="col-sm-2">Superseded By</dt>
+              <dd className="col-sm-10"><Link className="" title={collection.metadata.identifiers.superseded_by} to={"/item/" + collection.metadata.identifiers.superseded_by}>{collection.metadata.identifiers.superseded_by}</Link></dd>
             </>}
 
             <dt className="col-sm-2">Author{collection.metadata.authors.length === 1 ? "" : "s"}</dt>
