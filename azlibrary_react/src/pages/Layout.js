@@ -8,14 +8,14 @@ export default function NavBar() {
                 <div className="container-fluid">
                     <div className="row">
                         <a className="arizona-logo" href="http://www.arizona.edu" title="The University of Arizona">
-                            <img className="img-fluid" alt="The University of Arizona Wordmark Line Logo White" src="https://cdn.digital.arizona.edu/logos/v1.0.0/ua_wordmark_line_logo_white_rgb.min.svg" />
+                            <img className="arizona-line-logo" alt="The University of Arizona Wordmark Line Logo White" src="https://cdn.digital.arizona.edu/logos/v1.0.0/ua_wordmark_line_logo_white_rgb.min.svg" />
                         </a>
                     </div>
                 </div>
             </header>
 
             <nav className="navbar navbar-expand-lg navbar-light mb-4">
-                <a className="navbar-brand" href="https://azgs.arizona.edu/" target="_blank" rel="noopener noreferrer"><img src={logo} alt="AZGS logo" height="100px" /></a>
+                <a className="navbar-brand" href="https://azgs.arizona.edu/"><img src={logo} alt="AZGS logo" className="img-fluid" /></a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="icon material-icons-sharp"> menu </span>
                 </button>
