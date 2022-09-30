@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { MapContainer, TileLayer, Rectangle } from 'react-leaflet'
 import azgsApi from '../components/container/AzgsApi';
 import Breadcrumb from "../components/presentation/Breadcrumb";
+import Downloads from "../components/presentation/Downloads"
 
 export default function Item() {
 
@@ -118,13 +119,10 @@ export default function Item() {
               {collection.metadata.files.map(file =>
                 <div key={file.name}>{file.name} ({file.type})</div>
               )}
-
-              {collection.links.map(link =>
-                <div key={link.rel}><a className="btn btn-blue btn-sm" title={link.rel === "describes" ? "Download" : link.rel} href={link.href}>{link.rel === "describes" ? "Download" : link.rel}</a></div>
-              )}
             </dd>
-
           </dl>
+
+          <Downloads collectionId={collectionId} />
 
           {/* <code>{JSON.stringify(collection.metadata)}</code> */}
 
