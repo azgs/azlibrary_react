@@ -51,7 +51,7 @@ export default function Item() {
           <div className="">
             <MapContainer bounds={bounds} boundsOptions={{ padding: [100, 100] }} >
               <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='<a href="https://usgs.gov/">U.S. Geological Survey</a>' url="https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}"
               />
               <Rectangle bounds={bounds} pathOptions={{ color: 'blue' }} />
             </MapContainer>
