@@ -14,6 +14,9 @@ export default function Paging({ links, setSearchUrl }) {
     const next = links?.find((link) => link.rel === 'next');
     const last = links?.find((link) => link.rel === 'last');
 
+    const isFirst = self?.href === first?.href;
+    const isLast = self?.href === last?.href;
+
     // const params = new URLSearchParams(last?.href)
     // const offset = params.get("offset");
 
@@ -21,9 +24,11 @@ export default function Paging({ links, setSearchUrl }) {
         <nav aria-label="Page navigation example">
             <ul className="pagination justify-content-end">
 
-                <li className={`page-item ${self?.href !== first?.href ? "" : "disabled"}`}>
-                    <button className="page-link" onClick={() => setSearchUrl(first?.href)}>First</button>
-                </li>
+                {!isFirst &&
+                    <li className="page-item">
+                        <button className="page-link" onClick={() => setSearchUrl(first?.href)}>First</button>
+                    </li>
+                }
 
                 <li className={`page-item ${previous ? "" : "disabled"}`}>
                     <button className="page-link" onClick={() => setSearchUrl(previous?.href)}>Previous</button>
@@ -37,9 +42,11 @@ export default function Paging({ links, setSearchUrl }) {
                     <button className="page-link" onClick={() => setSearchUrl(next?.href)}>Next</button>
                 </li>
 
-                <li className={`page-item ${self?.href !== last?.href ? "" : "disabled"}`}>
-                    <button className="page-link" onClick={() => setSearchUrl(last?.href)}>Last</button>
-                </li>
+                {!isLast &&
+                    <li className="page-item">
+                        <button className="page-link" onClick={() => setSearchUrl(last?.href)}>Last</button>
+                    </li>
+                }
 
             </ul>
         </nav>
