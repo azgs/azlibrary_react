@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Paging from '../presentation/Paging'
 import azgsApi from '../container/AzgsApi';
 
 export default function SearchResults({ searchUrl, setSearchUrl }) {
@@ -67,20 +68,7 @@ export default function SearchResults({ searchUrl, setSearchUrl }) {
                 )
             }
 
-            {results.data?.length !== 0 && <div>
-                <nav aria-label="Page navigation example">
-                    <ul className="pagination justify-content-end">
-                        {
-                            results?.links?.map(link =>
-                                <li key={link.rel} className="page-item">
-                                    <button className="page-link" onClick={() => setSearchUrl(link.href)}>{link.rel}</button>
-                                </li>
-                            )
-                        }
-                    </ul>
-                </nav>
-            </div>
-            }
+            {results.data?.length !== 0 && <Paging links={results?.links} setSearchUrl={setSearchUrl} /> }
 
         </div>
     )
