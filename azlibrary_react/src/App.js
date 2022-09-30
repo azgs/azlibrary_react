@@ -3,6 +3,8 @@ import Layout from "./pages/Layout";
 import Home from "./pages/Home";
 import Item from "./pages/Item";
 import NoPage from "./pages/NoPage";
+import 'arizona-bootstrap/dist/css/arizona-bootstrap.min.css';
+import 'arizona-bootstrap';
 import './Style.css';
 
 function App() {
