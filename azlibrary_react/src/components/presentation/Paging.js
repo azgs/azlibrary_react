@@ -30,17 +30,19 @@ export default function Paging({ links, setSearchUrl }) {
                     </li>
                 }
 
-                <li className={`page-item ${previous ? "" : "disabled"}`}>
+                {previous && <li className="page-item">
                     <button className="page-link" onClick={() => setSearchUrl(previous?.href)}>Previous</button>
                 </li>
+                }
 
                 {/* <li className="page-item"><button className="page-link">1</button></li>
                 <li className="page-item"><button className="page-link">2</button></li>
                 <li className="page-item"><button className="page-link">3</button></li> */}
 
-                <li className={`page-item ${next ? "" : "disabled"}`}>
+                {next && <li className="page-item">
                     <button className="page-link" onClick={() => setSearchUrl(next?.href)}>Next</button>
                 </li>
+                }
 
                 {!isLast &&
                     <li className="page-item">
