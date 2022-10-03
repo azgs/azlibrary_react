@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Paging from '../presentation/Paging'
-import azgsApi from '../container/AzgsApi';
+import azgsApi from './AzgsApi';
 
 export default function SearchResults({ searchUrl, setSearchUrl }) {
 

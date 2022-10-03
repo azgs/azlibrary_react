@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Search from '../components/presentation/Search'
-import SearchResults from '../components/presentation/SearchResults'
+import Search from '../components/container/Search'
+import SearchResults from '../components/container/SearchResults'
 import Breadcrumb from "../components/presentation/Breadcrumb";
 import azgsApi from "../components/container/AzgsApi";
 

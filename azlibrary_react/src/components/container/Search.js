@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import SelectCollectionGroup from '../presentation/SelectCollectionGroup'
+import SelectCollectionGroup from './SelectCollectionGroup'
 
 export default function Search({ metadataUrl, searchUrl, setSearchUrl }) {
 
