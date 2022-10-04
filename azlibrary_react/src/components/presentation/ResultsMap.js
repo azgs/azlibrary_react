@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Rectangle } from 'react-leaflet'
+import { MapContainer, TileLayer, Tooltip, Rectangle } from 'react-leaflet'
 
 export default function ResultsMap({ results }) {
 
@@ -13,7 +13,9 @@ export default function ResultsMap({ results }) {
 
                 {
                     results.map(result =>
-                        <Rectangle key={result.id} bounds={[[result.bbox.north, result.bbox.east], [result.bbox.south, result.bbox.west]]} pathOptions={{ color: "#1E5288" }} />
+                        <Rectangle key={result.id} eventHandlers={{ click: () => window.location.href = "item/" + result.id }} bounds={[[result.bbox.north, result.bbox.east], [result.bbox.south, result.bbox.west]]} pathOptions={{ color: "#1E5288" }}> 
+                              <Tooltip>{result.title}</Tooltip>
+                        </Rectangle>
                     )
                 }
 

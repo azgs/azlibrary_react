@@ -40,7 +40,7 @@ export default function SearchResults({ searchUrl, setSearchUrl }) {
     // Grab bounding boxes from results
     useEffect(() => {
 
-        const boundingBoxes = results?.data?.map(item => ({ id:item.collection_id, bbox:item.metadata.bounding_box }) );
+        const boundingBoxes = results?.data?.map(item => ({ id:item.collection_id, title:item.metadata.title, bbox:item.metadata.bounding_box }) );
 
         setBoundingBoxes(boundingBoxes);
 
