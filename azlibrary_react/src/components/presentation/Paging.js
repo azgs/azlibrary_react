@@ -6,8 +6,6 @@ export default function Paging({ links, setSearchUrl }) {
         return link;
     });
 
-    console.log(links)
-
     const self = links?.find((link) => link.rel === 'self');
     const first = links?.find((link) => link.rel === 'first');
     const previous = links?.find((link) => link.rel === 'previous');

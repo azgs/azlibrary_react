@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Paging from '../presentation/Paging'
+import ResultsMap from '../presentation/ResultsMap'
 import azgsApi from './AzgsApi';
 
 export default function SearchResults({ searchUrl, setSearchUrl }) {
 
     const [results, setResults] = useState([]);
-    const [apiError, setaApiError] = useState();
+    const [apiError, setApiError] = useState();
+    const [boundingBoxes, setBoundingBoxes] = useState();
 
     // Fire API call whenever searchUrl updates
     useEffect(() => {
@@ -18,12 +20,12 @@ export default function SearchResults({ searchUrl, setSearchUrl }) {
                 const res = await azgsApi.get(searchUrl);
                 if (lastRequest) {
                     setResults(res.data);
-                    setaApiError();
+                    setApiError();
                 }
             } catch (error) {
                 if (lastRequest) {
                     setResults([]);
-                    setaApiError(error.toString(),);
+                    setApiError(error.toString(),);
                 }
             }
         };
@@ -34,6 +36,15 @@ export default function SearchResults({ searchUrl, setSearchUrl }) {
             lastRequest = false;
         };
     }, [searchUrl]);
+
+    // Grab bounding boxes from results
+    useEffect(() => {
+
+        const boundingBoxes = results?.data?.map(item => item.metadata.bounding_box );
+
+        setBoundingBoxes(boundingBoxes);
+
+    }, [results]);
 
     return (
         <div className="container-fluid">
@@ -47,6 +58,8 @@ export default function SearchResults({ searchUrl, setSearchUrl }) {
             {results.data?.length === 0 && <div className="alert alert-dark text-center font-weight-bold" role="alert">
                 0 Results
             </div>}
+
+            {results.data?.length !== 0 && <ResultsMap boundingBoxes={boundingBoxes} />}
 
             {
                 results?.data?.map(result =>
@@ -68,7 +81,7 @@ export default function SearchResults({ searchUrl, setSearchUrl }) {
                 )
             }
 
-            {results.data?.length !== 0 && <Paging links={results?.links} setSearchUrl={setSearchUrl} /> }
+            {results.data?.length !== 0 && <Paging links={results?.links} setSearchUrl={setSearchUrl} />}
 
         </div>
     )
