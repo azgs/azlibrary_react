@@ -1,6 +1,6 @@
 import { MapContainer, TileLayer, Tooltip, Rectangle } from 'react-leaflet'
 
-export default function ResultsMap({ results }) {
+export default function ResultsMap({ results, highlightBox }) {
 
     return (
         <div className='mb-2'>
@@ -11,10 +11,17 @@ export default function ResultsMap({ results }) {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
 
+
+                {
+                    highlightBox && <Rectangle key={highlightBox.id} eventHandlers={{ click: () => window.location.href = "item/" + highlightBox.id }} bounds={[[highlightBox.bbox.north, highlightBox.bbox.east], [highlightBox.bbox.south, highlightBox.bbox.west]]} pathOptions={{ color: "#ff0000" }}>
+                        <Tooltip>{highlightBox.title}</Tooltip>
+                    </Rectangle>
+                }
+
                 {
                     results.map(result =>
-                        <Rectangle key={result.id} eventHandlers={{ click: () => window.location.href = "item/" + result.id }} bounds={[[result.bbox.north, result.bbox.east], [result.bbox.south, result.bbox.west]]} pathOptions={{ color: "#1E5288" }}> 
-                              <Tooltip>{result.title}</Tooltip>
+                        <Rectangle key={result.id} eventHandlers={{ click: () => window.location.href = "item/" + result.id }} bounds={[[result.bbox.north, result.bbox.east], [result.bbox.south, result.bbox.west]]} pathOptions={{ color: "#1E5288" }}>
+                            <Tooltip>{result.title}</Tooltip>
                         </Rectangle>
                     )
                 }

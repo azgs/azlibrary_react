@@ -9,6 +9,7 @@ export default function SearchResults({ searchUrl, setSearchUrl }) {
     const [results, setResults] = useState([]);
     const [apiError, setApiError] = useState();
     const [boundingBoxes, setBoundingBoxes] = useState();
+    const [highlightBox, setHighlightBox] = useState();
 
     // Fire API call whenever searchUrl updates
     useEffect(() => {
@@ -40,11 +41,15 @@ export default function SearchResults({ searchUrl, setSearchUrl }) {
     // Grab bounding boxes from results
     useEffect(() => {
 
-        const boundingBoxes = results?.data?.map(item => ({ id:item.collection_id, title:item.metadata.title, bbox:item.metadata.bounding_box }) );
+        const boundingBoxes = results?.data?.map(item => ({ id: item.collection_id, title: item.metadata.title, bbox: item.metadata.bounding_box }));
 
         setBoundingBoxes(boundingBoxes);
 
     }, [results]);
+
+    function changeBackground(bbox) {
+        setHighlightBox(bbox)
+    }
 
     return (
         <div className="container-fluid">
@@ -59,12 +64,12 @@ export default function SearchResults({ searchUrl, setSearchUrl }) {
                 0 Results
             </div>}
 
-            {results.data?.length !== 0 && <ResultsMap results={boundingBoxes} />}
+            {results.data?.length !== 0 && <ResultsMap results={boundingBoxes} highlightBox={highlightBox} />}
 
             {
                 results?.data?.map(result =>
 
-                    <div key={result.collection_id} className="card mb-3">
+                    <div key={result.collection_id} className="card mb-3" onMouseOver={() => changeBackground({ id: result.collection_id, title: result.metadata.title, bbox: result.metadata.bounding_box })}>
                         <div className="card-header">
                             <Link className="stretched-link" title={result.metadata.title} to={"/item/" + result.collection_id}>{result.metadata.title}</Link>
                         </div>
