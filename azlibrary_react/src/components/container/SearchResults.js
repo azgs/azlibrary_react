@@ -45,6 +45,9 @@ export default function SearchResults({ searchUrl, setSearchUrl }) {
 
         setBoundingBoxes(boundingBoxes);
 
+        // Clear highlight
+        setHighlightBox();
+
     }, [results]);
 
     function changeBackground(bbox) {
@@ -65,6 +68,8 @@ export default function SearchResults({ searchUrl, setSearchUrl }) {
             </div>}
 
             {results.data?.length !== 0 && <ResultsMap results={boundingBoxes} highlightBox={highlightBox} />}
+
+            {results.data?.length !== 0 && <Paging links={results?.links} setSearchUrl={setSearchUrl} />}
 
             {
                 results?.data?.map(result =>
