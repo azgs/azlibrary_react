@@ -1,6 +1,19 @@
-import { MapContainer, TileLayer, Tooltip, Rectangle } from 'react-leaflet'
+import { useMapEvent, MapContainer, TileLayer, Tooltip, Rectangle } from 'react-leaflet'
 
 export default function ResultsMap({ results, highlightBox }) {
+
+    function MyComponent() {
+        const map = useMapEvent('moveend', () => {
+            const bounds = map.getBounds();
+            const southWest = bounds.getSouthWest();
+            const northEast = bounds.getNorthEast();
+            const northWest = bounds.getNorthWest();
+            const southEast = bounds.getSouthEast();
+
+            console.log(`POLYGON(${northWest.lng} ${northWest.lat}, ${southWest.lng} ${southWest.lat}, ${southEast.lng} ${southEast.lat}, ${northEast.lng} ${northEast.lat})`);
+        })
+        return null
+    }
 
     return (
         <div className="">
@@ -25,6 +38,8 @@ export default function ResultsMap({ results, highlightBox }) {
                             </Rectangle>
                         )
                     }
+
+                    <MyComponent />
 
                 </MapContainer>}
             </div>
