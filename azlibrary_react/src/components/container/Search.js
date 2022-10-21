@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import SelectCollectionGroup from './SelectCollectionGroup'
 
-export default function Search({ metadataUrl, searchUrl, setSearchUrl }) {
+export default function Search({ metadataUrl, searchUrl, setSearchUrl, mapGeometry }) {
 
     const emptyForm = { year: "", title: "", author: "", text: "", keyword: "", series: "", collection_id: "", limit: "", latest: true };
     const [inputs, setInputs] = useState(emptyForm);
@@ -40,6 +40,15 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl }) {
         const name = e.target.name;
         const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
         setInputs(values => ({ ...values, [name]: value }))
+    }
+
+    const handleGeometry = (e) => {
+        const name = e.target.name;
+        const value = e.target.checked ? mapGeometry : "";
+
+        const geom_method = e.target.checked ? "contains" : "";
+
+        setInputs(values => ({ ...values, [name]: value, "geom_method": geom_method }))
     }
 
     // Reset form to empty
@@ -81,6 +90,11 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl }) {
                     <div className="form-row">
                         <label htmlFor="author">Author</label>
                         <input type="text" className="form-control form-control-sm" id="author" name="author" value={inputs.author} onChange={handleChange} />
+                    </div>
+
+                    <div className="form-row form-check mt-2">
+                        <input type="checkbox" className="form-check-input form-control-s" id="geom" name="geom" value={inputs.latest} onChange={handleGeometry} checked={inputs.geom} />
+                        <label className="form-check-label" htmlFor="geom">Filter results to map extent</label>
                     </div>
 
                     <div className="collapse" id="advancedSearch">
