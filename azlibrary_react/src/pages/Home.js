@@ -12,7 +12,7 @@ export default function Home() {
     const [searchUrl, setSearchUrl] = useState(metadataUrl);
 
     // Current bounds of the results map used for filtering results
-    const [mapGeometry, setMapGeometry] = useState("test");
+    const [mapGeometry, setMapGeometry] = useState("POLYGON((-114.71166981775775 36.989263255310355,-109.06469716150775 36.989263255310355,-109.06469716150775 31.26432899146182,-114.71166981775775 31.26432899146182,-114.71166981775775 36.989263255310355))");
 
     return (
         <div className="container-fluid">
