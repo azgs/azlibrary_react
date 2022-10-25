@@ -26,7 +26,7 @@ export default function SearchResults({ searchUrl, setSearchUrl, setMapGeometry 
             } catch (error) {
                 if (lastRequest) {
                     setResults([]);
-                    setApiError(error.toString(),);
+                    setApiError(error.toString());
                 }
             }
         };
@@ -50,7 +50,7 @@ export default function SearchResults({ searchUrl, setSearchUrl, setMapGeometry 
 
     }, [results]);
 
-    function changeBackground(bbox) {
+    function highlightBoundingBox(bbox) {
         setHighlightBox(bbox)
     }
 
@@ -79,7 +79,7 @@ export default function SearchResults({ searchUrl, setSearchUrl, setMapGeometry 
                 {
                     results?.data?.map(result =>
 
-                        <div key={result.collection_id} className="card mb-1" onMouseOver={() => changeBackground({ id: result.collection_id, title: result.metadata.title, bbox: result.metadata.bounding_box })}>
+                        <div key={result.collection_id} className="card mb-1" onMouseOver={() => highlightBoundingBox({ id: result.collection_id, title: result.metadata.title, bbox: result.metadata.bounding_box })}>
                             <div className="card-header">
                                 <Link className="stretched-link" title={result.metadata.title} to={"/item/" + result.collection_id}>{result.metadata.title}</Link>
                             </div>
