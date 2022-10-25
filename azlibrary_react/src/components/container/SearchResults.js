@@ -55,7 +55,7 @@ export default function SearchResults({ searchUrl, setSearchUrl, setMapGeometry 
     }
 
     return (
-        <div className="container-fluid">
+        <div className="row">
 
             {/* API Error */}
             {apiError && <div className="alert alert-danger text-center font-weight-bold" role="alert">
@@ -67,18 +67,23 @@ export default function SearchResults({ searchUrl, setSearchUrl, setMapGeometry 
                 0 Results
             </div>}
 
-            {results.data?.length !== 0 && <ResultsMap results={boundingBoxes} highlightBox={highlightBox} setMapGeometry={setMapGeometry} />}
+            <div className="col-12">
+                {results.data?.length !== 0 && <Paging links={results?.links} setSearchUrl={setSearchUrl} />}
+            </div>
 
-            {results.data?.length !== 0 && <Paging links={results?.links} setSearchUrl={setSearchUrl} />}
+            <div className="col-sm-6">
+                {results.data?.length !== 0 && <ResultsMap results={boundingBoxes} highlightBox={highlightBox} setMapGeometry={setMapGeometry} />}
+            </div>
 
-            {
-                results?.data?.map(result =>
+            <div className="col-sm-6">
+                {
+                    results?.data?.map(result =>
 
-                    <div key={result.collection_id} className="card mb-1" onMouseOver={() => changeBackground({ id: result.collection_id, title: result.metadata.title, bbox: result.metadata.bounding_box })}>
-                        <div className="card-header">
-                            <Link className="stretched-link" title={result.metadata.title} to={"/item/" + result.collection_id}>{result.metadata.title}</Link>
-                        </div>
-                        {/* <div className="card-body p-1 d-none d-sm-block">
+                        <div key={result.collection_id} className="card mb-1" onMouseOver={() => changeBackground({ id: result.collection_id, title: result.metadata.title, bbox: result.metadata.bounding_box })}>
+                            <div className="card-header">
+                                <Link className="stretched-link" title={result.metadata.title} to={"/item/" + result.collection_id}>{result.metadata.title}</Link>
+                            </div>
+                            {/* <div className="card-body p-1 d-none d-sm-block">
 
                             <ul className="list-inline mb-0">
                                 {result.metadata.year && <li className="list-inline-item"><strong>Year: </strong>{result.metadata.year}</li>}
@@ -87,12 +92,14 @@ export default function SearchResults({ searchUrl, setSearchUrl, setMapGeometry 
                             </ul>
 
                         </div> */}
-                    </div>
-                )
-            }
+                        </div>
+                    )
+                }
+            </div>
 
-            {results.data?.length !== 0 && <Paging links={results?.links} setSearchUrl={setSearchUrl} />}
-
+            <div className="col-12">
+                {results.data?.length !== 0 && <Paging links={results?.links} setSearchUrl={setSearchUrl} />}
+            </div>
         </div>
     )
 }
