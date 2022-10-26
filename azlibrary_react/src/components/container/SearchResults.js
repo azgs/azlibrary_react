@@ -4,7 +4,7 @@ import Paging from '../presentation/Paging'
 import ResultsMap from '../presentation/ResultsMap'
 import azgsApi from './AzgsApi';
 
-export default function SearchResults({ searchUrl, setSearchUrl, setMapGeometry }) {
+export default function SearchResults({ searchUrl, setSearchUrl }) {
 
     const [results, setResults] = useState([]);
     const [apiError, setApiError] = useState();
@@ -72,7 +72,7 @@ export default function SearchResults({ searchUrl, setSearchUrl, setMapGeometry 
             </div>
 
             <div className="col-sm-6">
-                {results.data?.length !== 0 && <ResultsMap results={boundingBoxes} highlightBox={highlightBox} setMapGeometry={setMapGeometry} />}
+                {results.data?.length !== 0 && <ResultsMap results={boundingBoxes} highlightBox={highlightBox} />}
             </div>
 
             <div className="col-sm-6">

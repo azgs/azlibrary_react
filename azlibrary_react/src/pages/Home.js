@@ -11,9 +11,6 @@ export default function Home() {
     // API request url with query parameters
     const [searchUrl, setSearchUrl] = useState(metadataUrl);
 
-    // Current bounds of the results map used for filtering results
-    const [mapGeometry, setMapGeometry] = useState("POLYGON((-114.71166981775775 36.989263255310355,-109.06469716150775 36.989263255310355,-109.06469716150775 31.26432899146182,-114.71166981775775 31.26432899146182,-114.71166981775775 36.989263255310355))");
-
     return (
 
         <div className="container">
@@ -23,11 +20,11 @@ export default function Home() {
             <div className="row">
 
                 <div className="col-12">
-                    <Search metadataUrl={metadataUrl} searchUrl={searchUrl} setSearchUrl={setSearchUrl} mapGeometry={mapGeometry} />
+                    <Search metadataUrl={metadataUrl} searchUrl={searchUrl} setSearchUrl={setSearchUrl} />
                 </div>
 
                 <div className="col-12">
-                    <SearchResults searchUrl={searchUrl} setSearchUrl={setSearchUrl} setMapGeometry={setMapGeometry} />
+                    <SearchResults searchUrl={searchUrl} setSearchUrl={setSearchUrl} />
                 </div>
 
             </div>
