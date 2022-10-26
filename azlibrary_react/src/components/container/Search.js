@@ -122,15 +122,21 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl }) {
                         <input type="text" className="form-control form-control-sm" id="author" name="author" value={inputs.author} onChange={handleChange} />
                     </div>
 
-                    <div className="form-row form-check mt-2">
-                        <MapContainer center={[34.16, -111.62]} zoom={6} >
-                            <UpdateGeom />
-                            <TileLayer
-                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                            />
-                        </MapContainer>
-                        <input type="checkbox" className="form-check-input form-control-s" id="geom" name="geom" value={inputs.geom} ref={filterGeomCheckbox} onChange={handleGeomChange} />
+                    <div className="mt-2">
+                        <label>Map</label>
+                        <div className="col-md-6 mx-auto">
+                            <MapContainer center={[34.16, -111.62]} zoom={6} >
+                                <UpdateGeom />
+                                <TileLayer
+                                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                />
+                            </MapContainer>
+                        </div>
+                    </div>
+
+                    <div className="form-check text-center">
+                        <input type="checkbox" className="form-check-input" id="geom" name="geom" ref={filterGeomCheckbox} onChange={handleGeomChange} />
                         <label className="form-check-label" htmlFor="geom">Filter results to map extent</label>
                     </div>
 
