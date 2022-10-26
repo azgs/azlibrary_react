@@ -1,10 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import SelectCollectionGroup from './SelectCollectionGroup'
+import { useMapEvent, MapContainer, TileLayer, } from 'react-leaflet'
 
 export default function Search({ metadataUrl, searchUrl, setSearchUrl }) {
 
     const emptyForm = { year: "", title: "", author: "", text: "", keyword: "", series: "", collection_id: "", limit: "", latest: true, geom: "", geom_method: "" };
     const [inputs, setInputs] = useState(emptyForm);
+
+    const filterGeomCheckbox = useRef();
+    const [mapGeometry, setMapGeometry] = useState();
+
     const [advancedToggle, setAdvancedToggle] = useState(false);
 
     // Update searchUrl when input changes
@@ -42,9 +47,43 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl }) {
         setInputs(values => ({ ...values, [name]: value }))
     }
 
+    const handleGeomChange = () => {
+        let geom = mapGeometry;
+        let geom_method = "contains"
+
+        if (!filterGeomCheckbox.current.checked) {
+            geom = "";
+            geom_method = "";
+        }
+
+        setInputs(values => ({ ...values, "geom": geom, "geom_method": geom_method }))
+    }
+
     // Reset form to empty
     const reset = () => {
         setInputs(emptyForm);
+    }
+
+    function getWKTPoly(map) {
+        const bounds = map.getBounds();
+        const southWest = bounds.getSouthWest();
+        const northEast = bounds.getNorthEast();
+        const northWest = bounds.getNorthWest();
+        const southEast = bounds.getSouthEast();
+
+        const poly = `POLYGON((${northWest.lng} ${northWest.lat}, ${southWest.lng} ${southWest.lat}, ${southEast.lng} ${southEast.lat}, ${northEast.lng} ${northEast.lat}, ${northWest.lng} ${northWest.lat}))`;
+
+        return poly;
+    }
+
+    function UpdateGeom() {
+        const map = useMapEvent('moveend', () => {
+            const poly = getWKTPoly(map);
+            setMapGeometry(poly);
+            handleGeomChange();
+        })
+
+        return null;
     }
 
     return (
@@ -84,7 +123,14 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl }) {
                     </div>
 
                     <div className="form-row form-check mt-2">
-                        <input type="checkbox" className="form-check-input form-control-s" id="geom" name="geom" value={inputs.geom} onChange={handleChange} checked={inputs.geom} />
+                        <MapContainer center={[34.16, -111.62]} zoom={6} >
+                            <UpdateGeom />
+                            <TileLayer
+                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            />
+                        </MapContainer>
+                        <input type="checkbox" className="form-check-input form-control-s" id="geom" name="geom" value={inputs.geom} ref={filterGeomCheckbox} onChange={handleGeomChange} />
                         <label className="form-check-label" htmlFor="geom">Filter results to map extent</label>
                     </div>
 
