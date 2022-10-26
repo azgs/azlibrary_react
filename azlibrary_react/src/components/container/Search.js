@@ -71,7 +71,7 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl }) {
         const northWest = bounds.getNorthWest();
         const southEast = bounds.getSouthEast();
 
-        const poly = `POLYGON((${northWest.lng} ${northWest.lat}, ${southWest.lng} ${southWest.lat}, ${southEast.lng} ${southEast.lat}, ${northEast.lng} ${northEast.lat}, ${northWest.lng} ${northWest.lat}))`;
+        const poly = `POLYGON((${northWest.lng.toFixed(3)} ${northWest.lat.toFixed(3)},${southWest.lng.toFixed(3)} ${southWest.lat.toFixed(3)},${southEast.lng.toFixed(3)} ${southEast.lat.toFixed(3)},${northEast.lng.toFixed(3)} ${northEast.lat.toFixed(3)},${northWest.lng.toFixed(3)} ${northWest.lat.toFixed(3)}))`;
 
         return poly;
     }
