@@ -3,6 +3,7 @@ import Search from '../components/container/Search'
 import SearchResults from '../components/container/SearchResults'
 import Breadcrumb from "../components/presentation/Breadcrumb";
 import azgsApi from "../components/container/AzgsApi";
+import MapTest from "../components/presentation/MapTest"
 
 export default function Home() {
 
@@ -14,6 +15,8 @@ export default function Home() {
     return (
 
         <div className="container">
+
+            <MapTest />
 
             <Breadcrumb />
 
