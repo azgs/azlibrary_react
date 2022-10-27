@@ -1,12 +1,13 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import SelectCollectionGroup from './SelectCollectionGroup'
 
-export default function Search({ metadataUrl, searchUrl, setSearchUrl, polygon }) {
+export default function Search({ metadataUrl, searchUrl, setSearchUrl, map }) {
 
     const emptyForm = { year: "", title: "", author: "", text: "", keyword: "", series: "", collection_id: "", limit: "", latest: true, geom: "", geom_method: "" };
     const [inputs, setInputs] = useState(emptyForm);
 
     const filterGeomCheckbox = useRef();
+    const [polygon, setPolygon] = useState(getWKTPoly(map))
 
     const [advancedToggle, setAdvancedToggle] = useState(false);
 
@@ -38,23 +39,51 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, polygon }
 
     }, [inputs, metadataUrl, setSearchUrl]);
 
+    const handleGeomChange = useCallback(() => {
+        let geom = polygon;
+        let geom_method = "contains"
+
+        if (!filterGeomCheckbox.current.checked) {
+            geom = "";
+            geom_method = "";
+        }
+
+        setInputs(values => ({ ...values, "geom": geom, "geom_method": geom_method }))
+
+    }, [polygon])
+
+    useEffect(() => {
+        handleGeomChange();
+    }, [polygon, handleGeomChange]);
+
+    const onMove = useCallback(() => {
+        setPolygon(getWKTPoly(map))
+    }, [map])
+
+    useEffect(() => {
+        map.on('move', onMove)
+        return () => {
+            map.off('move', onMove)
+        }
+    }, [map, onMove])
+
+    function getWKTPoly(map) {
+        const bounds = map.getBounds();
+        const southWest = bounds.getSouthWest();
+        const northEast = bounds.getNorthEast();
+        const northWest = bounds.getNorthWest();
+        const southEast = bounds.getSouthEast();
+
+        const poly = `POLYGON((${northWest.lng.toFixed(3)} ${northWest.lat.toFixed(3)},${southWest.lng.toFixed(3)} ${southWest.lat.toFixed(3)},${southEast.lng.toFixed(3)} ${southEast.lat.toFixed(3)},${northEast.lng.toFixed(3)} ${northEast.lat.toFixed(3)},${northWest.lng.toFixed(3)} ${northWest.lat.toFixed(3)}))`;
+
+        return poly;
+    }
+
     // Handle form input changes
     const handleChange = (e) => {
         const name = e.target.name;
         const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
         setInputs(values => ({ ...values, [name]: value }))
-    }
-
-    const handleGeomChange = () => {
-        // let geom = mapGeometry;
-        // let geom_method = "contains"
-
-        // if (!filterGeomCheckbox.current.checked) {
-        //     geom = "";
-        //     geom_method = "";
-        // }
-
-        // setInputs(values => ({ ...values, "geom": geom, "geom_method": geom_method }))
     }
 
     // Reset form to empty
@@ -66,7 +95,7 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, polygon }
         <div>
             <div className=" bg-cool-gray rounded mb-4 p-3 shadow">
 
-                <div className="searchHeader text-center">Search Collections {polygon}</div>
+                <div className="searchHeader text-center">Search Collections</div>
 
                 <form autoComplete="off">
 
@@ -98,7 +127,7 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, polygon }
                         <input type="text" className="form-control form-control-sm" id="author" name="author" value={inputs.author} onChange={handleChange} />
                     </div>
 
-                    <div className="form-check text-center">
+                    <div className="form-check">
                         <input type="checkbox" className="form-check-input" id="geom" name="geom" ref={filterGeomCheckbox} onChange={handleGeomChange} />
                         <label className="form-check-label" htmlFor="geom">Filter results to map extent</label>
                     </div>
