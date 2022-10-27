@@ -1,14 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import SelectCollectionGroup from './SelectCollectionGroup'
-import { useMapEvent, MapContainer, TileLayer, } from 'react-leaflet'
 
-export default function Search({ metadataUrl, searchUrl, setSearchUrl }) {
+export default function Search({ metadataUrl, searchUrl, setSearchUrl, polygon }) {
 
     const emptyForm = { year: "", title: "", author: "", text: "", keyword: "", series: "", collection_id: "", limit: "", latest: true, geom: "", geom_method: "" };
     const [inputs, setInputs] = useState(emptyForm);
 
     const filterGeomCheckbox = useRef();
-    const [mapGeometry, setMapGeometry] = useState();
 
     const [advancedToggle, setAdvancedToggle] = useState(false);
 
@@ -48,15 +46,15 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl }) {
     }
 
     const handleGeomChange = () => {
-        let geom = mapGeometry;
-        let geom_method = "contains"
+        // let geom = mapGeometry;
+        // let geom_method = "contains"
 
-        if (!filterGeomCheckbox.current.checked) {
-            geom = "";
-            geom_method = "";
-        }
+        // if (!filterGeomCheckbox.current.checked) {
+        //     geom = "";
+        //     geom_method = "";
+        // }
 
-        setInputs(values => ({ ...values, "geom": geom, "geom_method": geom_method }))
+        // setInputs(values => ({ ...values, "geom": geom, "geom_method": geom_method }))
     }
 
     // Reset form to empty
@@ -64,33 +62,11 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl }) {
         setInputs(emptyForm);
     }
 
-    function getWKTPoly(map) {
-        const bounds = map.getBounds();
-        const southWest = bounds.getSouthWest();
-        const northEast = bounds.getNorthEast();
-        const northWest = bounds.getNorthWest();
-        const southEast = bounds.getSouthEast();
-
-        const poly = `POLYGON((${northWest.lng.toFixed(3)} ${northWest.lat.toFixed(3)},${southWest.lng.toFixed(3)} ${southWest.lat.toFixed(3)},${southEast.lng.toFixed(3)} ${southEast.lat.toFixed(3)},${northEast.lng.toFixed(3)} ${northEast.lat.toFixed(3)},${northWest.lng.toFixed(3)} ${northWest.lat.toFixed(3)}))`;
-
-        return poly;
-    }
-
-    function UpdateGeom() {
-        const map = useMapEvent('moveend', () => {
-            const poly = getWKTPoly(map);
-            setMapGeometry(poly);
-            handleGeomChange();
-        })
-
-        return null;
-    }
-
     return (
         <div>
             <div className=" bg-cool-gray rounded mb-4 p-3 shadow">
 
-                <div className="searchHeader text-center">Search Collections</div>
+                <div className="searchHeader text-center">Search Collections {polygon}</div>
 
                 <form autoComplete="off">
 
@@ -120,19 +96,6 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl }) {
                     <div className="form-row">
                         <label htmlFor="author">Author</label>
                         <input type="text" className="form-control form-control-sm" id="author" name="author" value={inputs.author} onChange={handleChange} />
-                    </div>
-
-                    <div className="mt-2">
-                        <label>Map</label>
-                        <div className="col-md-6 mx-auto">
-                            <MapContainer center={[34.16, -111.62]} zoom={6} >
-                                <UpdateGeom />
-                                <TileLayer
-                                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                />
-                            </MapContainer>
-                        </div>
                     </div>
 
                     <div className="form-check text-center">
