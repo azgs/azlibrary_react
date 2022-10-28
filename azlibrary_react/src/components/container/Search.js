@@ -134,7 +134,7 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, map }) {
 
                     <div className="form-check">
                         <input type="checkbox" className="form-check-input" id="geom" name="geom" ref={filterGeomCheckbox} onChange={handleGeomChange} />
-                        <label className="form-check-label" htmlFor="geom">Filter results to map extent</label>
+                        <label className="form-check-label font-weight-bold" htmlFor="geom">Filter results to map extent</label>
                     </div>
 
                     <div className="collapse" id="advancedSearch">
