@@ -78,7 +78,7 @@ export default function Home() {
 
         {boundingBoxes && boundingBoxes.map(result =>
           <Rectangle key={result.id} eventHandlers={{ click: () => window.location.href = "item/" + result.id }} bounds={[[result.bbox.north, result.bbox.east], [result.bbox.south, result.bbox.west]]} pathOptions={{ color: "#1E5288" }}>
-            <Tooltip>{result.title}</Tooltip>
+            <Tooltip sticky>{result.title}</Tooltip>
           </Rectangle>
         )
         }
