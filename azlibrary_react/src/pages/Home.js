@@ -1,8 +1,9 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Search from '../components/container/Search'
-import { MapContainer, TileLayer } from 'react-leaflet'
+import { MapContainer, TileLayer, Rectangle, Tooltip } from 'react-leaflet'
 import Breadcrumb from "../components/presentation/Breadcrumb";
 import SearchResults from "../components/container/SearchResults"
+import Paging from '../components/presentation/Paging'
 import azgsApi from "../components/container/AzgsApi";
 
 export default function Home() {
@@ -15,6 +16,50 @@ export default function Home() {
   // Leaflet map
   const [map, setMap] = useState(null)
 
+  const [results, setResults] = useState([]);
+  const [apiError, setApiError] = useState();
+  const [boundingBoxes, setBoundingBoxes] = useState();
+  const [highlightBox, setHighlightBox] = useState();
+
+  // Fire API call whenever searchUrl updates
+  useEffect(() => {
+
+    let lastRequest = true;
+
+    const fetchResults = async () => {
+      try {
+        const res = await azgsApi.get(searchUrl);
+        if (lastRequest) {
+          setResults(res.data);
+          setApiError();
+        }
+      } catch (error) {
+        if (lastRequest) {
+          setResults([]);
+          setApiError(error.toString());
+        }
+      }
+    };
+
+    fetchResults();
+
+    return () => {
+      lastRequest = false;
+    };
+  }, [searchUrl]);
+
+  // Grab bounding boxes from results
+  useEffect(() => {
+
+    const boxes = results?.data?.map(item => ({ id: item.collection_id, title: item.metadata.title, bbox: item.metadata.bounding_box }));
+
+    setBoundingBoxes(boxes);
+
+    // Clear highlight
+    setHighlightBox();
+
+  }, [results]);
+
   const resultsMap = useMemo(
     () => (
       <MapContainer
@@ -25,9 +70,22 @@ export default function Home() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+
+        {highlightBox && <Rectangle key={highlightBox.id} eventHandlers={{ click: () => window.location.href = "item/" + highlightBox.id }} bounds={[[highlightBox.bbox.north, highlightBox.bbox.east], [highlightBox.bbox.south, highlightBox.bbox.west]]} pathOptions={{ color: "#ff0000" }}>
+          <Tooltip>{highlightBox.title}</Tooltip>
+        </Rectangle>
+        }
+
+        {boundingBoxes && boundingBoxes.map(result =>
+          <Rectangle key={result.id} eventHandlers={{ click: () => window.location.href = "item/" + result.id }} bounds={[[result.bbox.north, result.bbox.east], [result.bbox.south, result.bbox.west]]} pathOptions={{ color: "#1E5288" }}>
+            <Tooltip>{result.title}</Tooltip>
+          </Rectangle>
+        )
+        }
+
       </MapContainer>
     ),
-    [],
+    [highlightBox, boundingBoxes],
   )
 
   return (
@@ -43,11 +101,33 @@ export default function Home() {
         </div>
 
         <div className="col-12">
-          {resultsMap}
+          {/* API Error */}
+          {apiError && <div className="alert alert-danger text-center font-weight-bold" role="alert">
+            {apiError}
+          </div>}
         </div>
 
         <div className="col-12">
-          <SearchResults searchUrl={searchUrl} setSearchUrl={setSearchUrl} />
+          {/* 0 Results */}
+          {results.data?.length === 0 && <div className="alert alert-dark text-center font-weight-bold" role="alert">
+            0 Results
+          </div>}
+        </div>
+
+        <div className="col-12">
+          {results.data?.length !== 0 && <Paging links={results?.links} setSearchUrl={setSearchUrl} />}
+        </div>
+
+        <div className="col-sm-6">
+          {resultsMap}
+        </div>
+
+        <div className="col-sm-6">
+          <SearchResults results={results} setHighlightBox={setHighlightBox} />
+        </div>
+
+        <div className="col-12">
+          {results.data?.length !== 0 && <Paging links={results?.links} setSearchUrl={setSearchUrl} />}
         </div>
 
       </div>
