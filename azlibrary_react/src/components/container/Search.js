@@ -39,6 +39,7 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, map }) {
 
     }, [inputs, metadataUrl, setSearchUrl]);
 
+    // Add geom and geom_method values if the checkbox is checked
     const handleGeomChange = useCallback(() => {
         let geom = polygon;
         let geom_method = "contains"
@@ -52,14 +53,17 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, map }) {
 
     }, [polygon])
 
+    // Update api inputs when polygon changes
     useEffect(() => {
         handleGeomChange();
     }, [polygon, handleGeomChange]);
 
+    // Set polygon after move
     const onMove = useCallback(() => {
         setPolygon(getWKTPoly(map))
     }, [map])
 
+    // Call onMove when the map moves
     useEffect(() => {
         map.on('move', onMove)
         return () => {
@@ -67,6 +71,7 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, map }) {
         }
     }, [map, onMove])
 
+    // Build a WKT Polygon from the map bounds
     function getWKTPoly(map) {
         const bounds = map.getBounds();
         const southWest = bounds.getSouthWest();
