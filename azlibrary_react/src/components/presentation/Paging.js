@@ -6,6 +6,7 @@ export default function Paging({ links, limit, offset, setOffset }) {
         return link;
     });
 
+    // Initial offset is 0
     offset = offset ? offset : 0;
 
     // The API's default limit is 10
@@ -53,6 +54,8 @@ export default function Paging({ links, limit, offset, setOffset }) {
                     <button className="page-link" onClick={() => handleClick(previous)}>Previous</button>
                 </li>
                 }
+
+                <li className="page-item active"><button className="page-link">{currentPage}</button></li>
 
                 {/* <li className="page-item"><button className="page-link">1</button></li>
                 <li className="page-item"><button className="page-link">2</button></li>
