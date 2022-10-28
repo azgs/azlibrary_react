@@ -19,6 +19,7 @@ export default function Home() {
 
   // Paging offset
   const [offset, setOffset] = useState()
+  const [limit, setLimit] = useState()
 
   // Api response
   const [results, setResults] = useState([]);
@@ -104,7 +105,7 @@ export default function Home() {
 
         {/* Search */}
         <div className="col-12">
-          {map ? <Search metadataUrl={metadataUrl} searchUrl={searchUrl} setSearchUrl={setSearchUrl} setOffset={setOffset} offset={offset} map={map} /> : null}
+          {map ? <Search metadataUrl={metadataUrl} searchUrl={searchUrl} setSearchUrl={setSearchUrl} setOffset={setOffset} setLimit={setLimit} offset={offset} map={map} /> : null}
         </div>
 
         {/* API Error */}
@@ -123,7 +124,7 @@ export default function Home() {
 
         {/* Paging */}
         <div className="col-12">
-          {results.data?.length !== 0 && <Paging links={results?.links} setOffset={setOffset} />}
+          {results.data?.length !== 0 && <Paging links={results?.links} limit={limit} setOffset={setOffset} />}
         </div>
 
         {/* Results map */}
@@ -138,7 +139,7 @@ export default function Home() {
 
         {/* Paging */}
         <div className="col-12">
-          {results.data?.length !== 0 && <Paging links={results?.links} setOffset={setOffset} />}
+          {results.data?.length !== 0 && <Paging links={results?.links} limit={limit} setOffset={setOffset} />}
         </div>
 
       </div>

@@ -1,10 +1,13 @@
-export default function Paging({ links, setOffset }) {
+export default function Paging({ links, limit, setOffset }) {
 
     // Changed http links to https
     links = links?.map(link => {
         link.href = link.href.replace("http://", "https://");
         return link;
     });
+
+    // The API's default limit is 10
+    limit = limit ? limit : 10;
 
     const self = links?.find((link) => link.rel === 'self');
     const first = links?.find((link) => link.rel === 'first');
@@ -25,6 +28,7 @@ export default function Paging({ links, setOffset }) {
 
     return (
         <nav aria-label="Page navigation example">
+
             <ul className="pagination justify-content-end">
 
                 {!isFirst &&

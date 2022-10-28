@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import SelectCollectionGroup from './SelectCollectionGroup'
 
-export default function Search({ metadataUrl, searchUrl, setSearchUrl, setOffset, offset, map }) {
+export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit, setOffset, offset, map }) {
 
     const emptyForm = { year: "", title: "", author: "", text: "", keyword: "", series: "", collection_id: "", limit: "", latest: true, geom: "", geom_method: "", offset: "" };
     const [inputs, setInputs] = useState(emptyForm);
@@ -38,6 +38,10 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, setOffset
         buildQueryString();
 
     }, [inputs, metadataUrl, setSearchUrl]);
+
+    useEffect(() => {
+        setLimit(inputs["limit"])
+    }, [inputs, setLimit]);
 
     // Add geom and geom_method values if the checkbox is checked
     const handleGeomChange = useCallback(() => {
