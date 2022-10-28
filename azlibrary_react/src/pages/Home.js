@@ -8,14 +8,19 @@ import azgsApi from "../components/container/AzgsApi";
 
 export default function Home() {
 
+  // Base api url
   const metadataUrl = azgsApi.getUri() + '/metadata';
 
-  // API request url with query parameters
+  // API request-url with query parameters
   const [searchUrl, setSearchUrl] = useState(metadataUrl);
 
   // Leaflet map
   const [map, setMap] = useState(null)
 
+  // Paging offset
+  const [offset, setOffset] = useState()
+
+  // Api response
   const [results, setResults] = useState([]);
   const [apiError, setApiError] = useState();
   const [boundingBoxes, setBoundingBoxes] = useState();
@@ -60,6 +65,7 @@ export default function Home() {
 
   }, [results]);
 
+  // Leaflet map
   const resultsMap = useMemo(
     () => (
       <MapContainer
@@ -96,38 +102,43 @@ export default function Home() {
 
       <div className="row">
 
+        {/* Search */}
         <div className="col-12">
-          {map ? <Search metadataUrl={metadataUrl} searchUrl={searchUrl} setSearchUrl={setSearchUrl} map={map} /> : null}
+          {map ? <Search metadataUrl={metadataUrl} searchUrl={searchUrl} setSearchUrl={setSearchUrl} setOffset={setOffset} offset={offset} map={map} /> : null}
         </div>
 
+        {/* API Error */}
         <div className="col-12">
-          {/* API Error */}
           {apiError && <div className="alert alert-danger text-center font-weight-bold" role="alert">
             {apiError}
           </div>}
         </div>
 
+        {/* 0 Results */}
         <div className="col-12">
-          {/* 0 Results */}
           {results.data?.length === 0 && <div className="alert alert-dark text-center font-weight-bold" role="alert">
             0 Results
           </div>}
         </div>
 
+        {/* Paging */}
         <div className="col-12">
-          {results.data?.length !== 0 && <Paging links={results?.links} setSearchUrl={setSearchUrl} />}
+          {results.data?.length !== 0 && <Paging links={results?.links} setOffset={setOffset} />}
         </div>
 
+        {/* Results map */}
         <div className="col-sm-6 mb-2">
           {resultsMap}
         </div>
 
+        {/* Results list */}
         <div className="col-sm-6">
           <SearchResults results={results} setHighlightBox={setHighlightBox} />
         </div>
 
+        {/* Paging */}
         <div className="col-12">
-          {results.data?.length !== 0 && <Paging links={results?.links} setSearchUrl={setSearchUrl} />}
+          {results.data?.length !== 0 && <Paging links={results?.links} setOffset={setOffset} />}
         </div>
 
       </div>

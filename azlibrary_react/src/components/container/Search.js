@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import SelectCollectionGroup from './SelectCollectionGroup'
 
-export default function Search({ metadataUrl, searchUrl, setSearchUrl, map }) {
+export default function Search({ metadataUrl, searchUrl, setSearchUrl, setOffset, offset, map }) {
 
-    const emptyForm = { year: "", title: "", author: "", text: "", keyword: "", series: "", collection_id: "", limit: "", latest: true, geom: "", geom_method: "" };
+    const emptyForm = { year: "", title: "", author: "", text: "", keyword: "", series: "", collection_id: "", limit: "", latest: true, geom: "", geom_method: "", offset: "" };
     const [inputs, setInputs] = useState(emptyForm);
 
     const filterGeomCheckbox = useRef();
@@ -44,14 +44,23 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, map }) {
         let geom = polygon;
         let geom_method = "contains"
 
+        // Check if the filter checkbox is checked
         if (!filterGeomCheckbox.current.checked) {
             geom = "";
             geom_method = "";
+        } else {
+            // Reset paging when updating geom
+            setOffset();
         }
 
         setInputs(values => ({ ...values, "geom": geom, "geom_method": geom_method }))
 
-    }, [polygon])
+    }, [polygon, setOffset])
+
+    // Update inputs when offset changes
+    useEffect(() => {
+        setInputs(values => ({ ...values, "offset": offset }))
+    }, [offset]);
 
     // Update api inputs when polygon changes
     useEffect(() => {
@@ -88,6 +97,7 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, map }) {
     const handleChange = (e) => {
         const name = e.target.name;
         const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
+        setOffset();
         setInputs(values => ({ ...values, [name]: value }))
     }
 

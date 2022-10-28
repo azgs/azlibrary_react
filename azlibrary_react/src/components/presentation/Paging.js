@@ -1,4 +1,4 @@
-export default function Paging({ links, setSearchUrl }) {
+export default function Paging({ links, setOffset }) {
 
     // Changed http links to https
     links = links?.map(link => {
@@ -15,8 +15,13 @@ export default function Paging({ links, setSearchUrl }) {
     const isFirst = self?.href === first?.href;
     const isLast = self?.href === last?.href;
 
-    // const params = new URLSearchParams(last?.href)
-    // const offset = params.get("offset");
+    const handleClick = (url) => {
+
+        const params = new URLSearchParams(url)
+        const offset = params.get("offset");
+
+        setOffset(offset);
+    }
 
     return (
         <nav aria-label="Page navigation example">
@@ -24,12 +29,12 @@ export default function Paging({ links, setSearchUrl }) {
 
                 {!isFirst &&
                     <li className="page-item">
-                        <button className="page-link" onClick={() => setSearchUrl(first?.href)}>First</button>
+                        <button className="page-link" onClick={() => handleClick(first?.href)}>First</button>
                     </li>
                 }
 
                 {previous && <li className="page-item">
-                    <button className="page-link" onClick={() => setSearchUrl(previous?.href)}>Previous</button>
+                    <button className="page-link" onClick={() => handleClick(previous?.href)}>Previous</button>
                 </li>
                 }
 
@@ -38,13 +43,13 @@ export default function Paging({ links, setSearchUrl }) {
                 <li className="page-item"><button className="page-link">3</button></li> */}
 
                 {next && <li className="page-item">
-                    <button className="page-link" onClick={() => setSearchUrl(next?.href)}>Next</button>
+                    <button className="page-link" onClick={() => handleClick(next?.href)}>Next</button>
                 </li>
                 }
 
                 {!isLast &&
                     <li className="page-item">
-                        <button className="page-link" onClick={() => setSearchUrl(last?.href)}>Last</button>
+                        <button className="page-link" onClick={() => handleClick(last?.href)}>Last</button>
                     </li>
                 }
 
