@@ -118,7 +118,7 @@ export default function Home() {
           {results.data?.length !== 0 && <Paging links={results?.links} setSearchUrl={setSearchUrl} />}
         </div>
 
-        <div className="col-sm-6">
+        <div className="col-sm-6 mb-2">
           {resultsMap}
         </div>
 
