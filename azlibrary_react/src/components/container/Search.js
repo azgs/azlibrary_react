@@ -41,6 +41,7 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, setOffset
 
     // Add geom and geom_method values if the checkbox is checked
     const handleGeomChange = useCallback(() => {
+
         let geom = polygon;
         let geom_method = "contains"
 
@@ -103,6 +104,7 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, setOffset
 
     // Reset form to empty
     const reset = () => {
+        filterGeomCheckbox.current.checked = false;
         setInputs(emptyForm);
     }
 
