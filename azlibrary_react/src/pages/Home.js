@@ -124,7 +124,7 @@ export default function Home() {
 
         {/* Paging */}
         <div className="col-12">
-          {results.data?.length !== 0 && <Paging links={results?.links} limit={limit} setOffset={setOffset} />}
+          {results.data?.length !== 0 && <Paging links={results?.links} limit={limit} offset={offset} setOffset={setOffset} />}
         </div>
 
         {/* Results map */}
@@ -139,7 +139,7 @@ export default function Home() {
 
         {/* Paging */}
         <div className="col-12">
-          {results.data?.length !== 0 && <Paging links={results?.links} limit={limit} setOffset={setOffset} />}
+          {results.data?.length !== 0 && <Paging links={results?.links} limit={limit} offset={offset} setOffset={setOffset} />}
         </div>
 
       </div>
