@@ -16,13 +16,20 @@ export default function Paging({ links, limit, offset, setOffset }) {
 
     // Dictionary from API links
     const apiLinks = Object.fromEntries(links.map(({ rel, href }) => ([rel, getOffsetFromUrl(href)])));
-
     const isFirst = apiLinks['self'] === apiLinks['first'];
     const isLast = apiLinks['self'] === apiLinks['last'];
-
     const maxOffset = apiLinks['last'] ?? 0;
 
-    const currentPage = ((offset % (maxOffset + limit)) / limit) + 1;
+    const navLinks = [];
+
+    const startOffset = Math.max(0, offset - (4 * limit));
+    const endOffset = Math.min(maxOffset, offset + (4 * limit));
+
+    for (let i = startOffset; i <= endOffset; i = i + limit) {
+        navLinks.push({pageNumber: (((i % (maxOffset + limit)) / limit) + 1), offset: i, active: (i === offset)});
+    }
+
+    console.log(navLinks);
 
     function getOffsetFromUrl(url) {
         const params = new URLSearchParams(url)
@@ -35,11 +42,6 @@ export default function Paging({ links, limit, offset, setOffset }) {
     return (
         <nav aria-label="Page navigation example">
 
-            <div>Limit: {limit}</div>
-            <div>CurrentOffset: {offset}</div>
-            <div>MaxOffset: {maxOffset}</div>
-            <div>CurrentPage: {currentPage}</div>
-
             <ul className="pagination justify-content-end">
 
                 <li className={isFirst ? "page-item disabled" : "page-item"}>
@@ -50,11 +52,7 @@ export default function Paging({ links, limit, offset, setOffset }) {
                     <button className="page-link" onClick={() => setOffset(apiLinks['previous'])}>Previous</button>
                 </li>
 
-                <li className="page-item active"><button className="page-link">{currentPage}</button></li>
-
-                {/* <li className="page-item"><button className="page-link">1</button></li>
-                <li className="page-item"><button className="page-link">2</button></li>
-                <li className="page-item"><button className="page-link">3</button></li> */}
+                {navLinks.map(link => <li className={link.active ? "page-item active" : "page-item"}><button className="page-link" onClick={() => setOffset(link.offset)} >{link.pageNumber}</button></li>)}
 
                 <li className={isLast ? "page-item disabled" : "page-item"}>
                     <button className="page-link" onClick={() => setOffset(apiLinks['next'])}>Next</button>
