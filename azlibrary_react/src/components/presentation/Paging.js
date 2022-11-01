@@ -15,12 +15,9 @@ export default function Paging({ links, limit, offset, setOffset }) {
     limit = limit ? limit : 10;
 
     // Dictionary from API links
-    const apiLinks = Object.fromEntries(links.map(({ rel, href }) => ([rel, href])));
+    const apiLinks = Object.fromEntries(links.map(({ rel, href }) => ([rel, getOffsetFromUrl(href)])));
 
     const startingOffset = Math.max(0, offset - (4 * limit));
-
-    const navLinks = new Map();
-
 
     const isFirst = apiLinks['self'] === apiLinks['first'];
     const isLast = apiLinks['self'] === apiLinks['last'];
@@ -31,11 +28,10 @@ export default function Paging({ links, limit, offset, setOffset }) {
 
     function getOffsetFromUrl(url) {
         const params = new URLSearchParams(url)
-        return params.get("offset");
-    }
 
-    const handleClick = (url) => {
-        setOffset(getOffsetFromUrl(url));
+        const offset = params.get("offset") ?? 0;
+
+        return offset;
     }
 
     return (
@@ -49,11 +45,11 @@ export default function Paging({ links, limit, offset, setOffset }) {
             <ul className="pagination justify-content-end">
 
                 <li className={isFirst ? "page-item disabled" : "page-item"}>
-                    <button className="page-link" onClick={() => handleClick(apiLinks['first'])}>First</button>
+                    <button className="page-link" onClick={() => setOffset(apiLinks['first'])}>First</button>
                 </li>
 
                 <li className={isFirst ? "page-item disabled" : "page-item"}>
-                    <button className="page-link" onClick={() => handleClick(apiLinks['previous'])}>Previous</button>
+                    <button className="page-link" onClick={() => setOffset(apiLinks['previous'])}>Previous</button>
                 </li>
 
                 <li className="page-item active"><button className="page-link">{currentPage}</button></li>
@@ -63,11 +59,11 @@ export default function Paging({ links, limit, offset, setOffset }) {
                 <li className="page-item"><button className="page-link">3</button></li> */}
 
                 <li className={isLast ? "page-item disabled" : "page-item"}>
-                    <button className="page-link" onClick={() => handleClick(apiLinks['next'])}>Next</button>
+                    <button className="page-link" onClick={() => setOffset(apiLinks['next'])}>Next</button>
                 </li>
 
                 <li className={isLast ? "page-item disabled" : "page-item"}>
-                    <button className="page-link" onClick={() => handleClick(apiLinks['last'])}>Last</button>
+                    <button className="page-link" onClick={() => setOffset(apiLinks['last'])}>Last</button>
                 </li>
 
             </ul>
