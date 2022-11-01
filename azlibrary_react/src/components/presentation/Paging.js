@@ -17,12 +17,10 @@ export default function Paging({ links, limit, offset, setOffset }) {
     // Dictionary from API links
     const apiLinks = Object.fromEntries(links.map(({ rel, href }) => ([rel, getOffsetFromUrl(href)])));
 
-    const startingOffset = Math.max(0, offset - (4 * limit));
-
     const isFirst = apiLinks['self'] === apiLinks['first'];
     const isLast = apiLinks['self'] === apiLinks['last'];
 
-    const maxOffset = getOffsetFromUrl(apiLinks['last']);
+    const maxOffset = apiLinks['last'] ?? 0;
 
     const currentPage = ((offset % (maxOffset + limit)) / limit) + 1;
 
@@ -31,7 +29,7 @@ export default function Paging({ links, limit, offset, setOffset }) {
 
         const offset = params.get("offset") ?? 0;
 
-        return offset;
+        return parseInt(offset);
     }
 
     return (
