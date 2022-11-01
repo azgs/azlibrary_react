@@ -1,29 +1,27 @@
 export default function Paging({ links, limit, offset, setOffset }) {
 
+    links = links ? links : [];
+
     // Changed http links to https
     links = links?.map(link => {
         link.href = link.href.replace("http://", "https://");
         return link;
     });
 
-    // Initial offset is 0
+    // offset or default
     offset = offset ? offset : 0;
 
-    // The API's default limit is 10
+    // limit or default
     limit = limit ? limit : 10;
 
-    const self = links?.find((link) => link.rel === 'self')?.href;
-    const first = links?.find((link) => link.rel === 'first')?.href;
-    const previous = links?.find((link) => link.rel === 'previous')?.href;
-    const next = links?.find((link) => link.rel === 'next')?.href;
-    const last = links?.find((link) => link.rel === 'last')?.href;
+    let linksDict = Object.fromEntries(links?.map(({ rel, href }) => ([rel, href])));
 
-    const maxOffset = getOffsetFromUrl(last);
+    const maxOffset = getOffsetFromUrl(linksDict['last']);
 
-    const currentPage = ((offset % (maxOffset + limit) ) / limit) + 1;
+    const currentPage = ((offset % (maxOffset + limit)) / limit) + 1;
 
-    const isFirst = self === first;
-    const isLast = self === last;
+    const isFirst = linksDict['self'] === linksDict['first'];
+    const isLast = linksDict['self'] === linksDict['last'];
 
     function getOffsetFromUrl(url) {
         const params = new URLSearchParams(url)
@@ -37,21 +35,21 @@ export default function Paging({ links, limit, offset, setOffset }) {
     return (
         <nav aria-label="Page navigation example">
 
-            <div>Limit: {limit}</div>
+            {/* <div>Limit: {limit}</div>
             <div>CurrentOffset: {offset}</div>
             <div>MaxOffset: {maxOffset}</div>
-            <div>CurrentPage: {currentPage}</div>
+            <div>CurrentPage: {currentPage}</div> */}
 
             <ul className="pagination justify-content-end">
 
                 {!isFirst &&
                     <li className="page-item">
-                        <button className="page-link" onClick={() => handleClick(first)}>First</button>
+                        <button className="page-link" onClick={() => handleClick(linksDict['first'])}>First</button>
                     </li>
                 }
 
-                {previous && <li className="page-item">
-                    <button className="page-link" onClick={() => handleClick(previous)}>Previous</button>
+                {linksDict['previous'] && <li className="page-item">
+                    <button className="page-link" onClick={() => handleClick(linksDict['previous'])}>Previous</button>
                 </li>
                 }
 
@@ -61,14 +59,14 @@ export default function Paging({ links, limit, offset, setOffset }) {
                 <li className="page-item"><button className="page-link">2</button></li>
                 <li className="page-item"><button className="page-link">3</button></li> */}
 
-                {next && <li className="page-item">
-                    <button className="page-link" onClick={() => handleClick(next)}>Next</button>
+                {linksDict['next'] && <li className="page-item">
+                    <button className="page-link" onClick={() => handleClick(linksDict['next'])}>Next</button>
                 </li>
                 }
 
                 {!isLast &&
                     <li className="page-item">
-                        <button className="page-link" onClick={() => handleClick(last)}>Last</button>
+                        <button className="page-link" onClick={() => handleClick(linksDict['last'])}>Last</button>
                     </li>
                 }
 
