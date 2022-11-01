@@ -29,8 +29,6 @@ export default function Paging({ links, limit, offset, setOffset }) {
         navLinks.push({pageNumber: (((i % (maxOffset + limit)) / limit) + 1), offset: i, active: (i === offset)});
     }
 
-    console.log(navLinks);
-
     function getOffsetFromUrl(url) {
         const params = new URLSearchParams(url)
 
@@ -52,7 +50,7 @@ export default function Paging({ links, limit, offset, setOffset }) {
                     <button className="page-link" onClick={() => setOffset(apiLinks['previous'])}>Previous</button>
                 </li>
 
-                {navLinks.map(link => <li className={link.active ? "page-item active" : "page-item"}><button className="page-link" onClick={() => setOffset(link.offset)} >{link.pageNumber}</button></li>)}
+                {navLinks.map(link => <li key={link.pageNumber} className={link.active ? "page-item active" : "page-item"}><button className="page-link" onClick={() => setOffset(link.offset)} >{link.pageNumber}</button></li>)}
 
                 <li className={isLast ? "page-item disabled" : "page-item"}>
                     <button className="page-link" onClick={() => setOffset(apiLinks['next'])}>Next</button>
