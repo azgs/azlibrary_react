@@ -15,7 +15,12 @@ export default function Paging({ links, limit, offset, setOffset }) {
     limit = limit ? limit : 10;
 
     // Dictionary from API links
-    let apiLinks = Object.fromEntries(links.map(({ rel, href }) => ([rel, href])));
+    const apiLinks = Object.fromEntries(links.map(({ rel, href }) => ([rel, href])));
+
+    const startingOffset = Math.max(0, offset - (4 * limit));
+
+    const navLinks = new Map();
+
 
     const isFirst = apiLinks['self'] === apiLinks['first'];
     const isLast = apiLinks['self'] === apiLinks['last'];
