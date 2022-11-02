@@ -50,8 +50,8 @@ export default function Paging({ links, limit, offset, setOffset }) {
     }
 
     // Calulate page number
-    function calculatePageNumber(offset, limit, maxOffset) {
-        return offset > maxOffset ? -1 : parseInt(offset / limit) + 1
+    function calculatePageNumber(offset, limit) {
+        return Math.ceil(offset / limit) + 1
     }
 
     // Returns the offset paramter from a link
