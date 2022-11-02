@@ -170,14 +170,14 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit,
                             <input type="text" className="form-control form-control-sm" id="series" name="series" value={inputs.series} onChange={handleChange} />
                         </div>
 
-                        <div className="form-row">
+                        {/* <div className="form-row">
                             <label htmlFor="limit">Results Per Page</label>
                             <select type="text" className="form-control form-control-sm" id="limit" name="limit" value={inputs.limit} onChange={handleChange} >
                                 <option value="">10</option>
                                 <option value="25">25</option>
                                 <option value="50">50</option>
                             </select>
-                        </div>
+                        </div> */}
 
                         <div className="form-row form-check mt-2">
                             <input type="checkbox" className="form-check-input form-control-s" id="latest" name="latest" value={inputs.latest} onChange={handleChange} checked={inputs.latest} />
