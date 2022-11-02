@@ -23,22 +23,12 @@ export default function Paging({ links, limit, offset, setOffset }) {
     const isFirst = apiLinks['self'] === apiLinks['first'];
     const isLast = apiLinks['self'] === apiLinks['last'];
 
-    // const navLinks = [];
-
-    // const startOffset = Math.max(0, offset - (4 * limit));
-
-    // const endOffset = Math.min(maxOffset, startOffset + (8 * limit));
-
-    // for (let i = startOffset; i <= endOffset; i = i + limit) {
-    //     navLinks.push({ pageNumber: calculatePageNumber(i, limit, maxOffset), offset: i, active: (i === offset) });
-    // }
-
     const prevLinks = [];
 
     const startOffset = Math.max(0, offset - (4 * limit));
 
     for (let i = startOffset; i < offset; i = i + limit) {
-        prevLinks.push({ pageNumber: calculatePageNumber(i, limit, maxOffset), offset: i });
+        prevLinks.push({ pageNumber: calculatePageNumber(i, limit), offset: i });
     }
 
     const nextLinks = [];
@@ -46,12 +36,12 @@ export default function Paging({ links, limit, offset, setOffset }) {
     const endOffset = Math.min(maxOffset, offset + (4 * limit));
 
     for (let i = offset + limit; i <= endOffset; i = i + limit) {
-        nextLinks.push({ pageNumber: calculatePageNumber(i, limit, maxOffset), offset: i });
+        nextLinks.push({ pageNumber: calculatePageNumber(i, limit), offset: i });
     }
 
     // Calulate page number
     function calculatePageNumber(offset, limit) {
-        return Math.ceil(offset / limit) + 1
+        return Math.ceil(offset / limit) + 1;
     }
 
     // Returns the offset paramter from a link
@@ -78,7 +68,7 @@ export default function Paging({ links, limit, offset, setOffset }) {
 
                 {prevLinks.map(link => <li key={link.pageNumber} className="page-item"><button className="page-link" onClick={() => setOffset(link.offset)} >{link.pageNumber}</button></li>)}
 
-                <li className="page-item active"><button className="page-link">{calculatePageNumber(offset, limit, maxOffset)}</button></li>
+                <li className="page-item active"><button className="page-link">{calculatePageNumber(offset, limit)}</button></li>
 
                 {nextLinks.map(link => <li key={link.pageNumber} className="page-item"><button className="page-link" onClick={() => setOffset(link.offset)} >{link.pageNumber}</button></li>)}
 
