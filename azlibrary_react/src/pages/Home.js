@@ -111,7 +111,8 @@ export default function Home() {
         {/* API Error */}
         <div className="col-12">
           {apiError && <div className="alert alert-danger text-center font-weight-bold" role="alert">
-            {apiError}
+            {/* {apiError} */}
+            Something went wrong! Please contact AZGS for support.
           </div>}
         </div>
 
