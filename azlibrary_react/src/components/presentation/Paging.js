@@ -1,13 +1,5 @@
 export default function Paging({ links, limit, offset, setOffset }) {
-
-    links = links ? links : [];
-
-    // Changed http links to https
-    links = links?.map(link => {
-        link.href = link.href.replace("http://", "https://");
-        return link;
-    });
-
+    
     // Dictionary from API links
     const apiLinks = Object.fromEntries(links.map(({ rel, href }) => ([rel, getOffsetFromUrl(href)])));
 
@@ -42,7 +34,10 @@ export default function Paging({ links, limit, offset, setOffset }) {
 
     // Returns the offset paramter from a link
     function getOffsetFromUrl(url) {
-        const params = new URLSearchParams(url)
+
+        const queryString = url.slice(url.indexOf("?"));
+
+        const params = new URLSearchParams(queryString)
 
         const offset = params.get("offset") ?? 0;
 
