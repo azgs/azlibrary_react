@@ -30,7 +30,12 @@ export default function Paging({ links, limit, offset, setOffset }) {
     const endOffset = Math.min(maxOffset, startOffset + (8 * limit));
 
     for (let i = startOffset; i <= endOffset; i = i + limit) {
-        navLinks.push({pageNumber: (((i % (maxOffset + limit)) / limit) + 1), offset: i, active: (i === offset)});
+        navLinks.push({ pageNumber: calculatePageNumber(i, limit, maxOffset), offset: i, active: (i === offset) });
+    }
+
+    // Calulate page number
+    function calculatePageNumber(offset, limit, maxOffset) {
+        return offset > maxOffset ? -1 : parseInt(offset / limit) + 1
     }
 
     // Returns the offset paramter from a link
