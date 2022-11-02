@@ -203,9 +203,10 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit,
                         <button type="reset" title="Clear search options" className="btn btn-red btn-sm mt-2" onClick={() => reset()}>Clear</button>
                     </div>
 
-                    <div className="col-12">
+
+                    {(!process.env.NODE_ENV || process.env.NODE_ENV === 'development') && <div className="col-12">
                         <code>API:<a className="searchUrl" href={searchUrl} target="_blank" rel="noopener noreferrer">{searchUrl}</a></code>
-                    </div>
+                    </div>}
 
                 </form>
             </div>
