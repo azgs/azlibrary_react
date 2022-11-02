@@ -21,10 +21,10 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit,
             // Add parameters
             Object.keys(inputs).forEach(key => {
 
-                const value = inputs[key]
+                const value = inputs[key];
 
                 if (value) {
-                    params.append(key, value);
+                    params.append(key, value.toString().trim());
                 }
             })
 
