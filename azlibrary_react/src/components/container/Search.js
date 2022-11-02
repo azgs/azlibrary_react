@@ -108,6 +108,7 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit,
 
     // Reset form to empty
     const reset = () => {
+        setOffset();
         filterGeomCheckbox.current.checked = false;
         setInputs(emptyForm);
     }
@@ -202,7 +203,6 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit,
                     <div className="col-12 text-right">
                         <button type="reset" title="Clear search options" className="btn btn-red btn-sm mt-2" onClick={() => reset()}>Clear</button>
                     </div>
-
 
                     {(!process.env.NODE_ENV || process.env.NODE_ENV === 'development') && <div className="col-12">
                         <code>API:<a className="searchUrl" href={searchUrl} target="_blank" rel="noopener noreferrer">{searchUrl}</a></code>
