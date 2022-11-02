@@ -25,8 +25,10 @@ export default function Paging({ links, limit, offset, setOffset }) {
 
     const navLinks = [];
 
+    // Starting offset is either 0 or between 4-8 pages prior to current
     const startOffset = Math.max(0, offset - (Math.max(4, 8 - (maxOffset - offset)/limit) * limit));
 
+    // Ending offset is either the maxOffset or 8 pages ahead of current
     const endOffset = Math.min(maxOffset, startOffset + (8 * limit));
 
     for (let i = startOffset; i <= endOffset; i = i + limit) {
@@ -49,7 +51,7 @@ export default function Paging({ links, limit, offset, setOffset }) {
 
     return (
         <nav aria-label="Page navigation example">
-
+            
             <ul className="pagination justify-content-end">
 
                 <li className={isFirst ? "page-item disabled" : "page-item"}>
