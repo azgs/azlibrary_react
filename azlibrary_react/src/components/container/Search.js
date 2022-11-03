@@ -10,6 +10,7 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit,
     const [polygon, setPolygon] = useState(getWKTPoly(map))
 
     const [advancedToggle, setAdvancedToggle] = useState(false);
+    const [urlToggle, setUrlToggle] = useState(false);
 
     // Update searchUrl when input changes
     useEffect(() => {
@@ -201,8 +202,8 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit,
                     </div>
 
                     <div>
-                        <button type="button" title="Show API Url" className="btn btn-sm btn-blue" data-toggle="collapse" data-target="#apiUrl" aria-expanded="false" aria-controls="apiUrl">
-                            Show URL
+                        <button type="button" title="Show API Url" className="btn btn-sm btn-blue" data-toggle="collapse" data-target="#apiUrl" aria-expanded="false" aria-controls="apiUrl" onClick={() => setUrlToggle(!urlToggle)}>
+                            {urlToggle ? "Hide" : "Show"} URL
                         </button>
 
                         <button type="reset" title="Clear search options" className="btn btn-red btn-sm" onClick={() => reset()}>Clear</button>
