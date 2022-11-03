@@ -200,13 +200,17 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit,
                         </button>
                     </div>
 
-                    <div className="col-12 text-right">
-                        <button type="reset" title="Clear search options" className="btn btn-red btn-sm mt-2" onClick={() => reset()}>Clear</button>
+                    <div>
+                        <button type="button" title="Show API Url" className="btn btn-sm btn-blue" data-toggle="collapse" data-target="#apiUrl" aria-expanded="false" aria-controls="apiUrl">
+                            Show URL
+                        </button>
+
+                        <button type="reset" title="Clear search options" className="btn btn-red btn-sm" onClick={() => reset()}>Clear</button>
                     </div>
 
-                    {(!process.env.NODE_ENV || process.env.NODE_ENV === 'development') && <div className="col-12">
-                        <code>API:<a className="searchUrl" href={searchUrl} target="_blank" rel="noopener noreferrer">{searchUrl}</a></code>
-                    </div>}
+                    <div className="collapse" id="apiUrl">
+                        <code><a className="searchUrl" href={searchUrl} target="_blank" rel="noopener noreferrer">{searchUrl}</a></code>
+                    </div>
 
                 </form>
             </div>
