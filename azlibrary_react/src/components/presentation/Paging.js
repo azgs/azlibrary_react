@@ -15,14 +15,19 @@ export default function Paging({ links, limit, offset, setOffset }) {
     const isFirst = apiLinks['self'] === apiLinks['first'];
     const isLast = apiLinks['self'] === apiLinks['last'];
 
+    // Page links (1, 2, 3, 4, etc)
     const navLinks = [];
 
-    // Starting offset is either 0 or between 4-8 pages prior to current
-    const startOffset = Math.max(0, offset - (Math.max(4, 8 - (maxOffset - offset)/limit) * limit));
+    // Starting pad is between 4-8 pages prior to current depending on how many pages available after current
+    const startingPad = Math.max(4, 8 - (maxOffset - offset)/limit);
 
-    // Ending offset is either the maxOffset or 8 pages after current
+    // Starting offset is either 0 or higher
+    const startOffset = Math.max(0, offset - (startingPad * limit));
+
+    // Ending offset is either the maxOffset or lower
     const endOffset = Math.min(maxOffset, startOffset + (8 * limit));
 
+    // Add the page links
     for (let i = startOffset; i <= endOffset; i = i + limit) {
         navLinks.push({ pageNumber: calculatePageNumber(i, limit), offset: i, active: (i === offset) });
     }
