@@ -1,17 +1,11 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { MapContainer, TileLayer, Rectangle, Tooltip } from 'react-leaflet'
 
-export default function SearchMap({ boundingBoxes, highlightBox, setFoo }) {
+export default function SearchMap({ boundingBoxes, highlightBox, setGeom }) {
 
     const [map, setMap] = useState(null);
 
-    const [geom, setGeom] = useState();
-
     const [isChecked, setIsChecked] = useState(false);
-
-    useEffect(() => {
-        setFoo(geom);
-    }, [geom, setFoo]);
 
     function WktPolygon({ map }) {
 
@@ -55,7 +49,6 @@ export default function SearchMap({ boundingBoxes, highlightBox, setFoo }) {
 
         return (
             <div className="form-check">
-                <div>GEOM: {geom}</div>
                 <input type="checkbox" className="form-check-input" id="geom1" name="geom1" onChange={handleChange} checked={isChecked} />
                 <label className="form-check-label font-weight-bold" htmlFor="geom1">Filter results to map extent</label>
             </div>
