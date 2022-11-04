@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { MapContainer, TileLayer } from 'react-leaflet'
+import { MapContainer, TileLayer, Rectangle, Tooltip } from 'react-leaflet'
 
-export default function SearchMap() {
+export default function SearchMap({ boundingBoxes, highlightBox }) {
 
     const [map, setMap] = useState(null);
 
@@ -10,16 +10,22 @@ export default function SearchMap() {
         // Probably need to move this home
         const [geom, setGeom] = useState();
 
+        const [isChecked, setIsChecked] = useState(false);
+
         const [polygon, setPolygon] = useState(() => getWKTPoly(map));
 
+        useEffect(() => {
 
+            // Set geometry as wkt-poly when the checkbox is checked
+            isChecked ? setGeom(polygon) : setGeom();
 
+        }, [polygon, isChecked]);
 
+        // Handle form input changes
+        const handleChange = (e) => {
+            e.target.checked ? setIsChecked(true) : setIsChecked(false);
+        }
 
-
-
-
-        
         // Build a WKT Polygon from the map bounds
         function getWKTPoly(map) {
             const bounds = map.getBounds();
@@ -47,13 +53,10 @@ export default function SearchMap() {
         }, [map, onMove])
 
         return (
-            <div>
+            <div className="form-check">
                 <div>GEOM: {geom}</div>
-                <div>{polygon}</div>
-                <div className="form-check">
-                    <input type="checkbox" className="form-check-input" id="geom1" name="geom1" />
-                    <label className="form-check-label font-weight-bold" htmlFor="geom1">Filter results to map extent</label>
-                </div>
+                <input type="checkbox" className="form-check-input" id="geom1" name="geom1" onChange={handleChange} checked={isChecked} />
+                <label className="form-check-label font-weight-bold" htmlFor="geom1">Filter results to map extent</label>
             </div>
         )
     }
@@ -70,9 +73,21 @@ export default function SearchMap() {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
 
+                {highlightBox && <Rectangle key={highlightBox.id} eventHandlers={{ click: () => window.location.href = "item/" + highlightBox.id }} bounds={[[highlightBox.bbox.north, highlightBox.bbox.east], [highlightBox.bbox.south, highlightBox.bbox.west]]} pathOptions={{ color: "#ff0000" }}>
+                    <Tooltip>{highlightBox.title}</Tooltip>
+                </Rectangle>
+                }
+
+                {boundingBoxes && boundingBoxes.map(result =>
+                    <Rectangle key={result.id} eventHandlers={{ click: () => window.location.href = "item/" + result.id }} bounds={[[result.bbox.north, result.bbox.east], [result.bbox.south, result.bbox.west]]} pathOptions={{ color: "#1E5288" }}>
+                        <Tooltip sticky>{result.title}</Tooltip>
+                    </Rectangle>
+                )
+                }
+
             </MapContainer>
         ),
-        [],
+        [highlightBox, boundingBoxes],
     )
 
     return (

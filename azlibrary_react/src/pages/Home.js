@@ -16,11 +16,11 @@ export default function Home() {
   const [searchUrl, setSearchUrl] = useState(metadataUrl);
 
   // Leaflet map
-  const [map, setMap] = useState(null)
+  const [map, setMap] = useState(null);
 
   // Paging offset
-  const [offset, setOffset] = useState()
-  const [limit, setLimit] = useState()
+  const [offset, setOffset] = useState();
+  const [limit, setLimit] = useState();
 
   // Api response
   const [results, setResults] = useState([]);
@@ -104,7 +104,7 @@ export default function Home() {
     <div className="container">
 
       <div className="col-12">
-        <SearchMap />
+        <SearchMap boundingBoxes={boundingBoxes} highlightBox={highlightBox} />
       </div>
 
       <Breadcrumb />
