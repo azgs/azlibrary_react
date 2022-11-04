@@ -5,6 +5,7 @@ import Breadcrumb from "../components/presentation/Breadcrumb";
 import SearchResults from "../components/container/SearchResults"
 import Paging from '../components/presentation/Paging'
 import azgsApi from "../components/container/AzgsApi";
+import SearchMap from "../components/container/SearchMap"
 
 export default function Home() {
 
@@ -101,6 +102,10 @@ export default function Home() {
   return (
 
     <div className="container">
+
+      <div className="col-12">
+        <SearchMap />
+      </div>
 
       <Breadcrumb />
 
