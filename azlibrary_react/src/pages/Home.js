@@ -18,6 +18,8 @@ export default function Home() {
   // Leaflet map
   const [map, setMap] = useState(null);
 
+  const [foo, setFoo] = useState();
+
   // Paging offset
   const [offset, setOffset] = useState();
   const [limit, setLimit] = useState();
@@ -104,7 +106,8 @@ export default function Home() {
     <div className="container">
 
       <div className="col-12">
-        <SearchMap boundingBoxes={boundingBoxes} highlightBox={highlightBox} />
+        <div>Foo: {foo}</div>
+        <SearchMap boundingBoxes={boundingBoxes} highlightBox={highlightBox} setFoo={setFoo} />
       </div>
 
       <Breadcrumb />

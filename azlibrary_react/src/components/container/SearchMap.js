@@ -1,25 +1,26 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { MapContainer, TileLayer, Rectangle, Tooltip } from 'react-leaflet'
 
-export default function SearchMap({ boundingBoxes, highlightBox }) {
+export default function SearchMap({ boundingBoxes, highlightBox, setFoo }) {
 
     const [map, setMap] = useState(null);
 
+    const [geom, setGeom] = useState();
+
+    const [isChecked, setIsChecked] = useState(false);
+
+    useEffect(() => {
+        setFoo(geom);
+    }, [geom, setFoo]);
+
     function WktPolygon({ map }) {
-
-        // Probably need to move this home
-        const [geom, setGeom] = useState();
-
-        const [isChecked, setIsChecked] = useState(false);
 
         const [polygon, setPolygon] = useState(() => getWKTPoly(map));
 
         useEffect(() => {
-
             // Set geometry as wkt-poly when the checkbox is checked
             isChecked ? setGeom(polygon) : setGeom();
-
-        }, [polygon, isChecked]);
+        }, [polygon]);
 
         // Handle form input changes
         const handleChange = (e) => {
