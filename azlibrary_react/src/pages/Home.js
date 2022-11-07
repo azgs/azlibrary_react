@@ -17,7 +17,7 @@ export default function Home() {
   // Leaflet map extent
   const [geom, setGeom] = useState();
 
-  // Paging offset
+  // Paging offset and limit
   const [offset, setOffset] = useState();
   const [limit, setLimit] = useState();
 
@@ -69,6 +69,7 @@ export default function Home() {
 
   }, [results]);
 
+  // Update searchUrl when map extent changes
   useEffect(() => {
 
     const queryString = searchUrl.includes('?') ? searchUrl.slice(searchUrl.indexOf("?")) : '';
