@@ -15,10 +15,10 @@ export default function Paging({ links, limit, offset, setOffset }) {
     const isFirst = apiLinks['self'] === apiLinks['first'];
     const isLast = apiLinks['self'] === apiLinks['last'];
 
-    // Page links (1, 2, 3, 4, etc)
+    // Page links (1, 2, 3, etc)
     const navLinks = [];
 
-    // Starting pad is between 2-4 pages prior to current depending on how many pages available after current
+    // Starting pad should be between 2-4 pages prior to current depending on how many pages are available after current
     const startingPad = Math.max(2, 4 - (maxOffset - offset)/limit);
 
     // Starting offset is either 0 or higher
@@ -54,20 +54,25 @@ export default function Paging({ links, limit, offset, setOffset }) {
             
             <ul className="pagination pagination-sm justify-content-end flex-wrap">
 
+                {/* First */}
                 <li className={isFirst ? "page-item disabled" : "page-item"}>
                     <button className="page-link" onClick={() => setOffset(apiLinks['first'])}>First</button>
                 </li>
 
+                {/* Previous */}
                 <li className={isFirst ? "page-item disabled" : "page-item"}>
                     <button className="page-link" onClick={() => setOffset(apiLinks['previous'])}>Previous</button>
                 </li>
 
+                {/* Pages */}
                 {navLinks.map(link => <li key={link.pageNumber} className={link.active ? "page-item active" : "page-item"}><button className="page-link" onClick={() => setOffset(link.offset)} >{link.pageNumber}</button></li>)}
 
+                {/* Next */}
                 <li className={isLast ? "page-item disabled" : "page-item"}>
                     <button className="page-link" onClick={() => setOffset(apiLinks['next'])}>Next</button>
                 </li>
 
+                {/* Last */}
                 <li className={isLast ? "page-item disabled" : "page-item"}>
                     <button className="page-link" onClick={() => setOffset(apiLinks['last'])}>Last</button>
                 </li>
