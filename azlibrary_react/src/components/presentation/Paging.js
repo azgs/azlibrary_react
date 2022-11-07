@@ -52,7 +52,7 @@ export default function Paging({ links, limit, offset, setOffset }) {
     return (
         <nav aria-label="Search results pages">
             
-            <ul className="pagination pagination-sm justify-content-end">
+            <ul className="pagination pagination-sm justify-content-end flex-wrap">
 
                 <li className={isFirst ? "page-item disabled" : "page-item"}>
                     <button className="page-link" onClick={() => setOffset(apiLinks['first'])}>First</button>
