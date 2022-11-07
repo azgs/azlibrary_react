@@ -69,6 +69,28 @@ export default function Home() {
 
   }, [results]);
 
+  useEffect(() => {
+
+    const queryString = searchUrl.includes('?') ? searchUrl.slice(searchUrl.indexOf("?")) : '';
+
+    let params = new URLSearchParams(queryString);
+
+    if (geom) {
+      params.set('geom', geom);
+      params.set('geom_method', 'contains');
+    } else {
+      params.delete('geom');
+      params.delete('geom_method');
+    }
+
+    if (Array.from(params).length > 0) {
+      setSearchUrl(metadataUrl + '?' + params.toString());
+    } else {
+      setSearchUrl(metadataUrl);
+    }
+
+  }, [metadataUrl, geom, searchUrl]);
+
   return (
 
     <div className="container">
@@ -104,7 +126,6 @@ export default function Home() {
 
         {/* Results map */}
         <div className="col-sm-6 mb-2">
-          <div>Geom: {geom}</div>
           <SearchMap boundingBoxes={boundingBoxes} highlightBox={highlightBox} setGeom={setGeom} />
         </div>
 

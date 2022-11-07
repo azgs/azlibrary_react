@@ -48,7 +48,7 @@ export default function SearchMap({ boundingBoxes, highlightBox, setGeom }) {
         }, [map, onMove])
 
         return (
-            <div className="form-check">
+            <div className="form-check text-center">
                 <input type="checkbox" className="form-check-input" id="geom1" name="geom1" onChange={handleChange} checked={isChecked} />
                 <label className="form-check-label font-weight-bold" htmlFor="geom1">Filter results to map extent</label>
             </div>
