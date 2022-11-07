@@ -19,13 +19,13 @@ export default function Paging({ links, limit, offset, setOffset }) {
     const navLinks = [];
 
     // Starting pad is between 4-8 pages prior to current depending on how many pages available after current
-    const startingPad = Math.max(4, 8 - (maxOffset - offset)/limit);
+    const startingPad = Math.max(3, 6 - (maxOffset - offset)/limit);
 
     // Starting offset is either 0 or higher
     const startOffset = Math.max(0, offset - (startingPad * limit));
 
     // Ending offset is either the maxOffset or lower
-    const endOffset = Math.min(maxOffset, startOffset + (8 * limit));
+    const endOffset = Math.min(maxOffset, startOffset + (6 * limit));
 
     // Add the page links
     for (let i = startOffset; i <= endOffset; i = i + limit) {
