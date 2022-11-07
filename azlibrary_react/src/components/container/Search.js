@@ -1,13 +1,10 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect } from "react";
 import SelectCollectionGroup from './SelectCollectionGroup'
 
-export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit, setOffset, offset, map }) {
+export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit, setOffset, offset }) {
 
     const emptyForm = { year: "", title: "", author: "", text: "", keyword: "", series: "", collection_id: "", limit: "", latest: true, geom: "", geom_method: "", offset: "" };
     const [inputs, setInputs] = useState(emptyForm);
-
-    const filterGeomCheckbox = useRef();
-    const [polygon, setPolygon] = useState(getWKTPoly(map))
 
     const [advancedToggle, setAdvancedToggle] = useState(false);
     const [urlToggle, setUrlToggle] = useState(false);
@@ -44,60 +41,10 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit,
         setLimit(inputs["limit"])
     }, [inputs, setLimit]);
 
-    // Add geom and geom_method values if the checkbox is checked
-    const handleGeomChange = useCallback(() => {
-
-        let geom = polygon;
-        let geom_method = "contains"
-
-        // Check if the filter checkbox is checked
-        if (!filterGeomCheckbox.current.checked) {
-            geom = "";
-            geom_method = "";
-        } else {
-            // Reset paging when updating geom
-            setOffset();
-        }
-
-        setInputs(values => ({ ...values, "geom": geom, "geom_method": geom_method }))
-
-    }, [polygon, setOffset])
-
     // Update inputs when offset changes
     useEffect(() => {
         setInputs(values => ({ ...values, "offset": offset }))
     }, [offset]);
-
-    // Update api inputs when polygon changes
-    useEffect(() => {
-        handleGeomChange();
-    }, [polygon, handleGeomChange]);
-
-    // Set polygon after move
-    const onMove = useCallback(() => {
-        setPolygon(getWKTPoly(map))
-    }, [map])
-
-    // Call onMove when the map moves
-    useEffect(() => {
-        map.on('move', onMove)
-        return () => {
-            map.off('move', onMove)
-        }
-    }, [map, onMove])
-
-    // Build a WKT Polygon from the map bounds
-    function getWKTPoly(map) {
-        const bounds = map.getBounds();
-        const southWest = bounds.getSouthWest();
-        const northEast = bounds.getNorthEast();
-        const northWest = bounds.getNorthWest();
-        const southEast = bounds.getSouthEast();
-
-        const poly = `POLYGON((${northWest.lng.toFixed(3)} ${northWest.lat.toFixed(3)},${southWest.lng.toFixed(3)} ${southWest.lat.toFixed(3)},${southEast.lng.toFixed(3)} ${southEast.lat.toFixed(3)},${northEast.lng.toFixed(3)} ${northEast.lat.toFixed(3)},${northWest.lng.toFixed(3)} ${northWest.lat.toFixed(3)}))`;
-
-        return poly;
-    }
 
     // Handle form input changes
     const handleChange = (e) => {
@@ -110,7 +57,6 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit,
     // Reset form to empty
     const reset = () => {
         setOffset();
-        filterGeomCheckbox.current.checked = false;
         setInputs(emptyForm);
     }
 
@@ -148,11 +94,6 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit,
                     <div className="form-row">
                         <label htmlFor="author">Author</label>
                         <input type="text" className="form-control form-control-sm" id="author" name="author" value={inputs.author} onChange={handleChange} />
-                    </div>
-
-                    <div className="form-check">
-                        <input type="checkbox" className="form-check-input" id="geom" name="geom" ref={filterGeomCheckbox} onChange={handleGeomChange} />
-                        <label className="form-check-label font-weight-bold" htmlFor="geom">Filter results to map extent</label>
                     </div>
 
                     <div className="collapse" id="advancedSearch">

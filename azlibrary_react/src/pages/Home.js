@@ -1,6 +1,5 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import Search from '../components/container/Search'
-import { MapContainer, TileLayer, Rectangle, Tooltip } from 'react-leaflet'
 import Breadcrumb from "../components/presentation/Breadcrumb";
 import SearchResults from "../components/container/SearchResults"
 import Paging from '../components/presentation/Paging'
@@ -15,9 +14,7 @@ export default function Home() {
   // API request-url with query parameters
   const [searchUrl, setSearchUrl] = useState(metadataUrl);
 
-  // Leaflet map
-  const [map, setMap] = useState(null);
-
+  // Leaflet map extent
   const [geom, setGeom] = useState();
 
   // Paging offset
@@ -72,43 +69,9 @@ export default function Home() {
 
   }, [results]);
 
-  // Leaflet map
-  const resultsMap = useMemo(
-    () => (
-      <MapContainer
-        center={[34.16, -111.62]}
-        zoom={6}
-        ref={setMap}>
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-
-        {highlightBox && <Rectangle key={highlightBox.id} eventHandlers={{ click: () => window.location.href = "item/" + highlightBox.id }} bounds={[[highlightBox.bbox.north, highlightBox.bbox.east], [highlightBox.bbox.south, highlightBox.bbox.west]]} pathOptions={{ color: "#ff0000" }}>
-          <Tooltip>{highlightBox.title}</Tooltip>
-        </Rectangle>
-        }
-
-        {boundingBoxes && boundingBoxes.map(result =>
-          <Rectangle key={result.id} eventHandlers={{ click: () => window.location.href = "item/" + result.id }} bounds={[[result.bbox.north, result.bbox.east], [result.bbox.south, result.bbox.west]]} pathOptions={{ color: "#1E5288" }}>
-            <Tooltip sticky>{result.title}</Tooltip>
-          </Rectangle>
-        )
-        }
-
-      </MapContainer>
-    ),
-    [highlightBox, boundingBoxes],
-  )
-
   return (
 
     <div className="container">
-
-      <div className="col-12">
-        <div>Geom: {geom}</div>
-        <SearchMap boundingBoxes={boundingBoxes} highlightBox={highlightBox} setGeom={setGeom} />
-      </div>
 
       <Breadcrumb />
 
@@ -116,7 +79,7 @@ export default function Home() {
 
         {/* Search */}
         <div className="col-12">
-          {map ? <Search metadataUrl={metadataUrl} searchUrl={searchUrl} setSearchUrl={setSearchUrl} setOffset={setOffset} setLimit={setLimit} offset={offset} map={map} /> : null}
+          <Search metadataUrl={metadataUrl} searchUrl={searchUrl} setSearchUrl={setSearchUrl} setOffset={setOffset} setLimit={setLimit} offset={offset} />
         </div>
 
         {/* API Error */}
@@ -141,7 +104,8 @@ export default function Home() {
 
         {/* Results map */}
         <div className="col-sm-6 mb-2">
-          {resultsMap}
+          <div>Geom: {geom}</div>
+          <SearchMap boundingBoxes={boundingBoxes} highlightBox={highlightBox} setGeom={setGeom} />
         </div>
 
         {/* Results list */}
