@@ -116,7 +116,7 @@ export default function Home() {
 
         {/* 0 Results */}
         <div className="col-12">
-          {results.data?.length === 0 && <div className="alert alert-danger text-center font-weight-bold" role="alert">
+          {results.data?.length === 0 && <div className="alert alert-dark text-center font-weight-bold" role="alert">
             0 Results
           </div>}
         </div>
