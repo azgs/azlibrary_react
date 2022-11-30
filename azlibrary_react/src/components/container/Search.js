@@ -9,6 +9,17 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit,
     const [advancedToggle, setAdvancedToggle] = useState(false);
     const [urlToggle, setUrlToggle] = useState(false);
 
+    function filterInput(input) {
+
+        // Trim
+        var str = input.toString().trim();
+
+        // Only letters and numbers
+        str = str.replace(/[^a-zA-Z0-9 ’½./-;"=–]/g, '');
+
+        return str;
+    }
+
     // Update searchUrl when input changes
     useEffect(() => {
         const buildQueryString = () => {
@@ -22,7 +33,7 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit,
                 const value = inputs[key];
 
                 if (value) {
-                    params.append(key, value.toString().trim());
+                    params.append(key, filterInput(value));
                 }
             })
 
