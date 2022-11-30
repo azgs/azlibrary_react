@@ -47,7 +47,7 @@ export default function NavBar() {
                 </nav>
 
                 <div className="alert alert-success text-center" role="alert">
-                    The AZGS Library website is still under development. Please submit any issues to <a className="alert-link" href="https://github.com/azgs/azlibrary_react/issues" target="_blank" rel="noopener noreferrer" >GitHub.</a> 
+                    The AZGS Library website is currently in development. Please submit any issues to <a className="alert-link" href="https://github.com/azgs/azlibrary_react/issues" target="_blank" rel="noopener noreferrer" >GitHub.</a> 
                 </div>
 
             </div>

@@ -76,6 +76,7 @@ export default function Home() {
 
     let params = new URLSearchParams(queryString);
 
+    // Add the map-filter geometry if it is set
     if (geom) {
       params.set('geom', geom);
       params.set('geom_method', 'contains');

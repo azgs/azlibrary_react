@@ -38,7 +38,7 @@ export default function Item() {
         <Breadcrumb isItem={true} />
 
         {error && <div className="alert alert-danger text-center font-weight-bold" role="alert">
-          🐟collection not found🐟
+          🐟 Collection not found. 🐟
         </div>}
 
         {collection && <div>
