@@ -11,10 +11,10 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit,
 
     function filterInput(input) {
 
-        // Trim
+        // Trim leading/trailing whitespace
         var str = input.toString().trim();
 
-        // Only letters and numbers
+        // Only letters, numbers, and some special chars
         str = str.replace(/[^a-zA-Z0-9 ’½./-;"=–]/g, '');
 
         return str;
