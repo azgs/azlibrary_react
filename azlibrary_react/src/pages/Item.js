@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { MapContainer, TileLayer, Rectangle } from 'react-leaflet'
 import azgsApi from '../components/container/AzgsApi';
 import Breadcrumb from "../components/presentation/Breadcrumb";
+import Keywords from "../components/presentation/Keywords"
 import Downloads from "../components/presentation/Downloads"
 
 export default function Item() {
@@ -109,12 +110,7 @@ export default function Item() {
           <dt className="col-sm-2">Language</dt>
           <dd className="col-sm-10">{collection.metadata.language}</dd>
 
-          <dt className="col-sm-2">Keyword{collection.metadata.keywords.length === 1 ? "" : "s"}</dt>
-          <dd className="col-sm-10 split-sm-3-col">
-            {collection.metadata.keywords.map(keyword =>
-              <div key={keyword.name}>{keyword.name} ({keyword.type})</div>
-            )}
-          </dd>
+          <Keywords keywords={collection.metadata.keywords} />
 
           {uaLibraryLink && <>
             <dt className="col-sm-2">Permalink</dt>
