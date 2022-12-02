@@ -1,5 +1,6 @@
 export default function Keywords({ keywords }) {
 
+    // Group keywords by type
     const keywordsByType = keywords.reduce((groups, value) => {
 
         // Capitalize type
@@ -18,16 +19,20 @@ export default function Keywords({ keywords }) {
         <>
             <dt className="col-sm-2">Keyword{keywords === 1 ? "" : "s"}</dt>
             <dd className="col-sm-10">
-                {
-                    Object.entries(keywordsByType).map(([key, value]) =>
-                        <div>
-                            <div className="font-weight-bold" key={key}>{key}</div>
-                            <ul>
-                                {value.map(keyword => <li key={keyword}>{keyword}</li>)}
-                            </ul>
-                        </div>
-                    )
-                }
+                <div className="row row-cols-1 row-cols-md-3">
+                    {
+                        Object.entries(keywordsByType).map(([key, value]) =>
+                            <div className="col">
+                                {/* Type */}
+                                <div className="font-weight-bold" key={key}>{key}</div>
+                                <ul>
+                                    {/* Keywords */}
+                                    {value.map(keyword => <li key={keyword}>{keyword}</li>)}
+                                </ul>
+                            </div>
+                        )
+                    }
+                </div>
             </dd>
         </>
     )
