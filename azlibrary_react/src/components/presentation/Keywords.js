@@ -6,10 +6,12 @@ export default function Keywords({ keywords }) {
         // Capitalize type
         const type = value.type.charAt(0).toUpperCase() + value.type.slice(1);
 
+        // Create array for each type
         if (!groups[type]) {
             groups[type] = [];
         }
 
+        // Push the keyword to the type array
         groups[type].push(value.name);
 
         return groups;

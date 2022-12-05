@@ -30,6 +30,10 @@ export default function NavBar() {
                                 <Link className="nav-link" to="/">Home</Link>
                             </li>
 
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/Contact">Contact</Link>
+                            </li>
+
                             {debug && <>
                                 <li className="nav-item">
                                     <a className="nav-link" href="https://devdata.azgs.arizona.edu/api/v1/metadata?help=html" target="_blank" rel="noopener noreferrer">API</a>
