@@ -3,6 +3,7 @@ import Layout from "./pages/Layout";
 import Home from "./pages/Home";
 import Item from "./pages/Item";
 import NoPage from "./pages/NoPage";
+import Contact from "./pages/Contact";
 import 'arizona-bootstrap/dist/css/arizona-bootstrap.min.css';
 import 'arizona-bootstrap';
 import './Style.css';
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="/contact/" element={<Contact />} />
           <Route path="/item/:collectionId" element={<Item />} />
           <Route path="*" element={<NoPage />} />
         </Route>
