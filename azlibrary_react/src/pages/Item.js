@@ -26,7 +26,8 @@ export default function Item() {
         const boundBox = [[json.metadata.bounding_box.north, json.metadata.bounding_box.east], [json.metadata.bounding_box.south, json.metadata.bounding_box.west]];
         setBounds(boundBox);
 
-        setUaLibraryLink(json.metadata.links.find(x => x.name === 'UA Library'));
+        const uaLink = json.metadata.links.find(x => x.name === 'UA Library').url.replace("http://", "https://");
+        setUaLibraryLink(uaLink);
 
       } catch (error) {
         setError(error);
@@ -114,7 +115,7 @@ export default function Item() {
 
           {uaLibraryLink && <>
             <dt className="col-sm-2">Permalink</dt>
-            <dd className="col-sm-10"><a href={uaLibraryLink.url} target="_blank" rel="noopener noreferrer">{uaLibraryLink.name}</a></dd>
+            <dd className="col-sm-10"><a href={uaLibraryLink} target="_blank" rel="noopener noreferrer">{uaLibraryLink}</a></dd>
           </>
           }
 
