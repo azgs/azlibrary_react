@@ -24,9 +24,9 @@ export default function Keywords({ keywords }) {
                 <div className="row row-cols-1 row-cols-md-3">
                     {
                         Object.entries(keywordsByType).map(([key, value]) =>
-                            <div className="col">
+                            <div key={key} className="col">
                                 {/* Type */}
-                                <div className="font-weight-bold" key={key}>{key}</div>
+                                <div className="font-weight-bold">{key}</div>
                                 <ul>
                                     {/* Keywords */}
                                     {value.map(keyword => <li key={keyword}>{keyword}</li>)}
