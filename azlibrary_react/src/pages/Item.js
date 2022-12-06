@@ -4,6 +4,7 @@ import { MapContainer, TileLayer, Rectangle } from 'react-leaflet'
 import azgsApi from '../components/container/AzgsApi';
 import Breadcrumb from "../components/presentation/Breadcrumb";
 import Keywords from "../components/presentation/Keywords"
+import Files from "../components/presentation/Files"
 import Downloads from "../components/presentation/Downloads"
 
 export default function Item() {
@@ -119,12 +120,8 @@ export default function Item() {
           </>
           }
 
-          <dt className="col-sm-2">File{collection.metadata.files.length === 1 ? "" : "s"}</dt>
-          <dd className="col-sm-10">
-            {collection.metadata.files.map(file =>
-              <div key={file.name}>{file.name} ({file.type})</div>
-            )}
-          </dd>
+        <Files files={collection.metadata.files} />
+
         </dl>
 
         <Downloads collectionId={collectionId} />
