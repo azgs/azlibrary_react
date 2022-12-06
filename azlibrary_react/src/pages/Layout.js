@@ -36,8 +36,8 @@ const Layout = () => {
                                 <Link className="nav-link" to="/">Home</Link>
                             </li>
 
-                            <li className={pathname === "/Contact" ? "nav-item active" : "nav-item"}>
-                                <Link className="nav-link" to="/Contact">Contact</Link>
+                            <li className={pathname === "/contact" ? "nav-item active" : "nav-item"}>
+                                <Link className="nav-link" to="/contact">Contact</Link>
                             </li>
 
                             {debug && <>
