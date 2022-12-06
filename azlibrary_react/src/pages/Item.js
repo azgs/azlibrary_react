@@ -42,7 +42,7 @@ export default function Item() {
 
     <div className="container">
 
-      <Breadcrumb isItem={true} />
+      <Breadcrumb page={collectionId} />
 
       {error && <div className="alert alert-danger text-center font-weight-bold" role="alert">
         🐟 Collection not found. 🐟

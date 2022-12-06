@@ -1,5 +1,8 @@
+import Breadcrumb from "../components/presentation/Breadcrumb";
+
 const Contact = () => {
   return <div className="container">
+    <Breadcrumb page="Contact" />
     <h1>Contact AZGS</h1>
     <dl>
       <dt>Arizona Geological Survey</dt>
