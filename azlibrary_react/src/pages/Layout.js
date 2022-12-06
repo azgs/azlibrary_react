@@ -1,9 +1,15 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useLocation } from "react-router-dom";
 import logo from '../assets/images/azgs.png';
 
 const debug = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development');
 
-export default function NavBar() {
+const Layout = () => {
+
+    const location = useLocation();
+
+    // Current route
+    const pathname = location.pathname;
+
     return (
         <>
             <header className="bg-red arizona-header" id="header_arizona">
@@ -26,11 +32,11 @@ export default function NavBar() {
 
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav ml-auto">
-                            <li className="nav-item">
+                            <li className={pathname === "/" ? "nav-item active" : "nav-item"}>
                                 <Link className="nav-link" to="/">Home</Link>
                             </li>
 
-                            <li className="nav-item">
+                            <li className={pathname === "/Contact" ? "nav-item active" : "nav-item"}>
                                 <Link className="nav-link" to="/Contact">Contact</Link>
                             </li>
 
@@ -51,7 +57,7 @@ export default function NavBar() {
                 </nav>
 
                 <div className="alert alert-success text-center rounded py-4" role="alert">
-                    The AZGS Library website is currently under development. Please submit any issues to <a className="alert-link" href="https://github.com/azgs/azlibrary_react/issues" target="_blank" rel="noopener noreferrer" >GitHub.</a> 
+                    The AZGS Library website is currently under development. Please submit any issues to <a className="alert-link" href="https://github.com/azgs/azlibrary_react/issues" target="_blank" rel="noopener noreferrer" >GitHub.</a>
                 </div>
 
             </div>
@@ -76,3 +82,5 @@ export default function NavBar() {
         </>
     )
 }
+
+export default Layout
