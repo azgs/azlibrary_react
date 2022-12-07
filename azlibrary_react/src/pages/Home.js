@@ -85,13 +85,19 @@ export default function Home() {
       params.delete('geom_method');
     }
 
+    if (offset) {
+      params.set('offset', offset);
+    } else {
+      params.delete('offset');
+    }
+
     if (Array.from(params).length > 0) {
       setSearchUrl(metadataUrl + '?' + params.toString());
     } else {
       setSearchUrl(metadataUrl);
     }
 
-  }, [metadataUrl, geom, searchUrl]);
+  }, [metadataUrl, geom, offset, searchUrl]);
 
   return (
 
@@ -128,7 +134,7 @@ export default function Home() {
 
         {/* Results map */}
         <div className="col-sm-6 mb-2">
-          <SearchMap boundingBoxes={boundingBoxes} highlightBox={highlightBox} setGeom={setGeom} />
+          <SearchMap boundingBoxes={boundingBoxes} highlightBox={highlightBox} setGeom={setGeom}  setOffset={setOffset} />
         </div>
 
         {/* Results list */}

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import SelectCollectionGroup from './SelectCollectionGroup'
 
-export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit, setOffset, offset }) {
+export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit, setOffset }) {
 
     const emptyForm = { year: "", title: "", author: "", text: "", keyword: "", series: "", collection_id: "", limit: "", latest: true, geom: "", geom_method: "", offset: "" };
     const [inputs, setInputs] = useState(emptyForm);
@@ -51,11 +51,6 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit,
     useEffect(() => {
         setLimit(inputs["limit"])
     }, [inputs, setLimit]);
-
-    // Update inputs when offset changes
-    useEffect(() => {
-        setInputs(values => ({ ...values, "offset": offset }))
-    }, [offset]);
 
     // Handle form input changes
     const handleChange = (e) => {
