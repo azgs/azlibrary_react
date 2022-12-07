@@ -43,6 +43,12 @@ export default function SearchMap({ boundingBoxes, highlightBox, setGeom, setOff
         // Set polygon after move
         const onMove = useCallback(() => {
             setPolygon(getWKTPoly(map));
+
+            if (isChecked){
+                // Reset offset when moving so the user gets the first page of results
+                setOffset();
+            }
+
         }, [map])
 
         // Call onMove when the map moves
