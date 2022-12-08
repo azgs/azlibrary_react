@@ -17,6 +17,7 @@ export default function Item() {
 
   useEffect(() => {
 
+    // Get the collection from the API
     const getCollection = async () => {
       try {
         const res = await azgsApi.get('/metadata/' + collectionId);
@@ -53,6 +54,7 @@ export default function Item() {
 
         <h3 className="text-center mt-0">{collection.metadata.title} {collection.metadata.private && <span className="badge badge-warning">Private</span>}</h3>
 
+        {/* Leaflet Map */}
         <div className="">
           <MapContainer bounds={bounds} boundsOptions={{ padding: [100, 100] }} >
             <TileLayer
@@ -64,6 +66,7 @@ export default function Item() {
 
         <hr />
 
+        {/* Collection Details */}
         <dl className="row">
 
           {collection.metadata.informal_name && <>

@@ -60,6 +60,7 @@ export default function SearchMap({ boundingBoxes, highlightBox, setGeom, setOff
         }, [map, onMove])
 
         return (
+            // Filter by map extent checkbox
             <div className="form-check text-center">
                 <input type="checkbox" className="form-check-input" id="geom1" name="geom1" onChange={handleChange} checked={isChecked} />
                 <label className="form-check-label font-weight-bold" htmlFor="geom1">Filter results to map extent</label>
@@ -79,11 +80,13 @@ export default function SearchMap({ boundingBoxes, highlightBox, setGeom, setOff
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
 
+                {/* Highlight collection on the map when the user hovers the mouse over the title */}
                 {highlightBox && <Rectangle key={highlightBox.id} eventHandlers={{ click: () => window.location.href = "item/" + highlightBox.id }} bounds={[[highlightBox.bbox.north, highlightBox.bbox.east], [highlightBox.bbox.south, highlightBox.bbox.west]]} pathOptions={{ color: "#ff0000" }}>
                     <Tooltip>{highlightBox.title}</Tooltip>
                 </Rectangle>
                 }
 
+                {/* All of the bounding boxes for the map results */}
                 {boundingBoxes && boundingBoxes.map(result =>
                     <Rectangle key={result.id} eventHandlers={{ click: () => window.location.href = "item/" + result.id }} bounds={[[result.bbox.north, result.bbox.east], [result.bbox.south, result.bbox.west]]} pathOptions={{ color: "#1E5288" }}>
                         <Tooltip sticky>{result.title}</Tooltip>

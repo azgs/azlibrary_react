@@ -33,6 +33,7 @@ export default function Home() {
 
     let lastRequest = true;
 
+    // Get results
     const fetchResults = async () => {
       try {
         const res = await azgsApi.get(searchUrl);
@@ -50,6 +51,7 @@ export default function Home() {
 
     fetchResults();
 
+    // Set lastRequest to false if subsequent request has been made
     return () => {
       lastRequest = false;
     };
@@ -61,7 +63,6 @@ export default function Home() {
     setLinks(results?.links);
 
     const boxes = results?.data?.map(item => ({ id: item.collection_id, title: item.metadata.title, bbox: item.metadata.bounding_box }));
-
     setBoundingBoxes(boxes);
 
     // Clear highlight
@@ -72,6 +73,7 @@ export default function Home() {
   // Update searchUrl when map extent changes
   useEffect(() => {
 
+    // Get the query-string from the search URL
     const queryString = searchUrl.includes('?') ? searchUrl.slice(searchUrl.indexOf("?")) : '';
 
     let params = new URLSearchParams(queryString);
@@ -85,12 +87,14 @@ export default function Home() {
       params.delete('geom_method');
     }
 
+    // Add offset if set
     if (offset) {
       params.set('offset', offset);
     } else {
       params.delete('offset');
     }
 
+    // Set the search url
     if (Array.from(params).length > 0) {
       setSearchUrl(metadataUrl + '?' + params.toString());
     } else {
