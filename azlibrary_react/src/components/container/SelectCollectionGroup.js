@@ -7,6 +7,7 @@ export default function SelectCollectionGroup({ id, className, fieldValue, onCha
 
     useEffect(() => {
 
+        // Get all the options for Collection Groups
         const getCollectionGroupOptions = async () => {
             const res = await azgsApi.get('/dicts/collection_groups');
             const sortedGroups = res.data.data.sort(sortByAbbreviation());
@@ -17,6 +18,7 @@ export default function SelectCollectionGroup({ id, className, fieldValue, onCha
 
     }, []);
 
+    // Sort by the collection group's abbreviation 
     const sortByAbbreviation = () => {
         return function (a, b) {
             if (a["abbrv"] > b["abbrv"])
