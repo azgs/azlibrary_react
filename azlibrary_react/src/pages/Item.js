@@ -17,6 +17,9 @@ export default function Item() {
 
   useEffect(() => {
 
+    // Scroll to top
+    window.scrollTo(0, 0);
+
     // Get the collection from the API
     const getCollection = async () => {
       try {
