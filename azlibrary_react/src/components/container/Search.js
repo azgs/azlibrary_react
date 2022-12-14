@@ -42,7 +42,7 @@ export default function Search({ searchUrl, searchParams, setSearchParams }) {
                             -
                         </div>
                         <div className="col p-0">
-                            <input type="text" className="form-control form-control-sm" id="endEear" name="endYear" disabled />
+                            <input type="text" className="form-control form-control-sm" id="endYear" name="endYear" disabled />
                         </div>
                     </div>
 
