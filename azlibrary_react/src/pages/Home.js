@@ -87,7 +87,7 @@ export default function Home() {
       let url = metadataUrl;
       let params = new URLSearchParams();
 
-      // Add parameters
+      // Add search parameters
       Object.keys(searchParams).forEach(key => {
 
         const value = searchParams[key];
@@ -97,12 +97,10 @@ export default function Home() {
         }
       })
 
+      // Add map-filter geometry 
       if (geom) {
-        params.set('geom', geom);
-        params.set('geom_method', 'contains');
-      } else {
-        params.delete('geom');
-        params.delete('geom_method');
+        params.append('geom', geom);
+        params.append('geom_method', 'contains');
       }
 
       if (Array.from(params).length > 0) {
