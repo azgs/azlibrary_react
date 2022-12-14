@@ -48,14 +48,16 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit,
 
     }, [inputs, metadataUrl, setSearchUrl]);
 
-    useEffect(() => {
-        setLimit(inputs["limit"])
-    }, [inputs, setLimit]);
-
     // Handle form input changes
     const handleChange = (e) => {
         const name = e.target.name;
         const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
+
+        // Update limit if changes. The control is commented out currently.
+        if (name === "limit"){
+            setLimit(value)
+        }
+
         setOffset();
         setInputs(values => ({ ...values, [name]: value }))
     }
