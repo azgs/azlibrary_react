@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Search from '../components/container/Search'
 import Breadcrumb from "../components/presentation/Breadcrumb";
-import SearchResults from "../components/container/SearchResults"
+import SearchResults from "../components/presentation/SearchResults"
 import Paging from '../components/container/Paging'
 import azgsApi from "../components/container/AzgsApi";
 import SearchMap from "../components/container/SearchMap"
