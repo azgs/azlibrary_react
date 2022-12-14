@@ -5,7 +5,7 @@ export default function SearchMap({ boundingBoxes, highlightBox, setGeom }) {
 
     const [map, setMap] = useState(null);
 
-    const [isChecked, setIsChecked] = useState(false);
+    const [isFiltered, setIsFiltered] = useState(false);
 
     function WktPolygon({ map }) {
 
@@ -13,13 +13,8 @@ export default function SearchMap({ boundingBoxes, highlightBox, setGeom }) {
 
         useEffect(() => {
             // Set geometry as wkt-poly when the checkbox is checked
-            isChecked ? setGeom(polygon) : setGeom();
+            isFiltered ? setGeom(polygon) : setGeom();
         }, [polygon]);
-
-        // Handle form input changes
-        const handleChange = (e) => {
-            e.target.checked ? setIsChecked(true) : setIsChecked(false);
-        }
 
         // Build a WKT Polygon from the map bounds
         function getWKTPoly(map) {
@@ -50,7 +45,7 @@ export default function SearchMap({ boundingBoxes, highlightBox, setGeom }) {
         return (
             // Filter by map extent checkbox
             <div className="form-check text-center">
-                <input type="checkbox" className="form-check-input" id="geom1" name="geom1" onChange={handleChange} checked={isChecked} />
+                <input type="checkbox" className="form-check-input" id="geom1" name="geom1" onChange={() => setIsFiltered(!isFiltered)} checked={isFiltered} />
                 <label className="form-check-label font-weight-bold" htmlFor="geom1">Filter results to map extent</label>
             </div>
         )
