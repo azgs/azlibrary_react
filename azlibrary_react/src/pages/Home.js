@@ -15,7 +15,7 @@ export default function Home() {
   const [searchUrl, setSearchUrl] = useState(metadataUrl);
 
   // Search Parameters
-  const [searchParams, setSearchParams] = useState({});
+  const [searchParams, setSearchParams] = useState({ latest: true });
 
   // Leaflet map extent
   // const [geom, setGeom] = useState();
@@ -75,7 +75,7 @@ export default function Home() {
     var str = input.toString().trim();
 
     // Only letters, numbers, and some special chars
-    str = str.replace(/[^a-zA-Z0-9 ’½./-;"=–]/g, '');
+    str = str.replace(/[^a-zA-Z0-9 (),’½./-;"=–]/g, '');
 
     return str;
   }
