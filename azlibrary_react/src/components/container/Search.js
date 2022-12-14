@@ -1,71 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import SelectCollectionGroup from './SelectCollectionGroup'
 
-export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit, setOffset }) {
-
-    const emptyForm = { year: "", title: "", author: "", text: "", keyword: "", series: "", collection_id: "", limit: "", latest: true, geom: "", geom_method: "" };
-    const [inputs, setInputs] = useState(emptyForm);
+export default function Search({ searchUrl, searchParams, setSearchParams }) {
 
     const [advancedToggle, setAdvancedToggle] = useState(false);
     const [urlToggle, setUrlToggle] = useState(false);
-
-    function filterInput(input) {
-
-        // Trim leading/trailing whitespace
-        var str = input.toString().trim();
-
-        // Only letters, numbers, and some special chars
-        str = str.replace(/[^a-zA-Z0-9 ’½./-;"=–]/g, '');
-
-        return str;
-    }
-
-    // Update searchUrl when input changes
-    useEffect(() => {
-        const buildQueryString = () => {
-
-            let url = metadataUrl;
-            let params = new URLSearchParams();
-
-            // Add parameters
-            Object.keys(inputs).forEach(key => {
-
-                const value = inputs[key];
-
-                if (value) {
-                    params.append(key, filterInput(value));
-                }
-            })
-
-            if (Array.from(params).length > 0) {
-                url += '?' + params.toString();
-            }
-
-            setSearchUrl(url);
-        }
-
-        buildQueryString();
-
-    }, [inputs, metadataUrl, setSearchUrl]);
 
     // Handle form input changes
     const handleChange = (e) => {
         const name = e.target.name;
         const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
 
-        // Update limit if changes. The control is commented out currently.
-        if (name === "limit"){
-            setLimit(value)
-        }
-
-        setOffset();
-        setInputs(values => ({ ...values, [name]: value }))
+        // Reset offset and add search parameter
+        setSearchParams(values => ({ ...values, offset: "", [name]: value }))
     }
 
     // Reset form to empty
     const reset = () => {
-        setOffset();
-        setInputs(emptyForm);
+        setSearchParams({ latest: true });
     }
 
     return (
@@ -76,7 +28,7 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit,
 
                 <form autoComplete="off">
 
-                    <SelectCollectionGroup id="collection_group" className="form-control form-control-sm" fieldValue={inputs.collection_group} onChange={handleChange} />
+                    <SelectCollectionGroup id="collection_group" className="form-control form-control-sm" fieldValue={searchParams.collection_group} onChange={handleChange} />
 
                     <div className="form-row">
                         <label htmlFor="year">Year</label>
@@ -84,7 +36,7 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit,
 
                     <div className="form-row">
                         <div className="col p-0">
-                            <input type="text" className="form-control form-control-sm" id="year" name="year" min='0' value={inputs.year} onChange={handleChange} />
+                            <input type="text" className="form-control form-control-sm" id="year" name="year" min='0' value={searchParams.year} onChange={handleChange} />
                         </div>
                         <div className="text-center">
                             -
@@ -96,34 +48,34 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit,
 
                     <div className="form-row">
                         <label htmlFor="title">Title</label>
-                        <input type="text" className="form-control form-control-sm" id="title" name="title" value={inputs.title} onChange={handleChange} />
+                        <input type="text" className="form-control form-control-sm" id="title" name="title" value={searchParams.title} onChange={handleChange} />
                     </div>
 
                     <div className="form-row">
                         <label htmlFor="author">Author</label>
-                        <input type="text" className="form-control form-control-sm" id="author" name="author" value={inputs.author} onChange={handleChange} />
+                        <input type="text" className="form-control form-control-sm" id="author" name="author" value={searchParams.author} onChange={handleChange} />
                     </div>
 
                     <div className="collapse" id="advancedSearch">
 
                         <div className="form-row">
                             <label htmlFor="text">Full-Text Search</label>
-                            <input type="text" className="form-control form-control-sm" id="text" name="text" value={inputs.text} onChange={handleChange} />
+                            <input type="text" className="form-control form-control-sm" id="text" name="text" value={searchParams.text} onChange={handleChange} />
                         </div>
 
                         <div className="form-row">
                             <label htmlFor="keyword">Keyword</label>
-                            <input type="text" className="form-control form-control-sm" id="keyword" name="keyword" value={inputs.keyword} onChange={handleChange} />
+                            <input type="text" className="form-control form-control-sm" id="keyword" name="keyword" value={searchParams.keyword} onChange={handleChange} />
                         </div>
 
                         <div className="form-row">
                             <label htmlFor="keyword">Series</label>
-                            <input type="text" className="form-control form-control-sm" id="series" name="series" value={inputs.series} onChange={handleChange} />
+                            <input type="text" className="form-control form-control-sm" id="series" name="series" value={searchParams.series} onChange={handleChange} />
                         </div>
 
                         {/* <div className="form-row">
                             <label htmlFor="limit">Results Per Page</label>
-                            <select type="text" className="form-control form-control-sm" id="limit" name="limit" value={inputs.limit} onChange={handleChange} >
+                            <select type="text" className="form-control form-control-sm" id="limit" name="limit" value={searchParams.limit} onChange={handleChange} >
                                 <option value="">10</option>
                                 <option value="25">25</option>
                                 <option value="50">50</option>
@@ -131,7 +83,7 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit,
                         </div> */}
 
                         <div className="form-row form-check mt-2">
-                            <input type="checkbox" className="form-check-input form-control-s" id="latest" name="latest" value={inputs.latest} onChange={handleChange} checked={inputs.latest} />
+                            <input type="checkbox" className="form-check-input form-control-s" id="latest" name="latest" value={searchParams.latest} onChange={handleChange} checked={searchParams?.latest} />
                             <label className="form-check-label" htmlFor="latest">Latest collection in the lineage</label>
                         </div>
 
@@ -139,7 +91,7 @@ export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit,
 
                         <div className="form-row">
                             <label htmlFor="year">Filter by Collection ID</label>
-                            <input type="text" className="form-control form-control-sm" id="collection_id" name="collection_id" value={inputs.collection_id} onChange={handleChange} />
+                            <input type="text" className="form-control form-control-sm" id="collection_id" name="collection_id" value={searchParams.collection_id} onChange={handleChange} />
                         </div>
 
                     </div>

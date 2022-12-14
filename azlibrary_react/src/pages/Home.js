@@ -14,12 +14,11 @@ export default function Home() {
   // API request-url with query parameters
   const [searchUrl, setSearchUrl] = useState(metadataUrl);
 
-  // Leaflet map extent
-  const [geom, setGeom] = useState();
+  // Search Parameters
+  const [searchParams, setSearchParams] = useState({});
 
-  // Paging offset and limit
-  const [offset, setOffset] = useState();
-  const [limit, setLimit] = useState();
+  // Leaflet map extent
+  // const [geom, setGeom] = useState();
 
   // Api response
   const [results, setResults] = useState([]);
@@ -70,38 +69,51 @@ export default function Home() {
 
   }, [results]);
 
-  // Update searchUrl when map extent changes
+  function filterInput(input) {
+
+    // Trim leading/trailing whitespace
+    var str = input.toString().trim();
+
+    // Only letters, numbers, and some special chars
+    str = str.replace(/[^a-zA-Z0-9 ’½./-;"=–]/g, '');
+
+    return str;
+  }
+
+  // Update searchUrl when input changes
   useEffect(() => {
+    const buildQueryString = () => {
 
-    // Get the query-string from the search URL
-    const queryString = searchUrl.includes('?') ? searchUrl.slice(searchUrl.indexOf("?")) : '';
+      let url = metadataUrl;
+      let params = new URLSearchParams();
 
-    let params = new URLSearchParams(queryString);
+      // Add parameters
+      Object.keys(searchParams).forEach(key => {
 
-    // Add the map-filter geometry if it is set
-    if (geom) {
-      params.set('geom', geom);
-      params.set('geom_method', 'contains');
-    } else {
-      params.delete('geom');
-      params.delete('geom_method');
+        const value = searchParams[key];
+
+        if (value) {
+          params.append(key, filterInput(value));
+        }
+      })
+
+      // TODO: If contains "geom"
+      // if () {
+      //   params.set('geom_method', 'contains');
+      // } else {
+      //   params.delete('geom_method');
+      // }
+
+      if (Array.from(params).length > 0) {
+        url += '?' + params.toString();
+      }
+
+      setSearchUrl(url);
     }
 
-    // Add offset if set
-    if (offset) {
-      params.set('offset', offset);
-    } else {
-      params.delete('offset');
-    }
+    buildQueryString();
 
-    // Set the search url
-    if (Array.from(params).length > 0) {
-      setSearchUrl(metadataUrl + '?' + params.toString());
-    } else {
-      setSearchUrl(metadataUrl);
-    }
-
-  }, [metadataUrl, geom, offset, searchUrl]);
+  }, [searchParams, metadataUrl, setSearchUrl]);
 
   return (
 
@@ -113,7 +125,7 @@ export default function Home() {
 
         {/* Search */}
         <div className="col-12">
-          <Search metadataUrl={metadataUrl} searchUrl={searchUrl} setSearchUrl={setSearchUrl} setOffset={setOffset} setLimit={setLimit} offset={offset} />
+          <Search searchUrl={searchUrl} searchParams={searchParams} setSearchParams={setSearchParams} />
         </div>
 
         {/* API Error */}
@@ -133,12 +145,12 @@ export default function Home() {
 
         {/* Top Paging */}
         <div className="col-12">
-          {links && results.data?.length !== 0 && <Paging links={links} limit={limit} offset={offset} setOffset={setOffset} />}
+          {links && results.data?.length !== 0 && <Paging links={links} searchParams={searchParams} setSearchParams={setSearchParams} />}
         </div>
 
         {/* Results map */}
         <div className="col-sm-6 mb-2">
-          <SearchMap boundingBoxes={boundingBoxes} highlightBox={highlightBox} setGeom={setGeom}  setOffset={setOffset} />
+          <SearchMap boundingBoxes={boundingBoxes} highlightBox={highlightBox} setSearchParams={setSearchParams} />
         </div>
 
         {/* Results list */}
@@ -148,7 +160,7 @@ export default function Home() {
 
         {/* Bottom Paging */}
         <div className="col-12">
-          {links && results.data?.length !== 0 && <Paging links={links} limit={limit} offset={offset} setOffset={setOffset} />}
+          {links && results.data?.length !== 0 && <Paging links={links} searchParams={searchParams} setSearchParams={setSearchParams} />}
         </div>
 
       </div>
