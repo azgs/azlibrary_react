@@ -151,7 +151,7 @@ export default function Home() {
 
         {/* Results map */}
         <div className="col-sm-6 mb-2">
-          <SearchMap boundingBoxes={boundingBoxes} highlightBox={highlightBox} setGeom={setGeom} />
+          <SearchMap boundingBoxes={boundingBoxes} highlightBox={highlightBox} setGeom={setGeom} setSearchParams={setSearchParams} />
         </div>
 
         {/* Results list */}

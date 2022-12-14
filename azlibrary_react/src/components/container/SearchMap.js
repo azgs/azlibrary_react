@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { MapContainer, TileLayer, Rectangle, Tooltip } from 'react-leaflet'
 
-export default function SearchMap({ boundingBoxes, highlightBox, setGeom }) {
+export default function SearchMap({ boundingBoxes, highlightBox, setGeom, setSearchParams }) {
 
     const [map, setMap] = useState(null);
 
@@ -29,10 +29,30 @@ export default function SearchMap({ boundingBoxes, highlightBox, setGeom }) {
             return poly;
         }
 
+         // Reset offset
+        function resetOffset(){
+            setSearchParams(values => ({ ...values, offset: "" }))
+        }
+
         // Set polygon after move
         const onMove = useCallback(() => {
             setPolygon(getWKTPoly(map));
+
+            if (isFiltered) {
+                resetOffset();
+            }
+
         }, [map])
+
+        const handleCheckbox = (e) => {
+
+            e.target.checked ? setIsFiltered(true) : setIsFiltered(false);
+
+            // Reset offset when turning on filter
+            if (e.target.checked) {
+                resetOffset();
+            }
+        }
 
         // Call onMove when the map moves
         useEffect(() => {
@@ -45,8 +65,8 @@ export default function SearchMap({ boundingBoxes, highlightBox, setGeom }) {
         return (
             // Filter by map extent checkbox
             <div className="form-check text-center">
-                <input type="checkbox" className="form-check-input" id="geom1" name="geom1" onChange={() => setIsFiltered(!isFiltered)} checked={isFiltered} />
-                <label className="form-check-label font-weight-bold" htmlFor="geom1">Filter results to map extent</label>
+                <input type="checkbox" className="form-check-input" id="geom" name="geom" onChange={handleCheckbox} checked={isFiltered} />
+                <label className="form-check-label font-weight-bold" htmlFor="geom">Filter results to map extent</label>
             </div>
         )
     }
