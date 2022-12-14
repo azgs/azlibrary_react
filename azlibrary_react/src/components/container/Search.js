@@ -3,7 +3,7 @@ import SelectCollectionGroup from './SelectCollectionGroup'
 
 export default function Search({ metadataUrl, searchUrl, setSearchUrl, setLimit, setOffset }) {
 
-    const emptyForm = { year: "", title: "", author: "", text: "", keyword: "", series: "", collection_id: "", limit: "", latest: true, geom: "", geom_method: "", offset: "" };
+    const emptyForm = { year: "", title: "", author: "", text: "", keyword: "", series: "", collection_id: "", limit: "", latest: true, geom: "", geom_method: "" };
     const [inputs, setInputs] = useState(emptyForm);
 
     const [advancedToggle, setAdvancedToggle] = useState(false);
