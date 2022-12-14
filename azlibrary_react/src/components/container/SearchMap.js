@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { MapContainer, TileLayer, Rectangle, Tooltip } from 'react-leaflet'
 
-export default function SearchMap({ boundingBoxes, highlightBox, setGeom, setOffset }) {
+export default function SearchMap({ boundingBoxes, highlightBox, setGeom }) {
 
     const [map, setMap] = useState(null);
 
@@ -18,13 +18,7 @@ export default function SearchMap({ boundingBoxes, highlightBox, setGeom, setOff
 
         // Handle form input changes
         const handleChange = (e) => {
-
             e.target.checked ? setIsChecked(true) : setIsChecked(false);
-
-            // Reset offset when filtering by map
-            if (e.target.checked) {
-                setOffset();
-            }
         }
 
         // Build a WKT Polygon from the map bounds
@@ -43,12 +37,6 @@ export default function SearchMap({ boundingBoxes, highlightBox, setGeom, setOff
         // Set polygon after move
         const onMove = useCallback(() => {
             setPolygon(getWKTPoly(map));
-
-            if (isChecked){
-                // Reset offset when moving so the user gets the first page of results
-                setOffset();
-            }
-
         }, [map])
 
         // Call onMove when the map moves

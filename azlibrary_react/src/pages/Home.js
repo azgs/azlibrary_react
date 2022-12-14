@@ -18,7 +18,7 @@ export default function Home() {
   const [searchParams, setSearchParams] = useState({ latest: true });
 
   // Leaflet map extent
-  // const [geom, setGeom] = useState();
+  const [geom, setGeom] = useState();
 
   // Api response
   const [results, setResults] = useState([]);
@@ -97,12 +97,13 @@ export default function Home() {
         }
       })
 
-      // TODO: If contains "geom"
-      // if () {
-      //   params.set('geom_method', 'contains');
-      // } else {
-      //   params.delete('geom_method');
-      // }
+      if (geom) {
+        params.set('geom', geom);
+        params.set('geom_method', 'contains');
+      } else {
+        params.delete('geom');
+        params.delete('geom_method');
+      }
 
       if (Array.from(params).length > 0) {
         url += '?' + params.toString();
@@ -113,7 +114,7 @@ export default function Home() {
 
     buildQueryString();
 
-  }, [searchParams, metadataUrl, setSearchUrl]);
+  }, [searchParams, geom, metadataUrl, setSearchUrl]);
 
   return (
 
@@ -150,7 +151,7 @@ export default function Home() {
 
         {/* Results map */}
         <div className="col-sm-6 mb-2">
-          <SearchMap boundingBoxes={boundingBoxes} highlightBox={highlightBox} setSearchParams={setSearchParams} />
+          <SearchMap boundingBoxes={boundingBoxes} highlightBox={highlightBox} setGeom={setGeom} />
         </div>
 
         {/* Results list */}
