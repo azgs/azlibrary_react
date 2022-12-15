@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import Search from '../components/container/Search'
 import Breadcrumb from "../components/presentation/Breadcrumb";
 import SearchResults from "../components/presentation/SearchResults"
@@ -14,8 +15,14 @@ export default function Home() {
   // API request-url with query parameters
   const [searchUrl, setSearchUrl] = useState(metadataUrl);
 
-  // Search Parameters
-  const [searchParams, setSearchParams] = useState({ latest: true });
+  // Get query-string search params
+  const [queryStringValues] = useSearchParams();
+  
+  // Convert to an object 
+  const queryString = Object.fromEntries([...queryStringValues]);
+
+  // Search Parameters. Prepopulate values from query string
+  const [apiSearchParams, setApiSearchParams] = useState({ latest: true, collection_group: queryString.collection_group, year: queryString.year, author:queryString.author, title:queryString.title });
 
   // Leaflet map extent
   const [geom, setGeom] = useState();
@@ -88,9 +95,9 @@ export default function Home() {
       let params = new URLSearchParams();
 
       // Add search parameters
-      Object.keys(searchParams).forEach(key => {
+      Object.keys(apiSearchParams).forEach(key => {
 
-        const value = searchParams[key];
+        const value = apiSearchParams[key];
 
         if (value) {
           params.append(key, filterInput(value));
@@ -112,7 +119,7 @@ export default function Home() {
 
     buildQueryString();
 
-  }, [searchParams, geom, metadataUrl, setSearchUrl]);
+  }, [apiSearchParams, geom, metadataUrl, setSearchUrl]);
 
   return (
 
@@ -124,7 +131,7 @@ export default function Home() {
 
         {/* Search */}
         <div className="col-12">
-          <Search searchUrl={searchUrl} searchParams={searchParams} setSearchParams={setSearchParams} />
+          <Search searchUrl={searchUrl} searchParams={apiSearchParams} setSearchParams={setApiSearchParams} />
         </div>
 
         {/* API Error */}
@@ -144,12 +151,12 @@ export default function Home() {
 
         {/* Top Paging */}
         <div className="col-12">
-          {links && results.data?.length !== 0 && <Paging links={links} searchParams={searchParams} setSearchParams={setSearchParams} />}
+          {links && results.data?.length !== 0 && <Paging links={links} searchParams={apiSearchParams} setSearchParams={setApiSearchParams} />}
         </div>
 
         {/* Results map */}
         <div className="col-sm-6 mb-2">
-          <SearchMap boundingBoxes={boundingBoxes} highlightBox={highlightBox} setGeom={setGeom} setSearchParams={setSearchParams} />
+          <SearchMap boundingBoxes={boundingBoxes} highlightBox={highlightBox} setGeom={setGeom} setSearchParams={setApiSearchParams} />
         </div>
 
         {/* Results list */}
@@ -159,7 +166,7 @@ export default function Home() {
 
         {/* Bottom Paging */}
         <div className="col-12">
-          {links && results.data?.length !== 0 && <Paging links={links} searchParams={searchParams} setSearchParams={setSearchParams} />}
+          {links && results.data?.length !== 0 && <Paging links={links} searchParams={apiSearchParams} setSearchParams={setApiSearchParams} />}
         </div>
 
       </div>
