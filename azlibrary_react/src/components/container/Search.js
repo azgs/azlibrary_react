@@ -28,7 +28,7 @@ export default function Search({ searchUrl, searchParams, setSearchParams }) {
 
                 <form autoComplete="off">
 
-                    <SelectCollectionGroup id="collection_group" className="form-control form-control-sm" fieldValue={searchParams.collection_group} onChange={handleChange} />
+                    <SelectCollectionGroup id="collection_group" className="form-control form-control-sm" fieldValue={searchParams.collection_group ?? ""} onChange={handleChange} />
 
                     <div className="form-row">
                         <label htmlFor="year">Year</label>
@@ -36,7 +36,7 @@ export default function Search({ searchUrl, searchParams, setSearchParams }) {
 
                     <div className="form-row">
                         <div className="col p-0">
-                            <input type="text" className="form-control form-control-sm" id="year" name="year" min='0' value={searchParams.year} onChange={handleChange} />
+                            <input type="text" className="form-control form-control-sm" id="year" name="year" min='0' value={searchParams.year ?? ""} onChange={handleChange} />
                         </div>
                         <div className="text-center">
                             -
@@ -48,29 +48,29 @@ export default function Search({ searchUrl, searchParams, setSearchParams }) {
 
                     <div className="form-row">
                         <label htmlFor="title">Title</label>
-                        <input type="text" className="form-control form-control-sm" id="title" name="title" value={searchParams.title} onChange={handleChange} />
+                        <input type="text" className="form-control form-control-sm" id="title" name="title" value={searchParams.title ?? ""} onChange={handleChange} />
                     </div>
 
                     <div className="form-row">
                         <label htmlFor="author">Author</label>
-                        <input type="text" className="form-control form-control-sm" id="author" name="author" value={searchParams.author} onChange={handleChange} />
+                        <input type="text" className="form-control form-control-sm" id="author" name="author" value={searchParams.author ?? ""} onChange={handleChange} />
                     </div>
 
                     <div className="collapse" id="advancedSearch">
 
                         <div className="form-row">
                             <label htmlFor="text">Full-Text Search</label>
-                            <input type="text" className="form-control form-control-sm" id="text" name="text" value={searchParams.text} onChange={handleChange} />
+                            <input type="text" className="form-control form-control-sm" id="text" name="text" value={searchParams.text ?? ""} onChange={handleChange} />
                         </div>
 
                         <div className="form-row">
                             <label htmlFor="keyword">Keyword</label>
-                            <input type="text" className="form-control form-control-sm" id="keyword" name="keyword" value={searchParams.keyword} onChange={handleChange} />
+                            <input type="text" className="form-control form-control-sm" id="keyword" name="keyword" value={searchParams.keyword ?? ""} onChange={handleChange} />
                         </div>
 
                         <div className="form-row">
                             <label htmlFor="keyword">Series</label>
-                            <input type="text" className="form-control form-control-sm" id="series" name="series" value={searchParams.series} onChange={handleChange} />
+                            <input type="text" className="form-control form-control-sm" id="series" name="series" value={searchParams.series ?? ""} onChange={handleChange} />
                         </div>
 
                         {/* <div className="form-row">
@@ -83,7 +83,7 @@ export default function Search({ searchUrl, searchParams, setSearchParams }) {
                         </div> */}
 
                         <div className="form-row form-check mt-2">
-                            <input type="checkbox" className="form-check-input form-control-s" id="latest" name="latest" value={searchParams.latest} onChange={handleChange} checked={searchParams?.latest} />
+                            <input type="checkbox" className="form-check-input form-control-s" id="latest" name="latest" value={searchParams.latest ?? ""} onChange={handleChange} checked={searchParams?.latest} />
                             <label className="form-check-label" htmlFor="latest">Latest collection in the lineage</label>
                         </div>
 
@@ -91,7 +91,7 @@ export default function Search({ searchUrl, searchParams, setSearchParams }) {
 
                         <div className="form-row">
                             <label htmlFor="year">Filter by Collection ID</label>
-                            <input type="text" className="form-control form-control-sm" id="collection_id" name="collection_id" value={searchParams.collection_id} onChange={handleChange} />
+                            <input type="text" className="form-control form-control-sm" id="collection_id" name="collection_id" value={searchParams.collection_id ?? ""} onChange={handleChange} />
                         </div>
 
                     </div>

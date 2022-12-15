@@ -18,10 +18,10 @@ export default function Home() {
   // Get query-string search params
   const [queryStringValues] = useSearchParams();
   
-  // Convert to an object 
+  // Grab the query string entries 
   const queryString = Object.fromEntries([...queryStringValues]);
-
-  // Search Parameters. Prepopulate values from query string
+  
+  // API Search Parameters. Prepopulate values from query string
   const [apiSearchParams, setApiSearchParams] = useState({ latest: true, collection_group: queryString.collection_group, year: queryString.year, author:queryString.author, title:queryString.title });
 
   // Leaflet map extent
