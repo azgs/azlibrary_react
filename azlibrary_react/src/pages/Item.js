@@ -22,22 +22,27 @@ export default function Item() {
 
     // Get the collection from the API
     const getCollection = async () => {
+
+      let json;
+
       try {
         const res = await azgsApi.get('/metadata/' + collectionId);
-        const json = res.data.data;
+        json = res.data.data;
 
         setCollection(json);
-
-        const boundBox = [[json.metadata.bounding_box.north, json.metadata.bounding_box.east], [json.metadata.bounding_box.south, json.metadata.bounding_box.west]];
-        setBounds(boundBox);
-
-        const uaLink = json.metadata.links.find(x => x.name === 'UA Library').url.replace("http://", "https://");
-        setUaLibraryLink(uaLink);
-
       } catch (error) {
         console.log(error);
         setError(error);
       }
+
+      if (json) {
+        const boundBox = [[json.metadata.bounding_box.north, json.metadata.bounding_box.east], [json.metadata.bounding_box.south, json.metadata.bounding_box.west]];
+        setBounds(boundBox);
+  
+        const uaLink = json.metadata?.links.find(x => x.name === 'UA Library')?.url.replace("http://", "https://");
+        setUaLibraryLink(uaLink);
+      }
+
     };
 
     getCollection();
