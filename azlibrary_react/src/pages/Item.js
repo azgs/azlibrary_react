@@ -35,6 +35,7 @@ export default function Item() {
         setUaLibraryLink(uaLink);
 
       } catch (error) {
+        console.log(error);
         setError(error);
       }
     };
@@ -102,7 +103,7 @@ export default function Item() {
           <dt className="col-sm-2">Author{collection.metadata.authors.length === 1 ? "" : "s"}</dt>
           <dd className="col-sm-10">
             {collection.metadata.authors.map(author =>
-              <div key={author.person}>{author.person}</div>
+              <div key={author.person}><Link title={author.person} to={"/?author=" + author.person} >{author.person}</Link></div>
             )}
           </dd>
 
