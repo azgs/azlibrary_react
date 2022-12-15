@@ -17,7 +17,10 @@ export default function Search({ searchUrl, searchParams, setSearchParams }) {
 
     // Reset form to empty
     const reset = () => {
-        setSearchParams({ latest: true });
+        // setSearchParams({ latest: true });
+
+        // Just reload the page wihtout any query params
+        window.location = window.location.pathname;
     }
 
     return (
