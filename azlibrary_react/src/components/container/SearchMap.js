@@ -1,11 +1,11 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { MapContainer, TileLayer, Rectangle, Tooltip } from 'react-leaflet'
 
-export default function SearchMap({ boundingBoxes, highlightBox, setGeom, setOffset }) {
+export default function SearchMap({ boundingBoxes, highlightBox, setGeom, setSearchParams }) {
 
     const [map, setMap] = useState(null);
 
-    const [isChecked, setIsChecked] = useState(false);
+    const [isFiltered, setIsFiltered] = useState(false);
 
     function WktPolygon({ map }) {
 
@@ -13,19 +13,8 @@ export default function SearchMap({ boundingBoxes, highlightBox, setGeom, setOff
 
         useEffect(() => {
             // Set geometry as wkt-poly when the checkbox is checked
-            isChecked ? setGeom(polygon) : setGeom();
+            isFiltered ? setGeom(polygon) : setGeom();
         }, [polygon]);
-
-        // Handle form input changes
-        const handleChange = (e) => {
-
-            e.target.checked ? setIsChecked(true) : setIsChecked(false);
-
-            // Reset offset when filtering by map
-            if (e.target.checked) {
-                setOffset();
-            }
-        }
 
         // Build a WKT Polygon from the map bounds
         function getWKTPoly(map) {
@@ -40,16 +29,30 @@ export default function SearchMap({ boundingBoxes, highlightBox, setGeom, setOff
             return poly;
         }
 
+         // Reset offset
+        function resetOffset(){
+            setSearchParams(values => ({ ...values, offset: "" }))
+        }
+
         // Set polygon after move
         const onMove = useCallback(() => {
             setPolygon(getWKTPoly(map));
 
-            if (isChecked){
-                // Reset offset when moving so the user gets the first page of results
-                setOffset();
+            if (isFiltered) {
+                resetOffset();
             }
 
         }, [map])
+
+        const handleCheckbox = (e) => {
+
+            e.target.checked ? setIsFiltered(true) : setIsFiltered(false);
+
+            // Reset offset when turning on filter
+            if (e.target.checked) {
+                resetOffset();
+            }
+        }
 
         // Call onMove when the map moves
         useEffect(() => {
@@ -62,8 +65,8 @@ export default function SearchMap({ boundingBoxes, highlightBox, setGeom, setOff
         return (
             // Filter by map extent checkbox
             <div className="form-check text-center">
-                <input type="checkbox" className="form-check-input" id="geom1" name="geom1" onChange={handleChange} checked={isChecked} />
-                <label className="form-check-label font-weight-bold" htmlFor="geom1">Filter results to map extent</label>
+                <input type="checkbox" className="form-check-input" id="geom" name="geom" onChange={handleCheckbox} checked={isFiltered} />
+                <label className="form-check-label font-weight-bold" htmlFor="geom">Filter results to map extent</label>
             </div>
         )
     }
