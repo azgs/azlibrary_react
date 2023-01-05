@@ -29,8 +29,8 @@ export default function SearchMap({ boundingBoxes, highlightBox, setGeom, setSea
             return poly;
         }
 
-         // Reset offset
-        function resetOffset(){
+        // Reset offset
+        function resetOffset() {
             setSearchParams(values => ({ ...values, offset: "" }))
         }
 
@@ -64,9 +64,11 @@ export default function SearchMap({ boundingBoxes, highlightBox, setGeom, setSea
 
         return (
             // Filter by map extent checkbox
-            <div className="form-check text-center">
-                <input type="checkbox" className="form-check-input" id="geom" name="geom" onChange={handleCheckbox} checked={isFiltered} />
-                <label className="form-check-label font-weight-bold" htmlFor="geom">Filter results to map extent</label>
+            <div className="bg-light text-center py-2">
+                <div className="custom-control custom-switch" style={{alignItems: "bottom"}}>
+                    <input type="checkbox" className="custom-control-input" id="geom" name="geom" onChange={handleCheckbox} checked={isFiltered} />
+                    <label className="custom-control-label font-weight-bold" htmlFor="geom">Filter results to map extent</label>
+                </div>
             </div>
         )
     }
@@ -104,8 +106,8 @@ export default function SearchMap({ boundingBoxes, highlightBox, setGeom, setSea
 
     return (
         <div>
-            {resultsMap}
             {map ? <WktPolygon map={map} /> : null}
+            {resultsMap}
         </div>
     )
 }
