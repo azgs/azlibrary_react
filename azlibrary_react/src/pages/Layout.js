@@ -67,7 +67,7 @@ const Layout = () => {
 
                     This site is still under development. Please submit any issues to <a className="alert-link" href="https://github.com/azgs/azlibrary_react/issues" target="_blank" rel="noopener noreferrer" >GitHub.</a>
 
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
