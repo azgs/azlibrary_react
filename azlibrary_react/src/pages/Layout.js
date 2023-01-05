@@ -60,8 +60,16 @@ const Layout = () => {
                     </div>
                 </nav>
 
-                <div className="alert alert-success text-center rounded py-4" role="alert">
-                    The AZGS Library website is currently under development. Please submit any issues to <a className="alert-link" href="https://github.com/azgs/azlibrary_react/issues" target="_blank" rel="noopener noreferrer" >GitHub.</a>
+                <div className="alert alert-success alert-dismissible fade show text-center  rounded py-4" role="alert">
+                    <p>
+                        The AZGS Library website is the replacement for the AZGS Mining Data and AZGS Document Repository websites. All items formerly hosted at those websites are now available here. Users can limit searches to the mining data by selecting the Arizona Department of Mines and Mineral Resources Collection Group.
+                    </p>
+
+                    This site is still under development. Please submit any issues to <a className="alert-link" href="https://github.com/azgs/azlibrary_react/issues" target="_blank" rel="noopener noreferrer" >GitHub.</a>
+
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
 
             </div>
