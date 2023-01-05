@@ -34,6 +34,11 @@ export default function Search({ searchUrl, searchParams, setSearchParams }) {
                     <SelectCollectionGroup id="collection_group" className="form-control form-control-sm" fieldValue={searchParams.collection_group ?? ""} onChange={handleChange} />
 
                     <div className="form-row">
+                        <label htmlFor="text">Full-Text Search</label>
+                        <input type="text" className="form-control form-control-sm" id="text" name="text" value={searchParams.text ?? ""} onChange={handleChange} />
+                    </div>
+
+                    <div className="form-row">
                         <label htmlFor="year">Year</label>
                     </div>
 
@@ -60,11 +65,6 @@ export default function Search({ searchUrl, searchParams, setSearchParams }) {
                     </div>
 
                     <div className="collapse" id="advancedSearch">
-
-                        <div className="form-row">
-                            <label htmlFor="text">Full-Text Search</label>
-                            <input type="text" className="form-control form-control-sm" id="text" name="text" value={searchParams.text ?? ""} onChange={handleChange} />
-                        </div>
 
                         <div className="form-row">
                             <label htmlFor="keyword">Keyword</label>
