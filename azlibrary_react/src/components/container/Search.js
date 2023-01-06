@@ -101,7 +101,7 @@ export default function Search({ searchUrl, searchParams, setSearchParams }) {
 
                     <div>
                         <button className="btn btn-link my-2" type="button" data-toggle="collapse" data-target="#advancedSearch" aria-expanded="false" aria-controls="advancedSearch" onClick={() => setAdvancedToggle(!advancedToggle)} >
-                            {advancedToggle ? "Basic" : "Advanced"} Search
+                            {advancedToggle ? "Basic Search" : "More Search Options"} 
                         </button>
                     </div>
 
