@@ -31,12 +31,12 @@ export default function SelectCollectionGroup({ id, className, fieldValue, onCha
 
     return (
         <div className="form-row">
-            <label htmlFor={id}>Collection Group</label>
+            <label htmlFor={id}>Collection</label>
             <select className={className} id={id} name={id} onChange={onChange} value={fieldValue}>
                 <option value="">--All Collections--</option>
                 {
                     groups?.map(group =>
-                        <option key={group.id} value={group.abbrv}>{group.abbrv} - {group.name}</option>
+                        <option key={group.id} value={group.abbrv}>{group.name}</option>
                     )
                 }
             </select>
