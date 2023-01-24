@@ -27,54 +27,54 @@ export default function Search({ searchUrl, searchParams, setSearchParams }) {
         <div>
             <div className=" bg-cool-gray rounded mb-4 p-3 shadow">
 
-                <div className="searchHeader text-center">Search Collections</div>
+                <div className="searchHeader text-center">Search Publications</div>
 
                 <form autoComplete="off">
 
+                    <div className="form-row">
+                            <label htmlFor="keyword">Keyword</label>
+                            <input type="text" className="form-control form-control-sm" id="keyword" name="keyword" value={searchParams.keyword ?? ""} onChange={handleChange} />
+                    </div>
+                    
                     <SelectCollectionGroup id="collection_group" className="form-control form-control-sm" fieldValue={searchParams.collection_group ?? ""} onChange={handleChange} />
-
+                    
                     <div className="form-row">
-                        <label htmlFor="text">Full-Text Search</label>
-                        <input type="text" className="form-control form-control-sm" id="text" name="text" value={searchParams.text ?? ""} onChange={handleChange} />
-                    </div>
-
-                    <div className="form-row">
-                        <label htmlFor="year">Year</label>
-                    </div>
-
-                    <div className="form-row">
-                        <div className="col p-0">
-                            <input type="text" className="form-control form-control-sm" id="year" name="year" min='0' value={searchParams.year ?? ""} onChange={handleChange} />
-                        </div>
-                        <div className="text-center">
-                            -
-                        </div>
-                        <div className="col p-0">
-                            <input type="text" className="form-control form-control-sm" id="endYear" name="endYear" disabled />
-                        </div>
-                    </div>
-
-                    <div className="form-row">
-                        <label htmlFor="title">Title</label>
-                        <input type="text" className="form-control form-control-sm" id="title" name="title" value={searchParams.title ?? ""} onChange={handleChange} />
-                    </div>
-
-                    <div className="form-row">
-                        <label htmlFor="author">Author</label>
-                        <input type="text" className="form-control form-control-sm" id="author" name="author" value={searchParams.author ?? ""} onChange={handleChange} />
+                            <label htmlFor="title">Title</label>
+                            <input type="text" className="form-control form-control-sm" id="title" name="title" value={searchParams.title ?? ""} onChange={handleChange} />
                     </div>
 
                     <div className="collapse" id="advancedSearch">
-
+                       
                         <div className="form-row">
-                            <label htmlFor="keyword">Keyword</label>
-                            <input type="text" className="form-control form-control-sm" id="keyword" name="keyword" value={searchParams.keyword ?? ""} onChange={handleChange} />
+                            <label htmlFor="text">Full-Text Search</label>
+                            <input type="text" className="form-control form-control-sm" id="text" name="text" value={searchParams.text ?? ""} onChange={handleChange} />
+                        </div>
+                        
+                        <div className="form-row">
+                            <label htmlFor="year">Year</label>
                         </div>
 
                         <div className="form-row">
-                            <label htmlFor="keyword">Series</label>
+                            <div className="col p-0">
+                                <input type="text" className="form-control form-control-sm" id="year" name="year" min='0' value={searchParams.year ?? ""} onChange={handleChange} />
+                            </div>
+                            <div className="text-center">
+                                -
+                            </div>
+                            <div className="col p-0">
+                                <input type="text" className="form-control form-control-sm" id="endYear" name="endYear" disabled />
+                            </div>
+                        </div>
+
+                        <div className="form-row">
+                            <label htmlFor="author">Author</label>
+                            <input type="text" className="form-control form-control-sm" id="author" name="author" value={searchParams.author ?? ""} onChange={handleChange} />
+                        </div>
+                        
+                        <div className="form-row">
+                            <label htmlFor="series">Series</label>
                             <input type="text" className="form-control form-control-sm" id="series" name="series" value={searchParams.series ?? ""} onChange={handleChange} />
-                        </div>
+                        </div>                                                                   
 
                         {/* <div className="form-row">
                             <label htmlFor="limit">Results Per Page</label>
@@ -101,7 +101,7 @@ export default function Search({ searchUrl, searchParams, setSearchParams }) {
 
                     <div>
                         <button className="btn btn-link my-2" type="button" data-toggle="collapse" data-target="#advancedSearch" aria-expanded="false" aria-controls="advancedSearch" onClick={() => setAdvancedToggle(!advancedToggle)} >
-                            {advancedToggle ? "Basic Search" : "More Search Options"} 
+                            {advancedToggle ? "Basic Search" : "Click Here For More Search Options"} 
                         </button>
                     </div>
 

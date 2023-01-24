@@ -61,7 +61,7 @@ const Layout = () => {
                 </nav>
 
                 <div className="alert alert-success alert-dismissible fade show text-center  rounded py-4" role="alert">
-                    The AZGS Library website is the replacement for the AZGS Document Repository. This site is still under development. Please visit our <a className="alert-link" href="https://github.com/azgs/azlibrary_react" target="_blank" rel="noopener noreferrer" >GitHub</a> for additional information and support.
+                    The AZGS Library website is the replacement for the AZGS Document Repository. This site is still under development. Please visit our <a className="alert-link" href="https://github.com/azgs/azlibrary_react" target="_blank" rel="noopener noreferrer" >GitHub</a> for additional information and support. All AZGS publications can also be accessed from the <a className="alert-link" href="https://repository.arizona.edu/handle/10150/628301" target="_blank" rel="noopener noreferrer" >University of Arizona Campus Repository</a>.
                     <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
