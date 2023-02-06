@@ -6,6 +6,7 @@ import Breadcrumb from "../components/presentation/Breadcrumb";
 import Keywords from "../components/presentation/Keywords"
 import Files from "../components/presentation/Files"
 import Downloads from "../components/presentation/Downloads"
+import Metadata from "../components/presentation/Metadata"
 
 export default function Item() {
 
@@ -48,7 +49,7 @@ export default function Item() {
     getCollection();
 
   }, [collectionId]);
-
+  console.log(collection);
   return (
 
     <div className="container">
@@ -75,12 +76,17 @@ export default function Item() {
 
         <hr />
 
+       <br></br>
+          <Downloads collectionId={collectionId} />
+        <br></br>
+        <hr></hr>
+
         {/* Collection Details */}
         <dl className="row">
 
           {collection.metadata.informal_name && <>
-            <dt className="col-sm-2">Informal Name</dt>
-            <dd className="col-sm-10">{collection.metadata.informal_name}</dd>
+            <dt className="col-sm-2">Title</dt>
+            <dd className="col-sm-10">{collection.metadata.title}</dd>
           </>}
 
           <dt className="col-sm-2">Year</dt>
@@ -124,20 +130,18 @@ export default function Item() {
           <dt className="col-sm-2">Language</dt>
           <dd className="col-sm-10">{collection.metadata.language}</dd>
 
-          <Keywords keywords={collection.metadata.keywords} />
-
+          <Files files={collection.metadata.files} />
+          
           {uaLibraryLink && <>
             <dt className="col-sm-2">Permalink</dt>
             <dd className="col-sm-10"><a href={uaLibraryLink} target="_blank" rel="noopener noreferrer">{uaLibraryLink}</a></dd>
           </>
           }
 
-        <Files files={collection.metadata.files} />
+          <Keywords keywords={collection.metadata.keywords} />
 
-        </dl>
-
-        <Downloads collectionId={collectionId} />
-
+         </dl>
+        <Metadata collectionId={collectionId} collection={collection}/>
         {/* <code>{JSON.stringify(collection.metadata)}</code> */}
 
       </div>
