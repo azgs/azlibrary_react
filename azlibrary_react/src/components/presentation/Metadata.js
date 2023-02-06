@@ -2,15 +2,16 @@ import azgsApi from '../container/AzgsApi';
 
 function citation({collection}) {
     const article = 'TY - JOUR \n';
-    const title = 'T1 - ' + collection.metadata.title + '\n';
+    const title = 'TI - ' + collection.metadata.title + '\n';
     const authors = collection.metadata.authors.map(author => 'AU - ' + author.person).join('\n');
-    const journal = 'J0 - ' + collection.metadata.collection_group.name + '\n';
+    const journal = 'JO - ' + collection.metadata.collection_group.name + '\n';
     const series = 'VL - ' + collection.metadata.series + '\n';
-    const year = 'Y1 - ' + collection.metadata.year + '\n';
+    const year = 'PY - ' + collection.metadata.year + '\n';
     const provider = 'PB - Arizona Geological Survey';
     // Not to future self, the template literals are VERY literal so don't mess with the spacing on the next line without good cause
     const fileData = `${article}${title}${authors}
-${journal}${series}${year}${provider}`;
+${journal}${series}${year}${provider}
+ER - `;
     const blob = new Blob([fileData], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
