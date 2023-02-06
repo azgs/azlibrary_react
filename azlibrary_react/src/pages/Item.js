@@ -84,17 +84,14 @@ export default function Item() {
         {/* Collection Details */}
         <dl className="row">
 
-          {collection.metadata.informal_name && <>
-            <dt className="col-sm-2">Title</dt>
-            <dd className="col-sm-10">{collection.metadata.title}</dd>
-          </>}
+          <dt className="col-sm-2">Title</dt>
+          <dd className="col-sm-10">{collection.metadata.title}</dd>
 
           <dt className="col-sm-2">Year</dt>
           <dd className="col-sm-10">{collection.metadata.year}</dd>
 
           <dt className="col-sm-2">Collection Group</dt>
           <dd className="col-sm-10">{collection.metadata.collection_group.name}</dd>
-
 
           {collection.metadata.series && <>
             <dt className="col-sm-2">Series</dt>

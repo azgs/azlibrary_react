@@ -4,12 +4,13 @@ function citation({collection}) {
     const article = 'TY - JOUR \n';
     const title = 'T1 - ' + collection.metadata.title + '\n';
     const authors = collection.metadata.authors.map(author => 'AU - ' + author.person).join('\n');
-    //const authors = JSON.stringify(collection.metadata.authors,)
     const journal = 'J0 - ' + collection.metadata.collection_group.name + '\n';
     const series = 'VL - ' + collection.metadata.series + '\n';
     const year = 'Y1 - ' + collection.metadata.year + '\n';
     const provider = 'PB - Arizona Geological Survey';
-    const fileData = `${article}${title}${authors}${journal}${series}${year}${provider}`;
+    // Not to future self, the template literals are VERY literal so don't mess with the spacing on the next line without good cause
+    const fileData = `${article}${title}${authors}
+${journal}${series}${year}${provider}`;
     const blob = new Blob([fileData], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
