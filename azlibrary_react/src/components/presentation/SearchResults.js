@@ -11,6 +11,7 @@ export default function SearchResults({ results, setHighlightBox }) {
                     <div key={result.collection_id} className="card mb-1" onMouseOver={() => setHighlightBox({ id: result.collection_id, title: result.metadata.title, bbox: result.metadata.bounding_box })}>
                         <div className="card-header text-truncate">
                             <Link className="stretched-link" title={result.metadata.title} to={"/item/" + result.collection_id}>{result.metadata.title}</Link>
+                            <p class="card-text">{result.metadata.year} - {result.metadata.authors.map(author => author.person).join(' ')}</p>
                         </div>
                     </div>
                 )
