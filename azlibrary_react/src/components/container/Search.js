@@ -4,7 +4,7 @@ import SelectCollectionGroup from './SelectCollectionGroup'
 export default function Search({ searchUrl, searchParams, setSearchParams }) {
 
     const [advancedToggle, setAdvancedToggle] = useState(false);
-    const [urlToggle, setUrlToggle] = useState(false);
+    {/* const [urlToggle, setUrlToggle] = useState(false);*/}
 
     // Handle form input changes
     const handleChange = (e) => {
@@ -43,6 +43,11 @@ export default function Search({ searchUrl, searchParams, setSearchParams }) {
                             <input type="text" className="form-control form-control-sm" id="title" name="title" value={searchParams.title ?? ""} onChange={handleChange} />
                     </div>
 
+                    {/* <div className="form-row">
+                            <label htmlFor="instructions">Search Instructions</label>
+                            <input type="text" readonly className="form-control-plaintext" id="instructions" value="Search results will update at the bottom in real-time as you type"/>
+                    </div> */}
+
                     <div className="collapse" id="advancedSearch">
                        
                         <div className="form-row">
@@ -76,15 +81,6 @@ export default function Search({ searchUrl, searchParams, setSearchParams }) {
                             <input type="text" className="form-control form-control-sm" id="series" name="series" value={searchParams.series ?? ""} onChange={handleChange} />
                         </div>                                                                   
 
-                        {/* <div className="form-row">
-                            <label htmlFor="limit">Results Per Page</label>
-                            <select type="text" className="form-control form-control-sm" id="limit" name="limit" value={searchParams.limit} onChange={handleChange} >
-                                <option value="">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                            </select>
-                        </div> */}
-
                         <div className="form-row form-check mt-2">
                             <input type="checkbox" className="form-check-input form-control-s" id="latest" name="latest" value={searchParams.latest ?? ""} onChange={handleChange} checked={searchParams?.latest} />
                             <label className="form-check-label" htmlFor="latest">Latest collection in the lineage</label>
@@ -98,14 +94,11 @@ export default function Search({ searchUrl, searchParams, setSearchParams }) {
                         </div>
 
                     </div>
-
-                    <div style={{marginTop : "15px"}}>
-                        <a className="btn btn-blue btn-sm" type="button" data-toggle="collapse" data-target="#advancedSearch" aria-expanded="false" aria-controls="advancedSearch" onClick={() => setAdvancedToggle(!advancedToggle)} >
-                            {advancedToggle ? "Basic Search" : "MORE SEARCH FIELDS"} 
-                        </a>    <a type="reset" title="Clear Search Options" className="btn btn-red btn-sm" onClick={() => reset()}>CLEAR</a>
-                    </div>
-
                 </form>
+            </div>
+            <div>
+                <button className="btn btn-blue btn-sm" type="button" data-toggle="collapse" data-target="#advancedSearch" aria-expanded="false" aria-controls="advancedSearch" onClick={() => setAdvancedToggle(!advancedToggle)} >
+                {advancedToggle ? "Minimize Form" : "Expand Form For More Search Options"}</button> {/*<button type="reset" title="Clear Search Options" className="btn btn-red btn-sm" onClick={() => reset()}>Clear</button>*/}
             </div>
         </div>
     )
