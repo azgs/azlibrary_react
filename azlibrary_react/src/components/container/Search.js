@@ -83,7 +83,7 @@ export default function Search({ searchUrl, searchParams, setSearchParams }) {
 
                         <div className="form-row form-check mt-2">
                             <input type="checkbox" className="form-check-input form-control-s" id="latest" name="latest" value={searchParams.latest ?? ""} onChange={handleChange} checked={searchParams?.latest} />
-                            <label className="form-check-label" htmlFor="latest">Latest collection in the lineage</label>
+                            <label className="form-check-label" htmlFor="latest">Only show most recent version of items</label>
                         </div>
 
                         <hr />

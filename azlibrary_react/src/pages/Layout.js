@@ -60,8 +60,14 @@ const Layout = () => {
                     </div>
                 </nav>
 
-                <div className="alert alert-success alert-dismissible fade show text-center  rounded py-4" role="alert">
-                    The AZGS Library website is the replacement for the AZGS Document Repository. This site is still under development. Please visit our <a className="alert-link" href="https://github.com/azgs/azlibrary_react" target="_blank" rel="noopener noreferrer" >GitHub</a> for additional information and support. All AZGS publications can also be accessed from the <a className="alert-link" href="https://repository.arizona.edu/handle/10150/628301" target="_blank" rel="noopener noreferrer" >University of Arizona Campus Repository</a>.
+                <div className="alert alert-success alert-dismissible fade show text-left  rounded py-4" role="alert">
+                    The AZGS Library website is the replacement for the AZGS Document Repository. This site is still under development. Please contact <a className="alert-link" href="azgs-info@arizona.edu" target="_blank" rel="noopener noreferrer" >azgs-info@arizona.edu</a> for additional information and support. All AZGS publications can also be accessed from the <a className="alert-link" href="https://repository.arizona.edu/handle/10150/628301" target="_blank" rel="noopener noreferrer" >University of Arizona Campus Repository</a>.
+                    <p></p>
+                    <p><b>Recent Changes</b>
+                    <ul>
+                        <li>Older versions of publications are no longer hidden by default. This setting can still be changed by checking the "Only show most recent versions of items" checkbox in advanced search options.</li>
+                        <li>Special characters like 1/2 and & have been removed from titles and replaced - e.g., 7 1/2' quadrangle is now 7.5'</li>
+                    </ul></p>
                     <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
