@@ -65,6 +65,8 @@ const Layout = () => {
                     <p></p>
                     <p><b>Recent Changes</b>
                     <ul>
+                        <li>Added tip text to Title and Full-text Search fields.</li>
+                        <li>Moved keyword search field to advanced search options because of limited usefulness.</li>
                         <li>Older versions of publications are no longer hidden by default. This setting can still be changed by checking the "Only show most recent versions of items" checkbox in advanced search options.</li>
                         <li>Special characters like 1/2 and & have been removed from titles and replaced - e.g., 7 1/2' quadrangle is now 7.5'</li>
                     </ul></p>
