@@ -22,7 +22,7 @@ export default function Home() {
   const queryString = Object.fromEntries([...queryStringValues]);
   
   // API Search Parameters. Prepopulate values from query string
-  const [apiSearchParams, setApiSearchParams] = useState({ latest: true, collection_group: queryString.collection_group, year: queryString.year, author:queryString.author, title:queryString.title });
+  const [apiSearchParams, setApiSearchParams] = useState({ latest: false, collection_group: queryString.collection_group, year: queryString.year, author:queryString.author, title:queryString.title });
 
   // Leaflet map extent
   const [geom, setGeom] = useState();
@@ -138,7 +138,7 @@ export default function Home() {
         <div className="col-12">
           {apiError && <div className="alert alert-danger text-center font-weight-bold" role="alert">
             {/* {apiError} */}
-            Something went wrong! Please contact AZGS for support.
+            Something went wrong! Please contact azgs-info@arizona.edu for support.
           </div>}
         </div>
 

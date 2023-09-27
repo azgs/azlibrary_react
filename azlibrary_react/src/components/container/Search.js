@@ -30,30 +30,34 @@ export default function Search({ searchUrl, searchParams, setSearchParams }) {
                 <div className="searchHeader text-center">Search results will update at the bottom in real-time as you type</div>
 
                 <form autoComplete="off">
-
-                    <div className="form-row">
-                            <label htmlFor="keyword">Keyword</label>
-                            <input type="text" className="form-control form-control-sm" id="keyword" name="keyword" value={searchParams.keyword ?? ""} onChange={handleChange} />
-                    </div>
-                    
-                    <SelectCollectionGroup id="collection_group" className="form-control form-control-sm" fieldValue={searchParams.collection_group ?? ""} onChange={handleChange} />
-                    
+              
+                <div className="form-group">
                     <div className="form-row">
                             <label htmlFor="title">Title</label>
                             <input type="text" className="form-control form-control-sm" id="title" name="title" value={searchParams.title ?? ""} onChange={handleChange} />
+                            <medium id="Title or Keyword" class="form-text text-muted">
+                                <i>The most effective search method is to type a <b>partial</b> title that matches your query (e.g. 'Grand Canyon' for publications related to the Grand Canyon)</i>. 
+                            </medium>
+                      </div>
+                 </div>
+                    
+                <div className="form-group">
+                    <SelectCollectionGroup id="collection_group" className="form-control form-control-sm" fieldValue={searchParams.collection_group ?? ""} onChange={handleChange} />
+                    
+                    <div className="form-row">
+                            <label htmlFor="text">Full-Text Search</label>
+                            <input type="text" className="form-control form-control-sm" id="text" name="text" value={searchParams.text ?? ""} onChange={handleChange} />
+                            <medium id="Full-Text Search" class="form-text text-muted">
+                                <i>This will search every individual text in our reports and maps for a particular word or phrase. This casts the widest possible net and is appropriate when exploring.</i> 
+                            </medium>
                     </div>
-
+                </div>
                     {/* <div className="form-row">
                             <label htmlFor="instructions">Search Instructions</label>
                             <input type="text" readonly className="form-control-plaintext" id="instructions" value="Search results will update at the bottom in real-time as you type"/>
                     </div> */}
 
                     <div className="collapse" id="advancedSearch">
-                       
-                        <div className="form-row">
-                            <label htmlFor="text">Full-Text Search</label>
-                            <input type="text" className="form-control form-control-sm" id="text" name="text" value={searchParams.text ?? ""} onChange={handleChange} />
-                        </div>
                         
                         <div className="form-row">
                             <label htmlFor="year">Year</label>
@@ -77,13 +81,18 @@ export default function Search({ searchUrl, searchParams, setSearchParams }) {
                         </div>
                         
                         <div className="form-row">
+                            <label htmlFor="keyword">Keyword</label>
+                            <input type="text" className="form-control form-control-sm" id="keyword" name="keyword" value={searchParams.keyword ?? ""} onChange={handleChange} />
+                        </div>
+
+                        <div className="form-row">
                             <label htmlFor="series">Series</label>
                             <input type="text" className="form-control form-control-sm" id="series" name="series" value={searchParams.series ?? ""} onChange={handleChange} />
                         </div>                                                                   
 
                         <div className="form-row form-check mt-2">
                             <input type="checkbox" className="form-check-input form-control-s" id="latest" name="latest" value={searchParams.latest ?? ""} onChange={handleChange} checked={searchParams?.latest} />
-                            <label className="form-check-label" htmlFor="latest">Latest collection in the lineage</label>
+                            <label className="form-check-label" htmlFor="latest">Only show most recent version of items</label>
                         </div>
 
                         <hr />
