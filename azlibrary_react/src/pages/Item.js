@@ -7,6 +7,7 @@ import Keywords from "../components/presentation/Keywords"
 import Files from "../components/presentation/Files"
 import Downloads from "../components/presentation/Downloads"
 import Metadata from "../components/presentation/Metadata"
+import { MapZoomToggle } from "../MapZoomToggle";
 
 export default function Item() {
 
@@ -63,10 +64,10 @@ export default function Item() {
       {collection && <div>
 
         <h3 className="text-center mt-0">{collection.metadata.title} {collection.metadata.private && <span className="badge badge-warning">Private</span>}</h3>
-        
         {/* Leaflet Map */}
         <div className="">
-          <MapContainer bounds={bounds} boundsOptions={{ padding: [100, 100] }} >
+          <MapContainer bounds={bounds} boundsOptions={{ padding: [100, 100] }} scrollWheelZoom={false} >
+            <MapZoomToggle />
             <TileLayer
               attribution='<a href="https://usgs.gov/">U.S. Geological Survey</a>' url="https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}"
             />

@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { MapContainer, TileLayer, Rectangle, Tooltip } from 'react-leaflet'
+import { MapZoomToggle } from "../../MapZoomToggle";
 
 export default function SearchMap({ boundingBoxes, highlightBox, setGeom, setSearchParams }) {
 
@@ -80,7 +81,10 @@ export default function SearchMap({ boundingBoxes, highlightBox, setGeom, setSea
             <MapContainer
                 center={[34.16, -111.62]}
                 zoom={6}
-                ref={setMap}>
+                ref={setMap}
+                scrollWheelZoom={false}
+            >
+                <MapZoomToggle />
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
