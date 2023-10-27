@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
 import Search from '../components/container/Search'
 import Breadcrumb from "../components/presentation/Breadcrumb";
 import SearchResults from "../components/presentation/SearchResults"
 import Paging from '../components/container/Paging'
 import azgsApi from "../components/container/AzgsApi";
 import SearchMap from "../components/container/SearchMap"
+import { FormContext } from "../App";
 
 export default function Home() {
 
@@ -15,16 +15,9 @@ export default function Home() {
   // API request-url with query parameters
   const [searchUrl, setSearchUrl] = useState(metadataUrl);
 
-  // Get query-string search params
-  const [queryStringValues] = useSearchParams();
+  const { apiSearchParams,  setApiSearchParams } = useContext(FormContext);
   
-  // Grab the query string entries 
-  const queryString = Object.fromEntries([...queryStringValues]);
-  
-  // API Search Parameters. Prepopulate values from query string
-  const [apiSearchParams, setApiSearchParams] = useState({ latest: false, collection_group: queryString.collection_group, year: queryString.year, author:queryString.author, title:queryString.title });
-
-  // Leaflet map extent
+   // Leaflet map extent
   const [geom, setGeom] = useState();
 
   // Api response
