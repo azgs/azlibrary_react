@@ -29,7 +29,7 @@ export default function Files({ files, collectionID }) {
                                 <div className="font-weight-bold">{key}</div>
                                 <ul>
                                     {/* Files */}
-                                    {value.map(file => <li key={file}><a target="_blank" href={`https://localhost:3000/${collectionID}/${file}`}>{file}</a></li>)}
+                                    {value.map(file => <li key={file}><a target="_blank" href={`https://data.azgs.arizona.edu/api/v1/collections/${collectionID}/${file}`}>{file}</a></li>)}
                                 </ul>
                             </div>
                         )
