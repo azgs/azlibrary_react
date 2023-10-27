@@ -63,7 +63,7 @@ export default function Item() {
       {collection && <div>
 
         <h3 className="text-center mt-0">{collection.metadata.title} {collection.metadata.private && <span className="badge badge-warning">Private</span>}</h3>
-
+        
         {/* Leaflet Map */}
         <div className="">
           <MapContainer bounds={bounds} boundsOptions={{ padding: [100, 100] }} >
@@ -127,7 +127,7 @@ export default function Item() {
           <dt className="col-sm-2">Language</dt>
           <dd className="col-sm-10">{collection.metadata.language}</dd>
 
-          <Files files={collection.metadata.files} />
+          <Files files={collection.metadata.files} collectionID={collection.metadata.identifiers.perm_id}/>
           
           {uaLibraryLink && <>
             <dt className="col-sm-2">Permalink</dt>

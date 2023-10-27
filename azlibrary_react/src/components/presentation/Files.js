@@ -1,4 +1,4 @@
-export default function Files({ files }) {
+export default function Files({ files, collectionID }) {
 
     // Group files by type
     const filesByType = files.reduce((groups, value) => {
@@ -29,7 +29,7 @@ export default function Files({ files }) {
                                 <div className="font-weight-bold">{key}</div>
                                 <ul>
                                     {/* Files */}
-                                    {value.map(file => <li key={file}>{file}</li>)}
+                                    {value.map(file => <li key={file}><a target="_blank" href={`https://localhost:3000/${collectionID}/${file}`}>{file}</a></li>)}
                                 </ul>
                             </div>
                         )
