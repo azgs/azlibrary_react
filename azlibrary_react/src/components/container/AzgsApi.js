@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    // Only place the API base-url is set
-    baseURL: "https://data.azgs.arizona.edu/api/v1",
+    baseURL: process.env.REACT_APP_AZLIB_API_URL,
 });
 
 export default api;
