@@ -25,3 +25,8 @@ label {
 .container{
     max-width: 1400px;
  }
+
+ .alert-annc {
+    background-color: lightskyblue;
+    color: black;
+ }

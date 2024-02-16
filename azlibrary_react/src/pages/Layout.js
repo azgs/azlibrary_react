@@ -60,15 +60,14 @@ const Layout = () => {
                     </div>
                 </nav>
 
-                <div className="alert alert-success alert-dismissible fade show text-left  rounded py-4" role="alert">
+                <div className="alert alert-annc alert-dismissible fade show text-left  rounded py-4" role="alert">
                     The AZGS Library website is the replacement for the AZGS Document Repository. This site is still under development. Please contact <a className="alert-link" href="azgs-info@arizona.edu" target="_blank" rel="noopener noreferrer" >azgs-info@arizona.edu</a> for additional information and support. All AZGS publications can also be accessed from the <a className="alert-link" href="https://repository.arizona.edu/handle/10150/628301" target="_blank" rel="noopener noreferrer" >University of Arizona Campus Repository</a>.
                     <p></p>
                     <p><b>Recent Changes</b>
                     <ul>
-                        <li>Added tip text to Title and Full-text Search fields.</li>
-                        <li>Moved keyword search field to advanced search options because of limited usefulness.</li>
-                        <li>Older versions of publications are no longer hidden by default. This setting can still be changed by checking the "Only show most recent versions of items" checkbox in advanced search options.</li>
-                        <li>Special characters like 1/2 and & have been removed from titles and replaced - e.g., 7 1/2' quadrangle is now 7.5'</li>
+                        <li>Previous search terms and results are now maintained when back-button is clicked.</li>
+                        <li>Can now directly open individual PDFs instead of downloading entire zip. (Please note that Firefox has trouble streaming large pdfs.)</li>
+                        <li>Maps no longer grab cursor unexpectedly. Must click once on map to interact.</li>
                     </ul></p>
                     <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
