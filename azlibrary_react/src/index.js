@@ -2,6 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import TagManager from 'react-gtm-module'
+
+if (process.env.REACT_APP_GTMID) {
+    console.log("Found GTMID = " + process.env.REACT_APP_GTMID)
+    const tagManagerArgs = {
+        gtmId: process.env.REACT_APP_GTMID
+    }
+    TagManager.initialize(tagManagerArgs)
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
