@@ -99,15 +99,36 @@ export default function Item() {
             <dd className="col-sm-10">{collection.metadata.series}</dd>
           </>}
 
-          {collection.metadata.identifiers.supersedes && <>
+          {collection.metadata.identifiers.supersedes && 
+          collection.metadata.identifiers.supersedes.length > 0 &&
+          <>
             <dt className="col-sm-2">Supersedes</dt>
-            <dd className="col-sm-10"><Link className="" title={collection.metadata.identifiers.supersedes} to={"/item/" + collection.metadata.identifiers.supersedes}>{collection.metadata.identifiers.supersedes}</Link></dd>
-          </>}
+              <dd className="col-sm-10">
+                {collection.metadata.identifiers.supersedes.map((c, index) =>
+                  <span key={c}> 
+                  <Link className="" title={c} to={"/item/" + c}> 
+                    {c}
+                  </Link>{index < collection.metadata.identifiers.supersedes.length-1 && <>,&nbsp;&nbsp;</>}
+                  </span>
+                )}
+              </dd>
+          </>
+          }
 
-          {collection.metadata.identifiers.superseded_by && <>
-            <dt className="col-sm-2">Superseded By</dt>
-            <dd className="col-sm-10"><Link className="" title={collection.metadata.identifiers.superseded_by} to={"/item/" + collection.metadata.identifiers.superseded_by}>{collection.metadata.identifiers.superseded_by}</Link></dd>
-          </>}
+          {collection.metadata.identifiers.superseded_by && collection.metadata.identifiers.superseded_by.length > 0 &&
+            <>
+              <dt className="col-sm-2">Superseded By</dt>
+                <dd className="col-sm-10">
+                  {collection.metadata.identifiers.superseded_by.map((c, index) =>
+                    <span key={c}> 
+                    <Link className="" title={c} to={"/item/" + c}> 
+                      {c}
+                    </Link>{index < collection.metadata.identifiers.superseded_by.length-1 && <>,&nbsp;&nbsp;</>}
+                    </span>
+                  )}
+                </dd>
+            </>
+          }
 
           <dt className="col-sm-2">Author{collection.metadata.authors.length === 1 ? "" : "s"}</dt>
           <dd className="col-sm-10">
