@@ -65,9 +65,9 @@ const Layout = () => {
                     <p></p>
                     <b>Recent Changes</b>
                     <ul>
-                        <li>Previous search terms and results are now maintained when back-button is clicked.</li>
-                        <li>Can now directly open individual PDFs instead of downloading entire zip. (Please note that Firefox has trouble streaming large pdfs.)</li>
-                        <li>Maps no longer grab cursor unexpectedly. Must click once on map to interact.</li>
+                        <li>Display total number of collections returned at top of results</li>
+                        <li>Results sorted by publication year</li>
+                        <li>Multiple lineage versioning (collection can supersede/be superseded by one or more collections)</li>
                     </ul>
                     <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
