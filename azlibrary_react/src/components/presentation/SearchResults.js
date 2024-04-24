@@ -4,9 +4,6 @@ export default function SearchResults({ results, setHighlightBox }) {
 
     return (
         <div>
-            <div className="text-azurite" style={{ textAlign: "right" }}>
-                Total collections returned: {results.collectionCount}
-            </div>
 
             {
                 results?.data?.map(result =>

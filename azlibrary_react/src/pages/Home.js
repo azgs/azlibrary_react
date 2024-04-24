@@ -124,7 +124,7 @@ export default function Home() {
 
         {/* Search */}
         <div className="col-12">
-          <Search searchUrl={searchUrl} searchParams={apiSearchParams} setSearchParams={setApiSearchParams} />
+          <Search resultCount={results ? results.collectionCount : 0} searchUrl={searchUrl} searchParams={apiSearchParams} setSearchParams={setApiSearchParams} />
         </div>
 
         {/* API Error */}

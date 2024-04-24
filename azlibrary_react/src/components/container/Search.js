@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SelectCollectionGroup from './SelectCollectionGroup'
 
-export default function Search({ searchUrl, searchParams, setSearchParams }) {
+export default function Search({ resultCount, searchUrl, searchParams, setSearchParams }) {
 
     const [advancedToggle, setAdvancedToggle] = useState(false);
     {/* const [urlToggle, setUrlToggle] = useState(false);*/}
@@ -27,6 +27,10 @@ export default function Search({ searchUrl, searchParams, setSearchParams }) {
         <div>
             <div className=" bg-cool-gray rounded mb-4 p-3 shadow">
 
+                <div className="text-azurite" style={{ textAlign: "right" }}>
+                    Total collections returned: {resultCount}
+                </div>
+                
                 <div className="searchHeader text-center">Search results will update at the bottom in real-time as you type</div>
 
                 <form autoComplete="off">
@@ -35,9 +39,9 @@ export default function Search({ searchUrl, searchParams, setSearchParams }) {
                     <div className="form-row">
                             <label htmlFor="title">Title</label>
                             <input type="text" className="form-control form-control-sm" id="title" name="title" value={searchParams.title ?? ""} onChange={handleChange} />
-                            <medium id="Title or Keyword" className="form-text text-muted">
+                            <div id="Title or Keyword" className="form-text text-muted">
                                 <i>The most effective search method is to type a <b>partial</b> title that matches your query (e.g. 'Grand Canyon' for publications related to the Grand Canyon)</i>. 
-                            </medium>
+                            </div>
                       </div>
                  </div>
                     
@@ -47,9 +51,9 @@ export default function Search({ searchUrl, searchParams, setSearchParams }) {
                     <div className="form-row">
                             <label htmlFor="text">Full-Text Search</label>
                             <input type="text" className="form-control form-control-sm" id="text" name="text" value={searchParams.text ?? ""} onChange={handleChange} />
-                            <medium id="Full-Text Search" className="form-text text-muted">
+                            <div id="Full-Text Search" className="form-text text-muted">
                                 <i>This will search every individual text in our reports and maps for a particular word or phrase. This casts the widest possible net and is appropriate when exploring.</i> 
-                            </medium>
+                            </div>
                     </div>
                 </div>
                     {/* <div className="form-row">
