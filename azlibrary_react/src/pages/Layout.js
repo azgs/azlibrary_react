@@ -65,7 +65,8 @@ const Layout = () => {
                     <p></p>
                     <b>Recent Changes</b>
                     <ul>
-                        <li>Display total number of collections returned at top of results</li>
+                        <li>The operation of the form now requires an explicit action to get fresh results. This is a more common paradigm than the previous live form and cuts down on roundtrips to the API.</li>
+                        <li>Total number of collections returned displayed at top of form</li>
                         <li>Results sorted by publication year</li>
                         <li>Multiple lineage versioning (collection can supersede/be superseded by one or more collections)</li>
                     </ul>

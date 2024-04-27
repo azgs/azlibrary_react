@@ -1,10 +1,10 @@
-export default function Paging({ links, searchParams, setSearchParams }) {
-    
+export default function Paging({ links, searchParams, setSearchParams, offset, setOffset }) {
+    console.log("Paging")
+
     // Dictionary from API links
     const apiLinks = Object.fromEntries(links.map(({ rel, href }) => ([rel, getOffsetFromUrl(href)])));
 
     // offset or default
-    const offset = searchParams?.offset ? searchParams.offset : 0;
 
     // limit or default
     const limit = searchParams?.limit ? searchParams.limit : 10;
@@ -48,10 +48,7 @@ export default function Paging({ links, searchParams, setSearchParams }) {
 
         return parseInt(offset);
     }
-
-    function setOffset(offset) {
-        setSearchParams(values => ({ ...values, offset: offset }))
-    }
+    
 
     return (
         <nav aria-label="Search results pages">

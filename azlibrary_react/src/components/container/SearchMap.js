@@ -69,7 +69,7 @@ export default function SearchMap({ boundingBoxes, highlightBox, setGeom, setSea
                 <div className="custom-control custom-switch" style={{alignItems: "bottom"}}>
                     <input type="checkbox" className="custom-control-input" id="geom" name="geom" onChange={handleCheckbox} checked={isFiltered} />
                     <label className="custom-control-label font-weight-bold" htmlFor="geom">Filter results to map extent</label>
-                    <small id="emailHelp" className="form-text text-muted">Toggling this option on will limit search results to the current extent of the map. Zooming or otherwise changing the map extent will update the search results in real-time.</small>
+                    <small id="mapToggle" className="form-text text-muted">Toggling this option on will limit search results to the current extent of the map when the <i>Apply filters</i> button is pressed.</small>
                 </div>
             </div>
         )

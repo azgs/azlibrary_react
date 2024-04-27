@@ -26,7 +26,14 @@ export default function Home() {
   const [boundingBoxes, setBoundingBoxes] = useState();
   const [links, setLinks] = useState();
   const [highlightBox, setHighlightBox] = useState();
+  const [offset, setOffset] = useState(0);
 
+  //Load all collections first time
+  useEffect(() => {
+    onFormSubmit()
+  }, []);
+
+  
   // Fire API call whenever searchUrl updates
   useEffect(() => {
 
@@ -58,7 +65,7 @@ export default function Home() {
 
   // Grab bounding boxes and links from results
   useEffect(() => {
-
+    
     setLinks(results?.links);
 
     const boxes = results?.data?.map(item => ({ id: item.collection_id, title: item.metadata.title, bbox: item.metadata.bounding_box }));
@@ -80,40 +87,53 @@ export default function Home() {
     return str;
   }
 
-  // Update searchUrl when input changes
+  // Update searchUrl when offset changes
   useEffect(() => {
-    const buildQueryString = () => {
+      const url = new URL(searchUrl);
+      url.searchParams.set("offset", offset)
+      console.log("useEffect offset, url = " + url.href)
+      setSearchUrl(url.href);
+  }, [offset]);
 
-      let url = metadataUrl;
-      let params = new URLSearchParams();
 
-      // Add search parameters
-      Object.keys(apiSearchParams).forEach(key => {
+    // Update searchUrl on submit
+    const onFormSubmit = async () => {
+      console.log("form submit")
+      setOffset(0) //TODO: This causes an extra trip to API. Otherwise, I think it's ok. So leave it, I guess?
 
-        const value = apiSearchParams[key];
-
-        if (value) {
-          params.append(key, filterInput(value));
+      const buildQueryString = () => {
+        console.log("buildQueryString")
+        let url = metadataUrl;
+        let params = new URLSearchParams();
+  
+        // Add search parameters
+        Object.keys(apiSearchParams).forEach(key => {
+          console.log("Processing " + key)
+          const value = apiSearchParams[key];
+          console.log("value = " + value)
+          if (value) {
+            params.append(key, filterInput(value));
+          }
+        })
+  
+        // Add map-filter geometry 
+        if (geom) {
+          params.append('geom', geom);
+          params.append('geom_method', 'contains');
         }
-      })
-
-      // Add map-filter geometry 
-      if (geom) {
-        params.append('geom', geom);
-        params.append('geom_method', 'contains');
+  
+        if (Array.from(params).length > 0) {
+          url += '?' + params.toString();
+        }
+  
+        console.log("url = " + url)
+        setSearchUrl(url);
       }
-
-      if (Array.from(params).length > 0) {
-        url += '?' + params.toString();
-      }
-
-      setSearchUrl(url);
-    }
-
-    buildQueryString();
-
-  }, [apiSearchParams, geom, metadataUrl, setSearchUrl]);
-
+  
+      buildQueryString();
+  
+    };
+  
   return (
 
     <div className="container">
@@ -124,7 +144,7 @@ export default function Home() {
 
         {/* Search */}
         <div className="col-12">
-          <Search resultCount={results ? results.collectionCount : 0} searchUrl={searchUrl} searchParams={apiSearchParams} setSearchParams={setApiSearchParams} />
+          <Search resultCount={results ? results.collectionCount : 0} searchUrl={searchUrl} searchParams={apiSearchParams} setSearchParams={setApiSearchParams} onFormSubmit={onFormSubmit} />
         </div>
 
         {/* API Error */}
@@ -136,15 +156,15 @@ export default function Home() {
         </div>
 
         {/* 0 Results */}
-        <div className="col-12">
-          {results.data?.length === 0 && <div className="alert alert-dark text-center font-weight-bold" role="alert">
+        <div className="col-12" >
+          {results.data?.length === 0 && <div className="alert alert-dark text-center font-weight-bold" role="alert" style={{marginTop: "1em"}}>
             0 Results
           </div>}
         </div>
 
         {/* Top Paging */}
         <div className="col-12">
-          {links && results.data?.length !== 0 && <Paging links={links} searchParams={apiSearchParams} setSearchParams={setApiSearchParams} />}
+          {links && results.data?.length !== 0 && <Paging links={links} searchParams={apiSearchParams} setSearchParams={setApiSearchParams} offset={offset}setOffset={setOffset} />}
         </div>
 
         {/* Results map */}
@@ -159,7 +179,7 @@ export default function Home() {
 
         {/* Bottom Paging */}
         <div className="col-12">
-          {links && results.data?.length !== 0 && <Paging links={links} searchParams={apiSearchParams} setSearchParams={setApiSearchParams} />}
+          {links && results.data?.length !== 0 && <Paging links={links} searchParams={apiSearchParams} setSearchParams={setApiSearchParams} onFormSubmit={onFormSubmit} />}
         </div>
 
       </div>

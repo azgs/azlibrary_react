@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SelectCollectionGroup from './SelectCollectionGroup'
 
-export default function Search({ resultCount, searchUrl, searchParams, setSearchParams }) {
+export default function Search({ resultCount, searchUrl, searchParams, setSearchParams, onFormSubmit}) {
 
     const [advancedToggle, setAdvancedToggle] = useState(false);
     {/* const [urlToggle, setUrlToggle] = useState(false);*/}
@@ -12,7 +12,7 @@ export default function Search({ resultCount, searchUrl, searchParams, setSearch
         const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
 
         // Reset offset and add search parameter
-        setSearchParams(values => ({ ...values, offset: "", [name]: value }))
+        setSearchParams(values => ({ ...values, [name]: value }))
     }
 
     // Reset form to empty
@@ -27,11 +27,10 @@ export default function Search({ resultCount, searchUrl, searchParams, setSearch
         <div>
             <div className=" bg-cool-gray rounded mb-4 p-3 shadow">
 
-                <div className="text-azurite" style={{ textAlign: "right" }}>
+                <div className="searchHeader text-center">Filter Collections</div>
+                <div className="text-azurite text-center">
                     Total collections returned: {resultCount}
                 </div>
-                
-                <div className="searchHeader text-center">Search results will update at the bottom in real-time as you type</div>
 
                 <form autoComplete="off">
               
@@ -110,8 +109,15 @@ export default function Search({ resultCount, searchUrl, searchParams, setSearch
                 </form>
             </div>
             <div>
-                <button className="btn btn-blue btn-sm" type="button" data-toggle="collapse" data-target="#advancedSearch" aria-expanded="false" aria-controls="advancedSearch" onClick={() => setAdvancedToggle(!advancedToggle)} >
-                {advancedToggle ? "Minimize Form" : "Expand Form For More Search Options"}</button> {/*<button type="reset" title="Clear Search Options" className="btn btn-red btn-sm" onClick={() => reset()}>Clear</button>*/}
+                <button className="btn btn-light btn-sm" type="button" data-toggle="collapse" data-target="#advancedSearch" aria-expanded="false" aria-controls="advancedSearch" onClick={() => setAdvancedToggle(!advancedToggle)} >
+                {advancedToggle ? "Minimize Form" : "Expand Form For More Filter Options"}</button> 
+            </div>
+            <div style={{marginTop:"1.5em"}}>
+                <button className="btn btn-blue btn-sm" type="button"  onClick={() => onFormSubmit()} >
+                    Apply filters</button>
+                <button type="reset" title="Clear Search Options" className="btn btn-red btn-sm" style={{marginLeft:"1em"}} onClick={() => reset()}>
+                    Clear filters
+                </button>
             </div>
         </div>
     )
