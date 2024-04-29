@@ -67,7 +67,7 @@ const Layout = () => {
                     <ul>
                         <li>The operation of the form now requires an explicit action to get fresh results. This is a more common paradigm than the previous live form and cuts down on roundtrips to the API.</li>
                         <li>Total number of collections returned displayed at top of form</li>
-                        <li>Results sorted by publication year</li>
+                        <li>Results sorted by publication year unless preempted by filter ranking</li>
                         <li>Multiple lineage versioning (collection can supersede/be superseded by one or more collections)</li>
                     </ul>
                     <button type="button" className="close" data-dismiss="alert" aria-label="Close">
