@@ -164,7 +164,7 @@ export default function Home() {
 
         {/* Top Paging */}
         <div className="col-12">
-          {links && results.data?.length !== 0 && <Paging links={links} searchParams={apiSearchParams} setSearchParams={setApiSearchParams} offset={offset}setOffset={setOffset} />}
+          {links && results.data?.length !== 0 && <Paging links={links} searchParams={apiSearchParams} setSearchParams={setApiSearchParams} offset={offset} setOffset={setOffset} />}
         </div>
 
         {/* Results map */}
@@ -179,7 +179,7 @@ export default function Home() {
 
         {/* Bottom Paging */}
         <div className="col-12">
-          {links && results.data?.length !== 0 && <Paging links={links} searchParams={apiSearchParams} setSearchParams={setApiSearchParams} onFormSubmit={onFormSubmit} />}
+          {links && results.data?.length !== 0 && <Paging links={links} searchParams={apiSearchParams} setSearchParams={setApiSearchParams} offset={offset} setOffset={setOffset} />}
         </div>
 
       </div>
