@@ -90,6 +90,7 @@ export default function Home() {
   // Update searchUrl when offset changes
   useEffect(() => {
       const url = new URL(searchUrl);
+      url.searchParams.set("collection_group", "!TST2")
       url.searchParams.set("offset", offset)
       console.log("useEffect offset, url = " + url.href)
       setSearchUrl(url.href);
@@ -105,7 +106,9 @@ export default function Home() {
         console.log("buildQueryString")
         let url = metadataUrl;
         let params = new URLSearchParams();
-  
+
+        params.append("collection_group", "!TST2");
+
         // Add search parameters
         Object.keys(apiSearchParams).forEach(key => {
           console.log("Processing " + key)
