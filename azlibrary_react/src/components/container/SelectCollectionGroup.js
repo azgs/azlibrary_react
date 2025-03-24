@@ -10,7 +10,10 @@ export default function SelectCollectionGroup({ id, className, fieldValue, onCha
         // Get all the options for Collection Groups
         const getCollectionGroupOptions = async () => {
             const res = await azgsApi.get('/dicts/collection_groups');
-            const sortedGroups = res.data.data.sort(sortByAbbreviation());
+            let sortedGroups = res.data.data.sort(sortByAbbreviation());
+            if ("ADMM" !== process.env.REACT_APP_SITE) {
+                sortedGroups = sortedGroups.filter(g => g["abbrv"] != "ADMM")
+            }
             setGroups(sortedGroups);
         };
 

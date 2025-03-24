@@ -27,7 +27,14 @@ export default function Search({ resultCount, searchUrl, searchParams, setSearch
         <div>
             <div className=" bg-cool-gray rounded mb-4 p-3 shadow">
 
+                {"ADMM" === process.env.REACT_APP_SITE &&
+                    <div className="searchHeader text-center">Filter Mine Collections</div>
+                }
+
+                {"ADMM" !== process.env.REACT_APP_SITE &&
                 <div className="searchHeader text-center">Filter Collections</div>
+                }
+                
                 <div className="text-azurite text-center">
                     Total collections returned: {resultCount}
                 </div>
@@ -45,7 +52,9 @@ export default function Search({ resultCount, searchUrl, searchParams, setSearch
                  </div>
                     
                 <div className="form-group">
+                    {"ADMM" !== process.env.REACT_APP_SITE &&
                     <SelectCollectionGroup id="collection_group" className="form-control form-control-sm" fieldValue={searchParams.collection_group ?? ""} onChange={handleChange} />
+                    }
                     
                     <div className="form-row">
                             <label htmlFor="text">Full-Text Search</label>
