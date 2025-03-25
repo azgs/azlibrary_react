@@ -25,7 +25,7 @@ export default function Search({ resultCount, searchUrl, searchParams, setSearch
 
     return (
         <div>
-            <div className=" bg-cool-gray rounded mb-4 p-3 shadow">
+            <div className={("ADMM" === process.env.REACT_APP_SITE ? "bg-warm-gray" : "bg-cool-gray") + " rounded mb-4 p-3 shadow"}>
 
                 {"ADMM" === process.env.REACT_APP_SITE &&
                     <div className="searchHeader text-center">Filter Mine Collections</div>
@@ -35,7 +35,7 @@ export default function Search({ resultCount, searchUrl, searchParams, setSearch
                 <div className="searchHeader text-center">Filter Collections</div>
                 }
                 
-                <div className="text-azurite text-center">
+                <div className={("ADMM" === process.env.REACT_APP_SITE ?"text-chili" : "text-azurite") + " text-center"}>
                     Total collections returned: {resultCount}
                 </div>
 
