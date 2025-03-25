@@ -112,9 +112,9 @@ export default function Home() {
 		let params = new URLSearchParams();
 
 		if ("ADMM" === process.env.REACT_APP_SITE) {
-			url.searchParams.set("collection_group", "TST2")
+			url.searchParams.set("collection_group", "ADMM")
 		} else {
-			url.searchParams.set("collection_group", "!TST2")
+			url.searchParams.set("collection_group", "!ADMM")
 		}
 
 		// Add search parameters
