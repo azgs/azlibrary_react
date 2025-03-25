@@ -31,10 +31,6 @@ const Layout = () => {
                         <span className="icon material-icons-sharp"> menu </span>
                     </button>
 
-                    {"ADMM" === process.env.REACT_APP_SITE &&
-                        <a className="navbar-brand" href="https://azgs.arizona.edu/"><img src={logo2} alt="AZGS mine logo" className="img-fluid" />  </a>                  
-                    }
-
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav ml-auto">
                             <li className={pathname === "/" ? "nav-item active" : "nav-item"}>
