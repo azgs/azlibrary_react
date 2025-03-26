@@ -1,5 +1,6 @@
 import { useState } from "react";
 import SelectCollectionGroup from './SelectCollectionGroup'
+import miningLogo from '../../assets/images/mining_red.svg'
 
 export default function Search({ resultCount, searchUrl, searchParams, setSearchParams, onFormSubmit}) {
 
@@ -28,7 +29,12 @@ export default function Search({ resultCount, searchUrl, searchParams, setSearch
             <div className={("ADMM" === process.env.REACT_APP_SITE ? "bg-warm-gray" : "bg-cool-gray") + " rounded mb-4 p-3 shadow"}>
 
                 {"ADMM" === process.env.REACT_APP_SITE &&
-                    <div className="searchHeader text-center">Filter Mine Collections</div>
+                    <>
+                    <img width='50' src={miningLogo} alt="AZGS mining logo" className="img-fluid mx-auto d-block" />
+                    <div className="searchHeader text-center">
+                        Filter Mine Collections
+                    </div>
+                    </>    
                 }
 
                 {"ADMM" !== process.env.REACT_APP_SITE &&
