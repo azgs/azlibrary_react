@@ -1,5 +1,6 @@
 import { useState } from "react";
 import SelectCollectionGroup from './SelectCollectionGroup'
+import SelectMineCollection from './SelectMineCollection'
 import miningLogo from '../../assets/images/mining_red.svg'
 
 export default function Search({ resultCount, searchUrl, searchParams, setSearchParams, onFormSubmit}) {
@@ -56,12 +57,30 @@ export default function Search({ resultCount, searchUrl, searchParams, setSearch
                             </div>
                       </div>
                  </div>
-                    
+
                 <div className="form-group">
                     {"ADMM" !== process.env.REACT_APP_SITE &&
                     <SelectCollectionGroup id="collection_group" className="form-control form-control-sm" fieldValue={searchParams.collection_group ?? ""} onChange={handleChange} />
                     }
-                    
+
+                    {"ADMM" == process.env.REACT_APP_SITE &&
+                    <>
+                        <div className="form-group">
+                        <SelectMineCollection id="mine_collection" className="form-control form-control-sm" fieldValue={searchParams.mine_collection ?? ""} onChange={handleChange} />
+                        </div>
+
+                        <div className="form-group">
+                            <div className="form-row">
+                                    <label htmlFor="mine_resource_id">Resource ID</label>
+                                    <input type="text" className="form-control form-control-sm" id="mine_resource_id" name="mine_resource_id" value={searchParams.mine_resource_id ?? ""} onChange={handleChange} />
+                                    <div id="Resource ID" className="form-text text-muted">
+                                        <i>Search for a specific resource id</i>. 
+                                    </div>
+                            </div>
+                        </div>
+                    </>
+                    }
+       
                     <div className="form-row">
                             <label htmlFor="text">Full-Text Search</label>
                             <input type="text" className="form-control form-control-sm" id="text" name="text" value={searchParams.text ?? ""} onChange={handleChange} />
