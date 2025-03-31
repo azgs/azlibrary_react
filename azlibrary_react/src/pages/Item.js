@@ -94,6 +94,16 @@ export default function Item() {
           <dt className="col-sm-2">Collection Group</dt>
           <dd className="col-sm-10">{collection.metadata.collection_group.name}</dd>
 
+          {"ADMM" == process.env.REACT_APP_SITE &&
+          <>
+          <dt className="col-sm-2">Mine collection</dt>
+          <dd className="col-sm-10">{collection.metadata.mine_data.collection}</dd>
+
+          <dt className="col-sm-2">Mine resource ID</dt>
+          <dd className="col-sm-10">{collection.metadata.mine_data.resource_id}</dd>
+          </>
+          }
+
           {collection.metadata.series && <>
             <dt className="col-sm-2">Series</dt>
             <dd className="col-sm-10">{collection.metadata.series}</dd>
