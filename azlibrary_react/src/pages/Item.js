@@ -41,7 +41,8 @@ export default function Item() {
         const boundBox = [[json.metadata.bounding_box.north, json.metadata.bounding_box.east], [json.metadata.bounding_box.south, json.metadata.bounding_box.west]];
         setBounds(boundBox);
   
-        const uaLink = json.metadata?.links.find(x => x.name === 'UA Library')?.url.replace("http://", "https://");
+        const uaLink = json.metadata?.links.find(x => x.name === 'UA Library')?.url?.replace("http://", "https://");
+
         setUaLibraryLink(uaLink);
       }
 
