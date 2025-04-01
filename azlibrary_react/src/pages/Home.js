@@ -178,13 +178,16 @@ export default function Home() {
 		  {links && results.data?.length !== 0 && <Paging links={links} searchParams={apiSearchParams} setSearchParams={setApiSearchParams} offset={offset} setOffset={setOffset} />}
 		</div>
 
+
 		{/* Results map */}
+        {"ADMM" !== process.env.REACT_APP_SITE &&
 		<div className="col-sm-6 mb-2">
 		  <SearchMap boundingBoxes={boundingBoxes} highlightBox={highlightBox} setGeom={setGeom} setSearchParams={setApiSearchParams} />
 		</div>
+		}
 
 		{/* Results list */}
-		<div className="col-sm-6">
+		<div className="col-sm">
 		  <SearchResults results={results} setHighlightBox={setHighlightBox} />
 		</div>
 
