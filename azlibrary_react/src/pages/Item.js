@@ -141,7 +141,7 @@ export default function Item() {
             </>
           }
 
-          <dt className="col-sm-2">Author{collection.metadata.authors.length === 1 ? "" : "s"}</dt>
+          <dt className="col-sm-2">Author{collection.metadata.authors?.length === 1 ? "" : "s"}</dt>
           <dd className="col-sm-10">
             {collection.metadata.authors.map(author =>
               <div key={author.person}><Link title={author.person} to={"/?author=" + author.person} >{author.person}</Link></div>
