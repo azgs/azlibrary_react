@@ -1,5 +1,9 @@
 export default function Keywords({ keywords }) {
 
+    if (!keywords) {
+        return 
+    }
+
     // Group keywords by type
     const keywordsByType = keywords.reduce((groups, value) => {
 
