@@ -151,7 +151,10 @@ export default function Item() {
           <dt className="col-sm-2">Abstract</dt>
           <dd className="col-sm-10">{collection.metadata.abstract}</dd>
 
-          {collection.metadata.license.url && collection.metadata.license.type && <>
+          {collection.metadata.license && 
+          collection.metadata.license.url && 
+          collection.metadata.license.type && 
+          <>
             <dt className="col-sm-2">License</dt>
             <dd className="col-sm-10"><a href={collection.metadata.license.url} target="_blank" rel="noopener noreferrer">{collection.metadata.license.type}</a></dd>
           </>
