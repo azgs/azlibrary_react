@@ -187,7 +187,7 @@ export default function Home() {
 		}
 
 		{/* Results list */}
-		<div className="col-sm">
+		<div className={"ADMM" === process.env.REACT_APP_SITE ? "col-sm" : "col-sm-6"}>
 		  <SearchResults results={results} setHighlightBox={setHighlightBox} />
 		</div>
 
