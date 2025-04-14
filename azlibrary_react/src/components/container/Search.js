@@ -2,6 +2,7 @@ import { useState } from "react";
 import SelectCollectionGroup from './SelectCollectionGroup'
 import SelectMineCollection from './SelectMineCollection'
 import miningLogo from '../../assets/images/mining_red.svg'
+import SelectFileType from "./SelectFileType";
 
 export default function Search({ resultCount, searchUrl, searchParams, setSearchParams, onFormSubmit}) {
 
@@ -126,6 +127,7 @@ export default function Search({ resultCount, searchUrl, searchParams, setSearch
                             <label htmlFor="series">Series</label>
                             <input type="text" className="form-control form-control-sm" id="series" name="series" value={searchParams.series ?? ""} onChange={handleChange} />
                         </div>                                                                   
+                        <SelectFileType id="file_type" className="form-control form-control-sm" fieldValue={searchParams.file_type ?? ""} onChange={handleChange} />
 
                         <div className="form-row form-check mt-2">
                             <input type="checkbox" className="form-check-input form-control-s" id="latest" name="latest" value={searchParams.latest ?? ""} onChange={handleChange} checked={searchParams?.latest} />
