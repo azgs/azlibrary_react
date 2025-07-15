@@ -61,16 +61,29 @@ const Layout = () => {
                     </div>
                 </nav>
 
-                {"azlib" === process.env.REACT_APP_SITE &&
-                <div className="alert alert-annc alert-dismissible fade show text-left  rounded py-4" role="alert">
+                {"azlibrary" === process.env.REACT_APP_SITE &&
+                <div className="alert alert-annc alert-dismissible fade show text-left  rounded py-4" role="alert" style={{ "background-color": "#ffe5d0" }}>
                     The AZGS Library website is the replacement for the AZGS Document Repository. This site is still under development. Please contact <a className="alert-link" href="azgs-info@arizona.edu" target="_blank" rel="noopener noreferrer" >azgs-info@arizona.edu</a> for additional information and support. All AZGS publications can also be accessed from the <a className="alert-link" href="https://repository.arizona.edu/handle/10150/628301" target="_blank" rel="noopener noreferrer" >University of Arizona Campus Repository</a>.
                     <p></p>
                     <b>Recent Changes</b>
                     <ul>
-                        <li>Based on user feedback, you must now hit <i>Apply filters</i> to execute a search.</li>
-                        <li>Total number of collections returned displayed at top of form</li>
-                        <li>Results sorted by publication year unless preempted by filter ranking</li>
-                        <li>Multiple lineage versioning (collection can supersede/be superseded by one or more collections)</li>
+                        <li>A large number of mining related files formerly hosted at https://minedata.azgs.arizona.edu have now been integrated into the AZGS Library data system. You can access these items by going to the NEW site at <a href="https://mininginfo.azgs.arizona.edu">https://mininginfo.azgs.arizona.edu</a></li>
+                        <li>Clicking on a collection will now open the information as a new tab (assuming your browser allows this). This change was made so that you will not lose your search parameters.</li>
+                    </ul>
+                    <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                }
+
+                {"ADMM" === process.env.REACT_APP_SITE &&
+                <div className="alert alert-annc alert-dismissible fade show text-left  rounded py-4" role="alert"  style={{ "background-color": "#d0eaff" }}>
+                    The AZGS Mining Info website is the replacement for the AZGS Mining Document Repository formerly found at https://minedata.azgs.arizona.edu.  This site is still under development. Please contact <a className="alert-link" href="azgs-info@arizona.edu" target="_blank" rel="noopener noreferrer" >azgs-info@arizona.edu</a> for additional information and support.
+                    {/*<p></p>
+                    <b>Recent Changes</b>*/}
+                    <ul>
+                        <li>This site is a near-complete copy of the data from the old site, but it is currently missing approximately 2,000 photographic records. These records will be added to the site in a future update.</li>
+                        <li>The old site consisted of data originally compiled by the now-defunct Arizona Dept. of Mines & Mineral Resources. This new site, however, will periodically be updated with new mining-related data gathered by the <a href="https://azgs.arizona.edu/about/staff">AZGS Mineral Resources and Bedrock Geology Group</a>.</li>
                     </ul>
                     <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
