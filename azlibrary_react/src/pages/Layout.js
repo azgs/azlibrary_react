@@ -78,13 +78,12 @@ const Layout = () => {
 
                 {"ADMM" === process.env.REACT_APP_SITE &&
                 <div className="alert alert-annc alert-dismissible fade show text-left  rounded py-4" role="alert"  style={{ "background-color": "#d0eaff" }}>
-                    The AZGS Mining Info website is the replacement for the AZGS Mining Document Repository formerly found at https://minedata.azgs.arizona.edu.  This site is still under development. Please contact <a className="alert-link" href="azgs-info@arizona.edu" target="_blank" rel="noopener noreferrer" >azgs-info@arizona.edu</a> for additional information and support.
+                    <p>The AZGS Mining Info website is the replacement for the AZGS Mining Document Repository formerly found at https://minedata.azgs.arizona.edu.  This site is still under development. Please contact <a className="alert-link" href="azgs-info@arizona.edu" target="_blank" rel="noopener noreferrer" >azgs-info@arizona.edu</a> for additional information and support.</p>
+                    <p>The old site consisted of data originally compiled by the now-defunct Arizona Dept. of Mines & Mineral Resources. This new site, however, will periodically be updated with new mining-related data gathered by the <a href="https://azgs.arizona.edu/about/staff">AZGS Mineral Resources and Bedrock Geology Group</a>.</p>
                     {/*<p></p>
-                    <b>Recent Changes</b>*/}
+                    <b>Recent Changes</b>
                     <ul>
-                        <li>This site is a near-complete copy of the data from the old site, but it is currently missing approximately 2,000 photographic records. These records will be added to the site in a future update.</li>
-                        <li>The old site consisted of data originally compiled by the now-defunct Arizona Dept. of Mines & Mineral Resources. This new site, however, will periodically be updated with new mining-related data gathered by the <a href="https://azgs.arizona.edu/about/staff">AZGS Mineral Resources and Bedrock Geology Group</a>.</li>
-                    </ul>
+                    </ul>*/}
                     <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
