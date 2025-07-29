@@ -82,7 +82,7 @@ export default function Home() {
 	var str = input.toString().trim();
 
 	// Only letters, numbers, and some special chars
-	str = str.replace(/[^a-zA-Z0-9 ’½.\-;"=–,]/g, '');
+	str = str.replace(/[^a-zA-Z0-9 ’½.\-;"=–,:]/g, '');
 
 	return str;
   }
