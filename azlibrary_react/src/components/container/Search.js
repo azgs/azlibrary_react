@@ -75,7 +75,7 @@ export default function Search({ resultCount, searchUrl, searchParams, setSearch
                                     <label htmlFor="mine_resource_id">Resource ID</label>
                                     <input type="text" className="form-control form-control-sm" id="mine_resource_id" name="mine_resource_id" value={searchParams.mine_resource_id ?? ""} onChange={handleChange} />
                                     <div id="Resource ID" className="form-text text-muted">
-                                        <i>Search for a specific resource id</i>. 
+                                        <i>Search for a specific Resource ID. The Resource ID is a legacy identifier associated with some of the mining collections and is used in older publications. Newer publications should filter by Collection ID (in expanded filter options)</i>. 
                                     </div>
                             </div>
                         </div>
