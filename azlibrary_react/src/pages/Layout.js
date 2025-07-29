@@ -47,7 +47,7 @@ const Layout = () => {
 
                             {debug && <>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="https://devdata.azgs.arizona.edu/api/v1/metadata?help=html" target="_blank" rel="noopener noreferrer">API</a>
+                                    <a className="nav-link" href="https://dev.data.azgs.arizona.edu/api/v1/metadata?help=html" target="_blank" rel="noopener noreferrer">API</a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="https://xdd.wisc.edu/adept/" target="_blank" rel="noopener noreferrer">Adept</a>
