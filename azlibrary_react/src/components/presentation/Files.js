@@ -4,7 +4,9 @@ export default function Files({ files, collectionID }) {
     const filesByType = files.reduce((groups, value) => {
 
         // Capitalize type
-        const type = value.type.charAt(0).toUpperCase() + value.type.slice(1);
+        const type = value.type.startsWith("gisdata:") ? 
+            "Gisdata":
+            value.type.charAt(0).toUpperCase() + value.type.slice(1);
 
         // Create array for each type
         if (!groups[type]) {
