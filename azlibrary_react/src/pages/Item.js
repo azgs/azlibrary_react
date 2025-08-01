@@ -146,9 +146,18 @@ export default function Item() {
 
           <dt className="col-sm-2">Author{collection.metadata.authors?.length === 1 ? "" : "s"}</dt>
           <dd className="col-sm-10">
-            {collection.metadata.authors.map(author =>
-              <div key={author.person}><Link title={author.person} to={"/?author=" + author.person} >{author.person}</Link></div>
-            )}
+            {collection.metadata.authors.length > 0 ? 
+              collection.metadata.authors.map(author => {
+                const authorName = author.person || (author.surname ? `${author.surname}${author.givenname ? `, ${author.givenname}` : ''}` : author.organization || "No author specified");
+                return (
+                  <>
+                  {/*<div key={authorName}><Link title={authorName} to={"/?author=" + authorName} >{authorName}</Link></div>*/}
+                  <div key={authorName}>{authorName}</div>
+                  </>
+                );
+              }) :
+              "No author specified"
+            }
           </dd>
 
           <dt className="col-sm-2">Abstract</dt>
