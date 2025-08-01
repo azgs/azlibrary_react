@@ -12,7 +12,15 @@ export default function SearchResults({ results, setHighlightBox }) {
                         <div className="card-header text-truncate">
                             <Link target="_blank" className="stretched-link" title={result.metadata.title} to={"/item/" + result.collection_id}>{result.metadata.title}</Link>
                             <p className="card-text">{result.metadata.year} - {result.metadata.authors && result.metadata.authors.length > 0 ? 
-                                result.metadata.authors.map(author => author.person).join(' ') :
+                                result.metadata.authors.map(author => 
+                                    author.person ?
+                                        author.person :
+                                        author.surname ?
+                                            author.surname + (author.givenname ? `, ${author.givenname}` : '') :
+                                            author.organization ?
+                                                author.organization :
+                                                "No author specified"
+                                ).join(' ') :
                                 "No author specified"
                             }</p>
                         </div>
