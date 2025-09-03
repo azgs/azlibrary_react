@@ -93,7 +93,9 @@ export default function Home() {
 		if ("ADMM" === process.env.REACT_APP_SITE) {
 			url.searchParams.set("collection_group", "ADMM")
 		} else {
-			url.searchParams.set("collection_group", "!ADMM")
+			if (!url.searchParams.has("collection_group", "!ADMM")) {
+				url.searchParams.append("collection_group", "!ADMM")
+			}
 		}
 		url.searchParams.set("offset", offset)
 		console.log("useEffect offset, url = " + url.href)
