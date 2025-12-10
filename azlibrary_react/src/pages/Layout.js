@@ -61,7 +61,7 @@ const Layout = () => {
                     </div>
                 </nav>
 
-                {"azlibrary" === process.env.REACT_APP_SITE &&
+                {"azlibrary" === process.env.REACT_APP_SITE && false &&
                 <div className="alert alert-annc alert-dismissible fade show text-left  rounded py-4" role="alert" style={{ "background-color": "#ffe5d0" }}>
                     The AZGS Library website is the replacement for the AZGS Document Repository. This site is still under development. Please contact <a className="alert-link" href="azgs-info@arizona.edu" target="_blank" rel="noopener noreferrer" >azgs-info@arizona.edu</a> for additional information and support. All AZGS publications can also be accessed from the <a className="alert-link" href="https://repository.arizona.edu/handle/10150/628301" target="_blank" rel="noopener noreferrer" >University of Arizona Campus Repository</a>.
                     <p></p>
