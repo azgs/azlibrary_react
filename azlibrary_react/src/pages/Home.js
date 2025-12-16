@@ -6,6 +6,7 @@ import Paging from '../components/container/Paging'
 import azgsApi from "../components/container/AzgsApi";
 import SearchMap from "../components/container/SearchMap"
 import { FormContext } from "../App";
+import { useSearchParams } from 'react-router-dom'
 
 export default function Home() {
 
@@ -13,10 +14,12 @@ export default function Home() {
   const metadataUrl = azgsApi.getUri() + '/metadata';
 
   // API request-url with query parameters
-  const [searchUrl, setSearchUrl] = useState(metadataUrl);
+  const [searchUrl, setSearchUrl] = useState(null); // Change from metadataUrl to null
 
+  const [rrSearchParams, setrrSearchParams] = useSearchParams();
+ 
   const { apiSearchParams,  setApiSearchParams } = useContext(FormContext);
-  
+
    // Leaflet map extent
   const [geom, setGeom] = useState();
 
@@ -28,39 +31,103 @@ export default function Home() {
   const [highlightBox, setHighlightBox] = useState();
   const [offset, setOffset] = useState(0);
 
-  //Load all collections first time
-  useEffect(() => {
-	onFormSubmit()
+  // Load all collections first time
+  useEffect(() => {	
+    const initialParams = { ...apiSearchParams };
+    
+	/*
+    if (rrSearchParams.get("author")) {
+      console.log("Setting author from rrSearchParams: " + rrSearchParams.get("author"))
+      initialParams.author = rrSearchParams.get("author");
+      setApiSearchParams(initialParams);
+    }
+	console.log("rrSearchParams = ")
+	console.log(rrSearchParams)
+	*/  
+	
+	console.log("Processing URL search params...")
+	// Override initialParams with any URL search params
+	rrSearchParams.forEach((value, key) => {
+		console.log("Found rrSearchParam: " + key + " = " + rrSearchParams.get(key))
+		//const value = rrSearchParams.get(key);
+		console.log("value = " + value)
+		if (value) {
+			initialParams[key] = value;
+		}
+	})
+	setApiSearchParams(initialParams);
+
+	console.log("Initial search params: " + JSON.stringify(initialParams))
+        
+    // Build and submit with the updated params
+    buildAndSubmitQuery(initialParams);
   }, []);
 
-  
+  const buildAndSubmitQuery = (params) => {
+    let url = metadataUrl;
+    let urlParams = new URLSearchParams();
+
+    if ("ADMM" === process.env.REACT_APP_SITE) {
+      urlParams.set("collection_group", "ADMM")
+    } else {
+      urlParams.set("collection_group", "!ADMM")
+    }
+
+    Object.keys(params).forEach(key => {
+      const value = params[key];
+      if (value) {
+        urlParams.append(key, filterInput(value));
+      }
+    })
+
+    if (geom) {
+      urlParams.append('geom', geom);
+      urlParams.append('geom_method', 'contains');
+    }
+
+    if (Array.from(urlParams).length > 0) {
+      url += '?' + urlParams.toString();
+    }
+
+    console.log("url = " + url)
+    setSearchUrl(url);
+  };
+
+  const onFormSubmit = async () => {
+    console.log("form submit")
+    setOffset(0)
+    buildAndSubmitQuery(apiSearchParams);
+  };
+
   // Fire API call whenever searchUrl updates
   useEffect(() => {
+    
+    if (!searchUrl) return; // Add this check
 
-	let lastRequest = true;
+    let lastRequest = true;
 
-	// Get results
-	const fetchResults = async () => {
-	  try {
-		const res = await azgsApi.get(searchUrl);
-		if (lastRequest) {
-		  setResults(res.data);
-		  setApiError();
-		}
-	  } catch (error) {
-		if (lastRequest) {
-		  setResults([]);
-		  setApiError(error.toString());
-		}
-	  }
-	};
+    // Get results
+    const fetchResults = async () => {
+      try {
+        const res = await azgsApi.get(searchUrl);
+        if (lastRequest) {
+          setResults(res.data);
+          setApiError();
+        }
+      } catch (error) {
+        if (lastRequest) {
+          setResults([]);
+          setApiError(error.toString());
+        }
+      }
+    };
 
-	fetchResults();
+    fetchResults();
 
-	// Set lastRequest to false if subsequent request has been made
-	return () => {
-	  lastRequest = false;
-	};
+    // Set lastRequest to false if subsequent request has been made
+    return () => {
+      lastRequest = false;
+    };
   }, [searchUrl]);
 
   // Grab bounding boxes and links from results
@@ -89,6 +156,7 @@ export default function Home() {
 
   // Update searchUrl when offset changes
 	useEffect(() => {
+		if (!searchUrl) return; // Ensure searchUrl is defined
 		const url = new URL(searchUrl);
 		if ("ADMM" === process.env.REACT_APP_SITE) {
 			url.searchParams.set("collection_group", "ADMM")
@@ -102,51 +170,6 @@ export default function Home() {
 		setSearchUrl(url.href);
 	}, [offset]);
 
-
-	// Update searchUrl on submit
-	const onFormSubmit = async () => {
-	  console.log("form submit")
-	  setOffset(0) //TODO: This causes an extra trip to API. Otherwise, I think it's ok. So leave it, I guess?
-
-	  const buildQueryString = () => {
-		console.log("buildQueryString")
-		let url = metadataUrl;
-		let params = new URLSearchParams();
-
-		if ("ADMM" === process.env.REACT_APP_SITE) {
-			params.set("collection_group", "ADMM")
-		} else {
-			params.set("collection_group", "!ADMM")
-		}
-
-		// Add search parameters
-		Object.keys(apiSearchParams).forEach(key => {
-		  console.log("Processing " + key)
-		  const value = apiSearchParams[key];
-		  console.log("value = " + value)
-		  if (value) {
-			params.append(key, filterInput(value));
-		  }
-		})
-  
-		// Add map-filter geometry 
-		if (geom) {
-		  params.append('geom', geom);
-		  params.append('geom_method', 'contains');
-		}
-  
-		if (Array.from(params).length > 0) {
-		  url += '?' + params.toString();
-		}
-  
-		console.log("url = " + url)
-		setSearchUrl(url);
-	  }
-  
-	  buildQueryString();
-  
-	};
-  
   return (
 
 	<div className="container">
