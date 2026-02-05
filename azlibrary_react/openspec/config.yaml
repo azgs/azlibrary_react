@@ -1,20 +1,40 @@
 schema: spec-driven
 
-# Project context (optional)
-# This is shown to AI when creating artifacts.
-# Add your tech stack, conventions, style guides, domain knowledge, etc.
-# Example:
-#   context: |
-#     Tech stack: TypeScript, React, Node.js
-#     We use conventional commits
-#     Domain: e-commerce platform
+# Project context
+context: |
+  Tech stack: JavaScript, React 18, React Router v6, Axios, Leaflet/React-Leaflet
+  UI Framework: Arizona Bootstrap (University of Arizona design system)
+  Build tool: Create React App (react-scripts)
+  Testing: Jest, React Testing Library
+  Analytics: Google Analytics 4 (react-ga4)
+  
+  Domain: Arizona Geological Survey (AZGS) digital library
+  - Search and browse geological collections/metadata
+  - Display geospatial data on interactive Leaflet maps
+  - Support for multiple sites (AZGS Library and ADMM) via REACT_APP_SITE env variable
+  - API integration with AZGS metadata API (REACT_APP_AZLIB_API_URL)
+  
+  Architecture:
+  - Container/Presentation component pattern (components/container vs components/presentation)
+  - React Context (FormContext) for sharing search parameters across components
+  - Pages in src/pages/, reusable components in src/components/
+  - Functional components with React Hooks (useState, useEffect, useContext)
+  
+  Conventions:
+  - PascalCase for component files and names
+  - CSS in single Style.css file
+  - Environment variables prefixed with REACT_APP_
+  - API calls made via centralized Axios instance (AzgsApi.js)
 
-# Per-artifact rules (optional)
-# Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always include a "Non-goals" section
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
+# Per-artifact rules
+rules:
+  proposal:
+    - Consider impact on both AZGS Library and ADMM site variants
+    - Include accessibility considerations (University of Arizona standards)
+  tasks:
+    - Break tasks into chunks of max 2 hours
+    - Include testing tasks for new components
+  code:
+    - Follow container/presentation component pattern
+    - Use functional components with hooks, no class components
+    - Sanitize user input before API calls

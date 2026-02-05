@@ -2,14 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import TagManager from 'react-gtm-module'
+import ReactGA from 'react-ga4';
 
-if (process.env.REACT_APP_GTMID) {
-    console.log("Found GTMID = " + process.env.REACT_APP_GTMID)
-    const tagManagerArgs = {
-        gtmId: process.env.REACT_APP_GTMID
-    }
-    TagManager.initialize(tagManagerArgs)
+if (process.env.REACT_APP_GA4_MEASUREMENT_ID) {
+    console.log("Initializing GA4 with Measurement ID: " + process.env.REACT_APP_GA4_MEASUREMENT_ID);
+    ReactGA.initialize(process.env.REACT_APP_GA4_MEASUREMENT_ID);
+    
+    // Set user property for site variant
+    ReactGA.gtag("set", "user_properties", {
+        site_variant: process.env.REACT_APP_SITE || "azlibrary"
+    });
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
