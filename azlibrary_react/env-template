@@ -1,1 +1,6 @@
+REACT_APP_SITE=azlibrary
+
 REACT_APP_AZLIB_API_URL=https://<api domain>/api/v1
+
+REACT_APP_GTMID=
+
