@@ -8,6 +8,25 @@ import SearchMap from "../components/container/SearchMap"
 import { FormContext } from "../App";
 import { useSearchParams } from 'react-router-dom'
 
+// URL query keys that may prefill the search form. Keys not in this set
+// are dropped (with console.warn) so tracking params like _gl, _gcl_au,
+// utm_*, fbclid, etc. don't leak into GET /metadata as 400-causing junk.
+// Source of truth: input `name` attributes in components/container/Search.js.
+const ALLOWED_URL_PARAMS = new Set([
+	"title",
+	"collection_group",
+	"mine_collection",
+	"mine_resource_id",
+	"text",
+	"year",
+	"author",
+	"keyword",
+	"series",
+	"file_type",
+	"latest",
+	"collection_id",
+]);
+
 export default function Home() {
 
   // Base api url
@@ -51,6 +70,10 @@ export default function Home() {
 		console.log("Found rrSearchParam: " + key + " = " + rrSearchParams.get(key))
 		//const value = rrSearchParams.get(key);
 		console.log("value = " + value)
+		if (!ALLOWED_URL_PARAMS.has(key)) {
+			console.warn(`Dropped unexpected URL param: ${key}=${value}`);
+			return;
+		}
 		if (value) {
 			initialParams[key] = value;
 		}
