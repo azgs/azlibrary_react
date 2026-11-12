@@ -6,7 +6,7 @@ function refman({collection}) {
     const authors = collection.metadata.authors.map(author => 'AU - ' + author.person).join('\n');
     const journal = 'JO - ' + collection.metadata.collection_group.name + '\n';
     const series = 'VL - ' + collection.metadata.series + '\n';
-    const year = 'PY - ' + collection.metadata.year + '\n';
+    const year = 'PY - ' + (collection.metadata.year ?? '') + '\n';
     const provider = 'PB - Arizona Geological Survey';
     // Not to future self, the template literals are VERY literal so don't mess with the spacing on the next line without good cause
     const fileData = `${article}${title}${authors}
@@ -26,7 +26,7 @@ function endnote({collection}) {
     const authors = collection.metadata.authors.map(author => '%A ' + author.person).join('\n');
     const journal = '%J ' + collection.metadata.collection_group.name + '\n';
     const series = '%V ' + collection.metadata.series + '\n';
-    const year = '%D ' + collection.metadata.year + '\n';
+    const year = '%D ' + (collection.metadata.year ?? '') + '\n';
     const provider = '%I Arizona Geological Survey';
     // Not to future self, the template literals are VERY literal so don't mess with the spacing on the next line without good cause
     const fileData = `${article}${title}${authors}
