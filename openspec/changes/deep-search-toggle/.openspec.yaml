@@ -1,0 +1,4 @@
+schema: spec-driven
+created: 2026-11-16
+goal: A checkbox that widens the search into document contents, and a result
+  list that says which results came from there.
