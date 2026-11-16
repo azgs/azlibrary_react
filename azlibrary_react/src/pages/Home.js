@@ -11,16 +11,22 @@ import { useSearchParams } from 'react-router-dom'
 // URL query keys that may prefill the search form. Keys not in this set
 // are dropped (with console.warn) so tracking params like _gl, _gcl_au,
 // utm_*, fbclid, etc. don't leak into GET /metadata as 400-causing junk.
-// Source of truth: input `name` attributes in components/container/Search.js.
-// `text` is deliberately absent: full-text search over document contents is an
-// API-only feature and the form no longer offers it, so a ?text= link is
-// dropped here like any other unrecognised key.
+// Source of truth: input `name` attributes in components/container/Search.js,
+// plus `text`.
+//
+// `text` has no field in the form - full-text search over document contents is
+// an advanced, API-only capability - but it IS a valid filter, so a
+// hand-constructed or shared ?text= URL still runs that search. Note that it
+// then persists invisibly: the form cannot show or clear it, so it stays
+// applied across subsequent Apply filters until Clear filters reloads the page
+// without a query string.
 const ALLOWED_URL_PARAMS = new Set([
 	"q",
 	"title",
 	"collection_group",
 	"mine_collection",
 	"mine_resource_id",
+	"text",
 	"year",
 	"author",
 	"keyword",

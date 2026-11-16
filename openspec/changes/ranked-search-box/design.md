@@ -36,11 +36,18 @@ needs a paragraph to explain is a cost paid by every visitor, while the people
 who want to search document text are the ones most able to call the API. The
 capability is untouched server-side; only the form changes.
 
-`text` is dropped from the URL allowlist at the same time. The alternative —
-keeping it allowed so old `?text=` links still filter — would leave a filter
-applied that the form cannot show or clear, which is worse than dropping it
-visibly. The consequence is real and worth stating: a shared `?text=` link now
-returns unfiltered results instead of a full-text search.
+`text` stays in the URL allowlist. Removing the field is about what the form
+offers, not about which filters are valid, and a hand-constructed or shared
+`?text=` URL should still run the search it names.
+
+That does mean the filter is applied with nothing in the form to show or clear
+it: it persists across subsequent **Apply filters** presses, so a user who
+arrives on a `?text=` link and then searches something else gets both filters
+with only one of them visible. **Clear filters** is the escape, since it
+reloads the page without a query string. The alternative — dropping the
+parameter so it cannot apply invisibly — was tried and rejected: it breaks
+every existing link for a UX wrinkle that only affects people who arrived via
+a constructed URL in the first place.
 
 ### `filterInput` is widened, not removed
 

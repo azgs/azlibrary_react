@@ -39,11 +39,11 @@ No field SHALL advise a technique the underlying parameter does not support.
 - **WHEN** a user reads the help under the primary search field
 - **THEN** it tells them where to find the remaining search options
 
-### Requirement: Full-text document search SHALL NOT be offered in the form
+### Requirement: Full-text document search SHALL be a valid filter without a form field
 
-Searching the extracted text of documents is an API-only capability. The form
-SHALL NOT present a field for it, and a `text` URL parameter SHALL NOT be
-treated as a recognised search filter by the page.
+Searching the extracted text of documents is an advanced capability with no
+field in the form, but it SHALL remain a usable filter: a hand-constructed or
+shared `?text=` URL SHALL run that search.
 
 #### Scenario: No full-text field
 - **WHEN** a user views the form, expanded or collapsed
@@ -51,12 +51,17 @@ treated as a recognised search filter by the page.
 
 #### Scenario: A text URL parameter arrives
 - **WHEN** the page is loaded with `?text=uranium`
-- **THEN** the parameter is dropped like any other unrecognised key
-- **AND** the outbound request does not include `text`
+- **THEN** the results are filtered to collections whose documents match
+- **AND** the outbound `GET /metadata` request includes `text=uranium`
 
 #### Scenario: The API keeps the capability
 - **WHEN** a client calls `GET /metadata?text=uranium` directly
 - **THEN** the API answers it as before; removing the field changes the form only
+
+#### Scenario: The filter can be cleared
+- **GIVEN** the page was loaded with `?text=uranium`
+- **WHEN** the user clears the filters
+- **THEN** the text filter is no longer applied
 
 ### Requirement: Single-field filters SHALL remain available
 

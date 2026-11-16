@@ -6,9 +6,11 @@
 - [x] 1.2 Move `title` into the expanded filter panel, ahead of Year, with help
       text saying it is the narrower, title-only option. It keeps its parameter
       name, so `?title=...` links still work.
-- [x] 1.3 Remove the Full-Text Search field from the form, and drop `text`
-      from the URL allowlist to match. Document search stays available on the
-      API; the site no longer offers it.
+- [x] 1.3 Remove the Full-Text Search field from the form. `text` **stays** in
+      the URL allowlist: removing the field is about what the form offers, not
+      about which filters are valid, so a hand-constructed or shared `?text=`
+      URL still runs the search. (It was briefly dropped from the allowlist
+      too; that went further than intended and was reverted.)
 - [x] 1.3a Remove the help text under Title.
 - [x] 1.4 Add `q` to `ALLOWED_URL_PARAMS` in `Home.js`, so `?q=...` prefills
       the form and reaches the API.
@@ -74,6 +76,20 @@ are what actually went over the wire rather than what the form appeared to do.
       the Search box and returns **9,740** collections, exactly matching
       `collection_group=ADMM&q=copper` from the API, so the mining scope still
       applies on top of the ranked search.
+- [x] 3.1a Redeployed both variants 2026-11-16 after the form changes
+      (`c8c2a3c`). Verified on the live sites: the Full-Text field is gone from
+      both, the Title help text is gone, and the Search help reads exactly as
+      supplied. On `dev.minedata`, `?q="copper ore"` still shows "Filter Mine
+      Collections" and returns 2 collections, so phrase search and the mining
+      scope both survive.
+
+      That deploy also carried `text` out of the URL allowlist, which was more
+      than intended: `?text=uranium` returned the unfiltered 1,780 collections
+      and logged `Dropped unexpected URL param`. Reverted — `text` is a valid
+      filter with no form field. **The currently deployed bundles still have
+      the dropped-allowlist behaviour and need rebuilding.** The host `.env` was restored to `ADMM` as found, and
+      the original pre-change bundles remain backed up at
+      `/var/www/*/html.bak-20261116`.
 - [x] 3.2 **The three layers were exercised together on dev.** Through
       `https://dev.library.azgs.arizona.edu`: `?q="Grand Canyon"` prefills the
       Search box with its quotes intact and returns 60 collections led by "The

@@ -28,10 +28,10 @@ apostrophes and accented letters, so "O'Brien" is searched as "OBrien" and
 - **Modified capability** `q` is added to the URL parameter allowlist, so
   `?q=...` prefills the form and reaches the API like any other filter.
 - **BREAKING (form)** The **Full-Text Search** field is removed from the form
-  entirely. Searching the extracted text of documents stays available on the
-  API, as an advanced caller-only capability, but the site no longer offers it.
-  `text` is dropped from the URL allowlist to match, so a `?text=` link is now
-  treated like any other unrecognised parameter.
+  entirely. Searching the extracted text of documents becomes an advanced
+  capability with no field: the site no longer offers it as a box, but `text`
+  stays in the URL allowlist, so a hand-constructed or shared `?text=` link
+  still runs that search.
 - `filterInput` stops removing apostrophes and letters with diacritics.
 
 Explicitly **not** in this change:
@@ -68,8 +68,7 @@ Explicitly **not** in this change:
   environment together; `q` against an API without it returns 400.
 - **User-visible**: the main search box changes what it searches, so it returns
   more results than the `title` box it replaces, ranked rather than ordered by
-  year. The Full-Text Search box disappears. Anyone used to either will notice,
-  and any shared link carrying `?text=` will now return unfiltered results
-  rather than the full-text search it used to run.
+  year. The Full-Text Search box disappears, though existing `?text=` links
+  keep working. Anyone used to either will notice.
 - **Rollout**: dev only, and gated. Production waits until all three layers are
   finished and tested together.
