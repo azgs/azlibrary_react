@@ -48,11 +48,35 @@ are what actually went over the wire rather than what the form appeared to do.
 
 ## 3. Rollout
 
-- [ ] 3.1 Deploy to dev **together with** `ranked-metadata-search` in
-      `azlibrary_api`. The box returns 400 against an API without `q`.
-- [ ] 3.2 Exercise the three layers together on dev: database vector, API
-      parameter, client box. This is the end-to-end test the production gate
-      waits on.
+- [x] 3.1 Deployed to dev 2026-11-16 together with `ranked-metadata-search`.
+      Built on the host with `REACT_APP_SITE=azlibrary` and rsynced to
+      `/var/www/azlibrary_react/html`, which nginx serves as
+      `dev.library.azgs.arizona.edu`.
+
+      **Deployment notes for next time.** The same source builds two sites:
+      `REACT_APP_SITE=azlibrary` to `/var/www/azlibrary_react/html`, and
+      `ADMM` to `/var/www/mines_react/html` for `dev.minedata` and
+      `dev.mininginfo`. There is no deploy script; `.env` is edited between
+      builds. The host's `.env` was on `ADMM` and was restored to `ADMM`
+      afterwards. The host checkout moved from a detached HEAD at `b8a4443` to
+      `ranked-search-box`. The previous library bundle is backed up at
+      `/var/www/azlibrary_react/html.bak-20261116`.
+
+      **The ADMM variant was NOT rebuilt**, so `dev.minedata` and
+      `dev.mininginfo` still serve the previous bundle and do not yet have the
+      Search box. They share this code, so they get it on their next build.
+- [x] 3.2 **The three layers were exercised together on dev.** Through
+      `https://dev.library.azgs.arizona.edu`: `?q="Grand Canyon"` prefills the
+      Search box with its quotes intact and returns 60 collections led by "The
+      Redwall Limestone" and "Grand Canyon Stratigraphy"; `title` works from
+      the expanded panel; `?q=Cañon del Oro` keeps its `ñ` through to a 200
+      from the live API.
+
+      The clearest demonstration that the whole chain works: `q=Billingsley`
+      returns **3** collections on the live site while `author=Billingsley`
+      returns **0**. Those three match on their abstracts — text that was
+      indexed nowhere before `add-weighted-search-vector`, unreachable before
+      `ranked-metadata-search`, and untypeable before this change.
 - [ ] 3.3 Review the changed meaning of the primary box with whoever owns the
       public site. Familiar queries will return more results, ordered by
       relevance rather than year.
