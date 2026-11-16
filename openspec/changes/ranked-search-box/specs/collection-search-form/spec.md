@@ -35,9 +35,28 @@ No field SHALL advise a technique the underlying parameter does not support.
 - **THEN** it says the field searches titles, keywords, authors and abstracts
 - **AND** it does not tell the user to type a partial title
 
-#### Scenario: Full-text field help
-- **WHEN** a user reads the help under the full-text field
-- **THEN** it distinguishes searching inside documents from searching collection metadata
+#### Scenario: Help points at the rest of the form
+- **WHEN** a user reads the help under the primary search field
+- **THEN** it tells them where to find the remaining search options
+
+### Requirement: Full-text document search SHALL NOT be offered in the form
+
+Searching the extracted text of documents is an API-only capability. The form
+SHALL NOT present a field for it, and a `text` URL parameter SHALL NOT be
+treated as a recognised search filter by the page.
+
+#### Scenario: No full-text field
+- **WHEN** a user views the form, expanded or collapsed
+- **THEN** there is no field that searches inside document contents
+
+#### Scenario: A text URL parameter arrives
+- **WHEN** the page is loaded with `?text=uranium`
+- **THEN** the parameter is dropped like any other unrecognised key
+- **AND** the outbound request does not include `text`
+
+#### Scenario: The API keeps the capability
+- **WHEN** a client calls `GET /metadata?text=uranium` directly
+- **THEN** the API answers it as before; removing the field changes the form only
 
 ### Requirement: Single-field filters SHALL remain available
 

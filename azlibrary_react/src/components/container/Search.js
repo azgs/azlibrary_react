@@ -54,7 +54,7 @@ export default function Search({ resultCount, searchUrl, searchParams, setSearch
                             <label htmlFor="q">Search</label>
                             <input type="text" className="form-control form-control-sm" id="q" name="q" value={searchParams.q ?? ""} onChange={handleChange} />
                             <div id="Search" className="form-text text-muted">
-                                <i>Searches titles, keywords, authors and abstracts together, closest matches first. Put words in double quotes to match them as a phrase (e.g. <b>"Grand Canyon"</b>). To search one field on its own, use the expanded filter options below.</i>
+                                <i>This search bar will simultaneously search the title, keyword, author, and abstract information of AZGS collections for the entered terms. Put terms in double quotes to match them as a phrase (e.g. "Grand Canyon"). More search options can be found by expanding the form for more filter options.</i>
                             </div>
                       </div>
                  </div>
@@ -82,13 +82,6 @@ export default function Search({ resultCount, searchUrl, searchParams, setSearch
                     </>
                     }
        
-                    <div className="form-row">
-                            <label htmlFor="text">Full-Text Search</label>
-                            <input type="text" className="form-control form-control-sm" id="text" name="text" value={searchParams.text ?? ""} onChange={handleChange} />
-                            <div id="Full-Text Search" className="form-text text-muted">
-                                <i>Searches <b>inside</b> the reports and maps themselves, rather than the information we hold about them. Use this to find a word that appears in a document's pages; use Search above to find a collection by what it is about.</i> 
-                            </div>
-                    </div>
                 </div>
                     {/* <div className="form-row">
                             <label htmlFor="instructions">Search Instructions</label>
@@ -100,9 +93,6 @@ export default function Search({ resultCount, searchUrl, searchParams, setSearch
                         <div className="form-row">
                             <label htmlFor="title">Title</label>
                             <input type="text" className="form-control form-control-sm" id="title" name="title" value={searchParams.title ?? ""} onChange={handleChange} />
-                            <div id="Title" className="form-text text-muted">
-                                <i>Matches the title only. Narrower than Search above, and useful when you know roughly what a publication is called.</i>
-                            </div>
                         </div>
 
                         <div className="form-row">

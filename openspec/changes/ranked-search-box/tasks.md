@@ -6,9 +6,10 @@
 - [x] 1.2 Move `title` into the expanded filter panel, ahead of Year, with help
       text saying it is the narrower, title-only option. It keeps its parameter
       name, so `?title=...` links still work.
-- [x] 1.3 Rewrite the Full-Text Search help text so the two boxes are
-      distinguishable: `text` searches inside documents, `q` searches what the
-      library holds about a collection.
+- [x] 1.3 Remove the Full-Text Search field from the form, and drop `text`
+      from the URL allowlist to match. Document search stays available on the
+      API; the site no longer offers it.
+- [x] 1.3a Remove the help text under Title.
 - [x] 1.4 Add `q` to `ALLOWED_URL_PARAMS` in `Home.js`, so `?q=...` prefills
       the form and reaches the API.
 - [x] 1.5 Widen `filterInput` to keep Unicode letters and apostrophes, and to
@@ -39,9 +40,9 @@ are what actually went over the wire rather than what the form appeared to do.
 - [x] 2.6 `title` works from its new place in the expanded panel and still
       answers `?title=canyon` — 50 collections, narrower than the ranked
       search, as intended.
-- [x] 2.7 Full-Text Search still works: `?text=uranium` returns 545
-      collections, a different set from the 138 for `q=uranium`, which is the
-      distinction the help text now describes.
+- [x] 2.7 Full-Text Search was verified working before it was removed:
+      `?text=uranium` returned 545 collections against 138 for `q=uranium`.
+      The field and the allowlist entry were then taken out; re-verified below.
 - [x] 2.8 Characters survive the round trip. `Cañon del Oro` went out as
       `q=Ca%C3%B1on+del+Oro` and `O'Brien` as `q=O%27Brien`; before this change
       they would have been `Caon+del+Oro` and `OBrien`.

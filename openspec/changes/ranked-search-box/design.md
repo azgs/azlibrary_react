@@ -24,14 +24,23 @@ ordering.
 `title` keeps its parameter name, so saved links and bookmarks of the form
 `?title=...` keep working, which the spec pins down.
 
-### `text` stays where it is and keeps its own field
+### Full-text document search leaves the form
 
 `q` and `text` search different things: `q` searches what the library *says*
-about a collection, `text` searches what is *in* its documents. Neither
-subsumes the other — a term in a scanned report's body is invisible to `q`, and
-a keyword assigned by a cataloguer appears in no document. Collapsing them
-would lose one or the other, so both stay, with help text that says which is
-which.
+about a collection, `text` searches what is *in* its documents. An earlier
+draft of this change kept both fields on those grounds.
+
+The decision since is that document search is an advanced capability and
+belongs on the API only, so the field is removed. Two boxes whose difference
+needs a paragraph to explain is a cost paid by every visitor, while the people
+who want to search document text are the ones most able to call the API. The
+capability is untouched server-side; only the form changes.
+
+`text` is dropped from the URL allowlist at the same time. The alternative —
+keeping it allowed so old `?text=` links still filter — would leave a filter
+applied that the form cannot show or clear, which is worse than dropping it
+visibly. The consequence is real and worth stating: a shared `?text=` link now
+returns unfiltered results instead of a full-text search.
 
 ### `filterInput` is widened, not removed
 

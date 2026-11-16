@@ -12,13 +12,15 @@ import { useSearchParams } from 'react-router-dom'
 // are dropped (with console.warn) so tracking params like _gl, _gcl_au,
 // utm_*, fbclid, etc. don't leak into GET /metadata as 400-causing junk.
 // Source of truth: input `name` attributes in components/container/Search.js.
+// `text` is deliberately absent: full-text search over document contents is an
+// API-only feature and the form no longer offers it, so a ?text= link is
+// dropped here like any other unrecognised key.
 const ALLOWED_URL_PARAMS = new Set([
 	"q",
 	"title",
 	"collection_group",
 	"mine_collection",
 	"mine_resource_id",
-	"text",
 	"year",
 	"author",
 	"keyword",
