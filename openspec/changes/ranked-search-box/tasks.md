@@ -62,9 +62,17 @@ are what actually went over the wire rather than what the form appeared to do.
       `ranked-search-box`. The previous library bundle is backed up at
       `/var/www/azlibrary_react/html.bak-20261116`.
 
-      **The ADMM variant was NOT rebuilt**, so `dev.minedata` and
-      `dev.mininginfo` still serve the previous bundle and do not yet have the
-      Search box. They share this code, so they get it on their next build.
+      The ADMM variant was rebuilt and deployed the same day, so all three dev
+      sites now carry the Search box. Previous mines bundle backed up at
+      `/var/www/mines_react/html.bak-20261116`. Verified afterwards that each
+      site serves its own bundle — `dev.library` on `main.94a3665f.js` built as
+      `azlibrary`, `dev.minedata` on `main.3f100e6b.js` built as `ADMM` — and
+      that all three return 200.
+
+      On `dev.minedata`, `?q=copper` shows "Filter Mine Collections", prefills
+      the Search box and returns **9,740** collections, exactly matching
+      `collection_group=ADMM&q=copper` from the API, so the mining scope still
+      applies on top of the ranked search.
 - [x] 3.2 **The three layers were exercised together on dev.** Through
       `https://dev.library.azgs.arizona.edu`: `?q="Grand Canyon"` prefills the
       Search box with its quotes intact and returns 60 collections led by "The
