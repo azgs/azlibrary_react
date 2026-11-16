@@ -51,10 +51,10 @@ export default function Search({ resultCount, searchUrl, searchParams, setSearch
               
                 <div className="form-group">
                     <div className="form-row">
-                            <label htmlFor="title">Title</label>
-                            <input type="text" className="form-control form-control-sm" id="title" name="title" value={searchParams.title ?? ""} onChange={handleChange} />
-                            <div id="Title or Keyword" className="form-text text-muted">
-                                <i>The most effective search method is to type a <b>partial</b> title that matches your query (e.g. 'Grand Canyon' for publications related to the Grand Canyon)</i>. 
+                            <label htmlFor="q">Search</label>
+                            <input type="text" className="form-control form-control-sm" id="q" name="q" value={searchParams.q ?? ""} onChange={handleChange} />
+                            <div id="Search" className="form-text text-muted">
+                                <i>Searches titles, keywords, authors and abstracts together, closest matches first. Put words in double quotes to match them as a phrase (e.g. <b>"Grand Canyon"</b>). To search one field on its own, use the expanded filter options below.</i>
                             </div>
                       </div>
                  </div>
@@ -86,7 +86,7 @@ export default function Search({ resultCount, searchUrl, searchParams, setSearch
                             <label htmlFor="text">Full-Text Search</label>
                             <input type="text" className="form-control form-control-sm" id="text" name="text" value={searchParams.text ?? ""} onChange={handleChange} />
                             <div id="Full-Text Search" className="form-text text-muted">
-                                <i>This will search every individual text in our reports and maps for a particular word or phrase. This casts the widest possible net and is appropriate when exploring.</i> 
+                                <i>Searches <b>inside</b> the reports and maps themselves, rather than the information we hold about them. Use this to find a word that appears in a document's pages; use Search above to find a collection by what it is about.</i> 
                             </div>
                     </div>
                 </div>
@@ -96,7 +96,15 @@ export default function Search({ resultCount, searchUrl, searchParams, setSearch
                     </div> */}
 
                     <div className="collapse" id="advancedSearch">
-                        
+
+                        <div className="form-row">
+                            <label htmlFor="title">Title</label>
+                            <input type="text" className="form-control form-control-sm" id="title" name="title" value={searchParams.title ?? ""} onChange={handleChange} />
+                            <div id="Title" className="form-text text-muted">
+                                <i>Matches the title only. Narrower than Search above, and useful when you know roughly what a publication is called.</i>
+                            </div>
+                        </div>
+
                         <div className="form-row">
                             <label htmlFor="year">Year</label>
                         </div>

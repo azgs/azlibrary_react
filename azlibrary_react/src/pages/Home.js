@@ -13,6 +13,7 @@ import { useSearchParams } from 'react-router-dom'
 // utm_*, fbclid, etc. don't leak into GET /metadata as 400-causing junk.
 // Source of truth: input `name` attributes in components/container/Search.js.
 const ALLOWED_URL_PARAMS = new Set([
+	"q",
 	"title",
 	"collection_group",
 	"mine_collection",
@@ -168,11 +169,25 @@ export default function Home() {
 
   function filterInput(input) {
 
-	// Trim leading/trailing whitespace
-	var str = input.toString().trim();
+	// Trim, and collapse any internal whitespace to single spaces so that a
+	// pasted multi-line term does not have its words run together below.
+	var str = input.toString().trim().replace(/\s+/g, ' ');
 
-	// Only letters, numbers, and some special chars
-	str = str.replace(/[^a-zA-Z0-9 ’½.\-;"=–,:]/g, '');
+	// Keep letters and numbers in ANY script, not just ASCII, plus the
+	// punctuation that occurs in real search terms.
+	//
+	// The previous expression allowed only [a-zA-Z0-9] and so silently
+	// destroyed terms this library is full of: "O'Brien" was searched as
+	// "OBrien" and "Cañon del Oro" as "Caon del Oro", both guaranteed to
+	// miss, with nothing shown to the user to explain why.
+	//
+	// This is not a security control and should not be read as one. The API is
+	// public, so anything stripped here can still be sent directly; escaping
+	// belongs server-side, where the text parameters already do it. What this
+	// does is keep obviously-not-a-search-term characters out of the query
+	// string. The double quote is deliberately allowed: it is what makes
+	// phrase searching reachable from the form.
+	str = str.replace(/[^\p{L}\p{N} '’½.\-;"=–,:]/gu, '');
 
 	return str;
   }
