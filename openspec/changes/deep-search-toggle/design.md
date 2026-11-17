@@ -9,14 +9,27 @@ the control and the presentation.
 
 ## Decisions
 
-### A checkbox, not a mode-switching button
+### A switch beside the box, not a mode-switching button
 
 The alternative considered was a button whose label changes — "Search" versus
 "Search Deep" — or a segmented toggle on the primary action. Both put the
 state inside the action, so the only way to learn which search you are about
-to run is to read the thing you are about to click. A checkbox states it
-beside the box it modifies, and the form already has exactly this pattern in
-`latest` ("Only show most recent version of items"), so it needs no new idiom.
+to run is to read the thing you are about to click. A control beside the box
+it modifies states it plainly.
+
+It is drawn as a **switch** (Bootstrap's `custom-control custom-switch`),
+matching the map's "Filter results to map extent" control rather than the
+plain checkboxes in the advanced panel. That is more than a resemblance: the
+form already draws this distinction, using plain checkboxes for filters on a
+field — `latest`, "Only show most recent version of items" — and a switch for
+the one control that changes how the search itself behaves. `q_mode` is the
+second of those, so the switch is the consistent choice rather than merely a
+tidier-looking one. Underneath it is the same `input type="checkbox"`, so none
+of the value mapping below changes.
+
+One thing to carry forward: `custom-switch` is Bootstrap 4. The pending
+`migrate-az-bootstrap-5` change renames it to `form-switch`, and will need to
+move this control and the map's together.
 
 It also serialises for free. The form's machinery turns input `name`
 attributes into query parameters, so a checkbox named `q_mode` becomes a

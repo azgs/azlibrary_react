@@ -22,6 +22,7 @@ import { useSearchParams } from 'react-router-dom'
 // without a query string.
 const ALLOWED_URL_PARAMS = new Set([
 	"q",
+	"q_mode",
 	"title",
 	"collection_group",
 	"mine_collection",
@@ -241,6 +242,17 @@ export default function Home() {
 		<div className="col-12" >
 		  {results.data?.length === 0 && <div className="alert alert-dark text-center font-weight-bold" role="alert" style={{marginTop: "1em"}}>
 			0 Results
+		  </div>}
+		</div>
+
+		{/* Nothing matched the catalogue, but documents did. Without this the
+		    reader sees a count and a list of titles with no apparent bearing
+		    on what they typed, because the words are on pages they cannot see
+		    from here. metadataMatchCount is absent unless q was supplied. */}
+		<div className="col-12">
+		  {results.metadataMatchCount === 0 && Number(results.collectionCount) > 0 &&
+		  <div className="alert alert-light text-center" role="alert" style={{marginTop: "1em"}}>
+			No collection records matched. All {results.collectionCount} results were found inside documents.
 		  </div>}
 		</div>
 

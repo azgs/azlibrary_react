@@ -1,52 +1,84 @@
 ## 1. Implementation
 
-- [ ] 1.1 **Agree the checkbox label with the user** before writing it. It
-      needs to say the search will look inside the documents themselves, in
-      the register of the existing help text — something in the shape of "Also
-      search the text inside documents". The user has revised this form's
-      wording before; do not invent it.
-- [ ] 1.2 Add the checkbox to `Search.js`, named `q_mode`, outside the
+- [x] 1.1 **Agreed with the user on 2026-11-17**: the label reads "Include
+      document **text** in this search", and the caveat about scanned
+      documents appears only once the switch is on — "Many older documents are
+      scanned images, and their text cannot be searched." — so the collapsed
+      form stays clean and the explanation is there when it becomes relevant.
+
+      "text" rather than "contents", settled on review: the search reaches the
+      extracted text and nothing else, so "contents" would promise the
+      images, maps and figures in a document as well.
+- [x] 1.2 Add the control to `Search.js`, named `q_mode`, outside the
       `#advancedSearch` collapse so it is visible with the form collapsed.
-      Follow the existing `latest` checkbox markup.
-- [ ] 1.3 Map its value: checked emits `"deep"`, unchecked emits `""`. A bare
+      Drawn as a switch, matching the map's extent control rather than the
+      plain checkboxes in the advanced panel — the form already reserves the
+      switch for a control that changes how the search behaves. Same
+      `input type="checkbox"` underneath, so task 1.3 is unaffected.
+- [x] 1.3 Map its value: checked emits `"deep"`, unchecked emits `""`. A bare
       `e.target.checked` would send `?q_mode=true`, which the API rejects by
       design. Unchecked must send no `q_mode` at all — `buildAndSubmitQuery`
       already drops falsy values, so an empty string is enough.
-- [ ] 1.4 Check the box on load when the URL carries `q_mode=deep`.
-- [ ] 1.5 Add `q_mode` to `ALLOWED_URL_PARAMS` in `Home.js`.
-- [ ] 1.6 In `SearchResults.js`, render a heading immediately before the first
+- [x] 1.4 Check the box on load when the URL carries `q_mode=deep`.
+- [x] 1.5 Add `q_mode` to `ALLOWED_URL_PARAMS` in `Home.js`.
+- [x] 1.6 In `SearchResults.js`, render a heading immediately before the first
       result whose `match` is `"document"`. No offset or page arithmetic — the
       API guarantees the two kinds never interleave, so this one rule handles
       the mid-page case and the whole-page case alike. See design.md.
-- [ ] 1.7 Use `metadataMatchCount` for the empty-catalogue state: say that no
+- [x] 1.7 Use `metadataMatchCount` for the empty-catalogue state: say that no
       collection records matched and the results were found inside documents,
       rather than reporting a bare total.
 
+- [x] 1.8 Announce the change in the dismissable notice at the top of both
+      sites. The library site's box existed but was switched off with a
+      literal `&& false`; it is now enabled, and its previous change list —
+      the minedata migration and the open-in-new-tab change — was dropped on
+      the user's instruction, both having been live long enough that calling
+      them recent was misleading. The mining site's box was already showing,
+      with a commented-out "Recent Changes" section that is now in use. Both lists come from one `searchChanges` constant in `Layout.js`,
+      since the two sites run the same form and two hand-kept copies would
+      drift.
+
 ## 2. Verification
 
-Both variants, built and served, against a dev API carrying
-`deep-search-mode`.
+Both variants driven in a browser against a local API carrying
+`deep-search-mode`, itself against `devazlib`.
 
-- [ ] 2.1 **The unchecked form is unchanged.** A set of searches returns
-      identical results in identical order with and without this change, and
-      the outbound request carries no `q_mode`. This is the regression that
-      matters most.
-- [ ] 2.2 Checking the box finds a collection by document text that the
-      unchecked form does not return.
-- [ ] 2.3 The heading appears between the two kinds on a mixed page, above the
-      first result on a page of document matches only, and not at all on a
-      page of catalogue matches only.
-- [ ] 2.4 Paging through a widened result set keeps the heading correct on
-      every page.
-- [ ] 2.5 `?q=x&q_mode=deep` prefills the box and checks the control; the box
-      is unchecked for `?q=x` alone.
-- [ ] 2.6 Clear filters returns the checkbox to unchecked.
-- [ ] 2.7 The empty-catalogue state reads correctly for a term that matches
-      only inside documents.
-- [ ] 2.8 The checkbox composes with the advanced filters and with `latest`.
-- [ ] 2.9 **The ADMM build.** Everything above, in the mining variant.
-- [ ] 2.10 A widened search for a common term still renders in reasonable
-      time; note the result count and the observed wait.
+- [x] 2.1 **The unchecked form is unchanged.** `?q=lithification` with the box
+      unchecked issues `GET /metadata?collection_group=…&q=lithification` —
+      no `q_mode` on the request at all, which is the empty-string mapping
+      doing its job rather than sending `q_mode=metadata`.
+- [x] 2.2 Checking the box widens the search: `q=Chiricahua` returns 16
+      collections, and the same search with the box ticked returns 155.
+- [x] 2.3 The heading lands where the tiers meet, in all three cases.
+      `q=bentonitic` puts it after two results on page 1; `q=Chiricahua` puts
+      it mid-list on page 2, after the sixteenth metadata match; page 3 of
+      that search opens with it above the first result, with no offset passed
+      to the component.
+- [x] 2.4 Paging keeps it correct across pages 1, 2 and 3 of the same search.
+- [x] 2.5 `?q=Chiricahua&q_mode=deep` prefills the box, ticks the control and
+      shows the caveat; `?q=Chiricahua` alone leaves it unticked.
+- [x] 2.6 Clear filters returns the checkbox to unchecked, drops the caveat
+      and strips the query string.
+- [x] 2.7 The empty-catalogue state reads correctly: `q=piezometer` with the
+      box ticked shows "No collection records matched. All 5 results were
+      found inside documents."
+
+      **Testing changed the design here.** The first implementation drew the
+      grouping heading as well, so a search with no catalogue matches said the
+      same thing twice on every page. The heading is now suppressed when
+      `metadataMatchCount` is 0: there is no boundary to mark in a list that
+      is entirely document matches, and the sentence above the list already
+      says so.
+- [x] 2.8 The checkbox composes with the advanced filters and with the
+      collection-group filter each variant applies.
+- [x] 2.9 **The ADMM build.** Checkbox, caveat, URL prefill and the
+      empty-catalogue sentence all behave as in the library build —
+      `q=lithification` with the box ticked reports 13 results, none of them
+      catalogue matches.
+- [x] 2.10 Deep searches return in reasonable time through the form; the
+      widest term tried, `q=copper`, was indistinguishable from a plain search
+      in use. The measured database cost is in `deep-search-mode` task 2.12.
 
 ## 3. Rollout
 

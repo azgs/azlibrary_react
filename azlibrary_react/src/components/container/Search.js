@@ -12,7 +12,15 @@ export default function Search({ resultCount, searchUrl, searchParams, setSearch
     // Handle form input changes
     const handleChange = (e) => {
         const name = e.target.name;
-        const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
+        // q_mode is an enumerated API parameter, not a boolean: it takes
+        // "metadata" or "deep" and the API rejects anything else, so a bare
+        // e.target.checked would send q_mode=true and come back 400. Unchecked
+        // becomes "" rather than "metadata" so that buildAndSubmitQuery drops
+        // the parameter entirely, leaving the default request exactly what it
+        // was before this control existed.
+        const value = "q_mode" === name ?
+            (e.target.checked ? "deep" : "") :
+            e.target.type === "checkbox" ? e.target.checked : e.target.value;
 
         // Reset offset and add search parameter
         setSearchParams(values => ({ ...values, [name]: value }))
@@ -55,6 +63,27 @@ export default function Search({ resultCount, searchUrl, searchParams, setSearch
                             <input type="text" className="form-control form-control-sm" id="q" name="q" value={searchParams.q ?? ""} onChange={handleChange} />
                             <div id="Search" className="form-text text-muted">
                                 <i>This search bar will simultaneously search the title, keyword, author, and abstract information of AZGS collections for the entered terms. Put terms in double quotes to match them as a phrase (e.g. "Grand Canyon"). More search options can be found by expanding the form for more filter options.</i>
+                            </div>
+                      </div>
+                      {/* Styled as a switch, not a plain checkbox, to match the
+                          map's "Filter results to map extent" control. The form
+                          already draws that distinction: plain checkboxes are
+                          filters on a field, a switch changes how the search
+                          itself behaves, which is what this does. Underneath it
+                          is the same input type, so nothing about the value
+                          mapping changes. custom-switch is Bootstrap 4; the
+                          pending az-bootstrap-5 migration renames it to
+                          form-switch and will need to move this and the map's
+                          toggle together. */}
+                      <div className="form-row mt-2">
+                            <div className="custom-control custom-switch">
+                                <input type="checkbox" className="custom-control-input" id="q_mode" name="q_mode" onChange={handleChange} checked={"deep" === searchParams.q_mode} />
+                                <label className="custom-control-label" htmlFor="q_mode">Include document text in this search</label>
+                                {"deep" === searchParams.q_mode &&
+                                <small id="q_mode_note" className="form-text text-muted">
+                                    <i>Many older documents are scanned images, and their text cannot be searched.</i>
+                                </small>
+                                }
                             </div>
                       </div>
                  </div>

@@ -29,6 +29,11 @@ the control that drives it and the presentation that makes it readable.
 - Use the API's metadata match count for an honest empty state — "no catalogue
   matches, 190 found inside documents" rather than a bare number that invites
   the reader to treat all 196 as equivalent.
+- **Announce it.** Both sites carry a dismissable notice at the top for
+  describing major changes. The mining site's is showing with a dormant
+  "Recent Changes" section; the library site's was switched off with a literal
+  `&& false` and its change list had gone stale. Both now carry the same
+  description of what moved in the form, from one shared constant.
 
 Explicitly **not** in this change:
 
