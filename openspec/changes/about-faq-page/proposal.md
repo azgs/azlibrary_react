@@ -71,11 +71,12 @@ untouched: `/about` takes none.
   in `src/pages/Layout.js`.
 - **Both sites get the page**, because both build from this source and share
   `Layout`. The content branches where it must.
-- **One link depends on work that is not merged.** The API-access answer
-  points at `/api/v1/docs`, which `swagger-api-docs` adds. Until that is
-  deployed to a given host, the page should link `?help=json` — which exists
-  today — and gain the docs link when the API side lands. The two changes are
-  independent but the deploys are ordered.
+- **This page now requires `swagger-api-docs`.** The API answer links
+  `/api/v1/docs` and `?help=swagger`, both of which that change adds. It was
+  written without them deliberately; the links went in on 2026-11-17 once both
+  were running together on dev. The consequence is a real ordering constraint
+  rather than a preference: `azgs/azlibrary_api#131` must merge and deploy
+  first, or this page carries two dead links. See tasks.md section 6.
 - **No API or database counterpart otherwise.** This is a client-only change
   and adds no request the API does not already serve.
 - **Accessibility**: the page is text and links inside the existing layout,

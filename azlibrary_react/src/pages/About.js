@@ -86,7 +86,13 @@ const About = () => {
             origin, and needs no credentials.
         </p>
         <p>
-            Each route documents itself. For the collection metadata route:
+            The best place to start is the <a href={`${apiBase}/docs`} target="_blank" rel="noopener noreferrer">interactive
+            API documentation</a>, which lists every route with its parameters and response
+            fields, and lets you issue a request from the page. It is generated from the
+            definitions as they are now, so it cannot fall out of step with the API.
+        </p>
+        <p>
+            Each route also documents itself. For the collection metadata route:
         </p>
         <ul>
             <li>
@@ -97,12 +103,17 @@ const About = () => {
             <li>
                 <a href={`${apiBase}/metadata?help=json`} target="_blank" rel="noopener noreferrer">
                     <code>?help=json</code>
-                </a> — its OpenAPI definition, listing every parameter and response field
+                </a> — its OpenAPI definition, for a program to read
+            </li>
+            <li>
+                <a href={`${apiBase}/metadata?help=swagger`} target="_blank" rel="noopener noreferrer">
+                    <code>?help=swagger</code>
+                </a> — that one route in the documentation browser
             </li>
             <li>
                 <a href={`${apiBase}/metadata?help=html`} target="_blank" rel="noopener noreferrer">
                     <code>?help=html</code>
-                </a> — the same, formatted for reading
+                </a> — an older static rendering, kept for anything that relies on it
             </li>
         </ul>
         <p>
@@ -141,10 +152,8 @@ const About = () => {
 
         <h2 className="h4 mt-4">Where is the source code?</h2>
         <p>
-            This site is open source. The web application is
-            at <a href="https://github.com/azgs/azlibrary_react" target="_blank" rel="noopener noreferrer">azgs/azlibrary_react</a> and
-            the API that serves it
-            at <a href="https://github.com/azgs/azlibrary_api" target="_blank" rel="noopener noreferrer">azgs/azlibrary_api</a>.
+            The web application behind this site is open source,
+            at <a href="https://github.com/azgs/azlibrary_react" target="_blank" rel="noopener noreferrer">azgs/azlibrary_react</a>.
         </p>
     </div>;
 };
