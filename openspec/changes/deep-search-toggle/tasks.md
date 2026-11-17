@@ -82,14 +82,32 @@ Both variants driven in a browser against a local API carrying
 
 ## 3. Rollout
 
-- [ ] 3.1 Build both variants and deploy to dev. There is no deploy script;
-      `.env` is switched between `REACT_APP_SITE=azlibrary`
-      (`/var/www/azlibrary_react/html`) and `ADMM`
-      (`/var/www/mines_react/html`), with the build run once for each.
+- [x] 3.1 **Built and deployed to dev 2026-11-17.** Both variants built on
+      the host from `e556c16`, with `.env` flipped between
+      `REACT_APP_SITE=azlibrary` (`/var/www/azlibrary_react/html`) and `ADMM`
+      (`/var/www/mines_react/html`) and restored afterwards — it holds the dev
+      API URL and the GA4 measurement id, and is not in git, so it must come
+      back as found.
 
-      **Note:** dev is currently serving bundles built before commit
-      `0171501`, which restored `text` to the allowlist. Rebuilding for this
-      change picks that fix up at the same time.
+      | | was | now |
+      | --- | --- | --- |
+      | library | `main.3709bfa3.js` | `main.63282d93.js` |
+      | mining | `main.78efd519.js` | `main.1d55de1a.js` |
+
+      The live directories were copied to `html.bak-20261117` under each web
+      root first. The steps are in `~/deploy-dev-20261117.sh` on the host,
+      which is the nearest thing to the deploy script task 4.3 asks for.
+
+      Verified on `dev.library.azgs.arizona.edu` and
+      `dev.mininginfo.azgs.arizona.edu`: the switch reads from `?q_mode=deep`,
+      `q=piezometer` goes from 0 results to 5 on flicking it with the
+      empty-catalogue sentence shown, `q=bentonitic&q_mode=deep` returns 87
+      with the grouping heading in place, and the mining site shows its
+      Recent Changes section.
+
+      This also picked up `0171501`, which restored `text` to the allowlist:
+      `?text=uranium` on dev now narrows 1,780 collections to 545, where the
+      previous bundles dropped the parameter.
 - [ ] 3.2 Review the new control with whoever owns the public site before it
       goes further than dev.
 - [~] 3.3 ~~Apply to production.~~ **GATED.** By the user's decision on
