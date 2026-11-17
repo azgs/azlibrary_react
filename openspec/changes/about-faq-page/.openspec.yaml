@@ -1,0 +1,4 @@
+schema: spec-driven
+created: 2026-11-17
+goal: Replace the About link's jump to GitHub with a real page answering what
+  the site holds, who runs it, what the licence permits and how to reach the API.

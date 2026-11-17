@@ -37,8 +37,8 @@ const Layout = () => {
                                 <Link className="nav-link" to="/">Home</Link>
                             </li>
 
-                            <li className="nav-item">
-                                <a className="nav-link" href="https://github.com/azgs/azlibrary_react/" target="_blank" rel="noopener noreferrer">About</a>
+                            <li className={["/about", "/about/"].includes(pathname) ? "nav-item active" : "nav-item"}>
+                                <Link className="nav-link" to="/about/">About</Link>
                             </li>
 
                             <li className={pathname === "/contact" ? "nav-item active" : "nav-item"}>
