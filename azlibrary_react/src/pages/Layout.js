@@ -19,6 +19,7 @@ const Layout = () => {
         <li>A new switch under the search bar, <i>Include document text in this search</i>, extends that search into the text of the documents themselves. It is off by default. Bear in mind that many older documents are scanned images, and their text cannot be searched.</li>
         <li>The separate <i>Full-Text Search</i> box has been removed. The search bar and the new switch together cover what it did.</li>
         <li>The <i>Title</i> field has moved into the expanded filter options, alongside Author, Keyword and Series.</li>
+        <li>Pressing <b>Enter</b> in any search field now runs the search. It previously did nothing at all, so <i>Apply filters</i> was the only way to submit the form.</li>
     </>;
 
     return (
