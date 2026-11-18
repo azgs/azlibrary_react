@@ -11,8 +11,18 @@ import { useSearchParams } from 'react-router-dom'
 // URL query keys that may prefill the search form. Keys not in this set
 // are dropped (with console.warn) so tracking params like _gl, _gcl_au,
 // utm_*, fbclid, etc. don't leak into GET /metadata as 400-causing junk.
-// Source of truth: input `name` attributes in components/container/Search.js.
+// Source of truth: input `name` attributes in components/container/Search.js,
+// plus `text`.
+//
+// `text` has no field in the form - full-text search over document contents is
+// an advanced, API-only capability - but it IS a valid filter, so a
+// hand-constructed or shared ?text= URL still runs that search. Note that it
+// then persists invisibly: the form cannot show or clear it, so it stays
+// applied across subsequent Apply filters until Clear filters reloads the page
+// without a query string.
 const ALLOWED_URL_PARAMS = new Set([
+	"q",
+	"q_mode",
 	"title",
 	"collection_group",
 	"mine_collection",
@@ -168,11 +178,25 @@ export default function Home() {
 
   function filterInput(input) {
 
-	// Trim leading/trailing whitespace
-	var str = input.toString().trim();
+	// Trim, and collapse any internal whitespace to single spaces so that a
+	// pasted multi-line term does not have its words run together below.
+	var str = input.toString().trim().replace(/\s+/g, ' ');
 
-	// Only letters, numbers, and some special chars
-	str = str.replace(/[^a-zA-Z0-9 ’½.\-;"=–,:]/g, '');
+	// Keep letters and numbers in ANY script, not just ASCII, plus the
+	// punctuation that occurs in real search terms.
+	//
+	// The previous expression allowed only [a-zA-Z0-9] and so silently
+	// destroyed terms this library is full of: "O'Brien" was searched as
+	// "OBrien" and "Cañon del Oro" as "Caon del Oro", both guaranteed to
+	// miss, with nothing shown to the user to explain why.
+	//
+	// This is not a security control and should not be read as one. The API is
+	// public, so anything stripped here can still be sent directly; escaping
+	// belongs server-side, where the text parameters already do it. What this
+	// does is keep obviously-not-a-search-term characters out of the query
+	// string. The double quote is deliberately allowed: it is what makes
+	// phrase searching reachable from the form.
+	str = str.replace(/[^\p{L}\p{N} '’½.\-;"=–,:]/gu, '');
 
 	return str;
   }
@@ -218,6 +242,17 @@ export default function Home() {
 		<div className="col-12" >
 		  {results.data?.length === 0 && <div className="alert alert-dark text-center font-weight-bold" role="alert" style={{marginTop: "1em"}}>
 			0 Results
+		  </div>}
+		</div>
+
+		{/* Nothing matched the catalogue, but documents did. Without this the
+		    reader sees a count and a list of titles with no apparent bearing
+		    on what they typed, because the words are on pages they cannot see
+		    from here. metadataMatchCount is absent unless q was supplied. */}
+		<div className="col-12">
+		  {results.metadataMatchCount === 0 && Number(results.collectionCount) > 0 &&
+		  <div className="alert alert-light text-center" role="alert" style={{marginTop: "1em"}}>
+			No collection records matched. All {results.collectionCount} results were found inside documents.
 		  </div>}
 		</div>
 
