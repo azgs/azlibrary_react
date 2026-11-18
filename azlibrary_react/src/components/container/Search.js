@@ -47,7 +47,16 @@ export default function Search({ resultCount, searchUrl, searchParams, setSearch
                     Total collections returned: {resultCount}
                 </div>
 
-                <form autoComplete="off">
+                {/* The buttons below sit outside this element, so the form had no
+                    submit button of its own and several text inputs. Under the
+                    HTML implicit-submission rules that combination does nothing
+                    at all on Enter: a form with more than one field that blocks
+                    implicit submission and no submit button is simply not
+                    submitted. Giving the form an id and pointing the Apply
+                    button at it with form= makes that button the form's default
+                    button without moving it in the DOM, so Enter in any field
+                    now does what clicking it does. */}
+                <form autoComplete="off" id="collectionSearch" onSubmit={(e) => { e.preventDefault(); onFormSubmit(); }}>
               
                 <div className="form-group">
                     <div className="form-row">
@@ -149,7 +158,7 @@ export default function Search({ resultCount, searchUrl, searchParams, setSearch
                 {advancedToggle ? "Minimize Form" : "Expand Form For More Filter Options"}</button> 
             </div>
             <div style={{marginTop:"1.5em"}}>
-                <button className="btn btn-blue btn-sm" type="button"  onClick={() => onFormSubmit()} >
+                <button className="btn btn-blue btn-sm" type="submit" form="collectionSearch" >
                     Apply filters</button>
                 <button type="reset" title="Clear Search Options" className="btn btn-red btn-sm" style={{marginLeft:"1em"}} onClick={() => reset()}>
                     Clear filters
